@@ -8,7 +8,8 @@ export type BlogPost = {
       relativePath: EntryFieldTypes.Text
       date: EntryFieldTypes.Date,
       body: EntryFieldTypes.RichText,
-
+      blogPostTags: Array<string>,
+      images: EntryFieldTypes.AssetLink
     }
   }
 

@@ -3,6 +3,24 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import { contentfulClient, type BlogPost } from "../lib/contentful";
+
+const entries = await contentfulClient.getEntries<BlogPost>({
+  content_type: "blogPost",
+});
+
+const posts = entries.items.map((item) => {
+  const { title, date, description, relativePath, blogPostTags, images } =
+    item.fields;
+  return {
+    title,
+    description,
+    relativePath,
+    date: new Date(date),
+    blogPostTags,
+    images,
+  };
+});
 ---
 
 <!doctype html>
@@ -18,37 +36,37 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
     >
       <div class="flex items-center justify-center h-full">
         <h1 class="text-4xl md:text-5xl text-white font-bold text-center">
-          Welcome to the Blog
+          Dual Horizons: Code, Citizenship, Travel & Growth
         </h1>
       </div>
     </div>
     <div class="container mx-auto py-8">
       <h1 class="text-3xl font-semibold mb-6">Latest Articles</h1>
-
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Replace these placeholders with your actual articles -->
-        <div class="bg-white rounded-lg shadow-md overflow-hidden">
-          <img
-            src="https://via.placeholder.com/400x200"
-            alt="Article Image"
-            class="w-full h-40 object-cover"
-          />
-          <div class="p-4">
-            <h2 class="text-xl font-semibold mb-2">Article Title</h2>
-            <p class="text-sm text-gray-600 mb-4">
-              Tags: <span class="text-blue-500">#Tech</span>, <span
-                class="text-blue-500">#WebDev</span
-              >
-            </p>
-            <p class="text-sm leading-relaxed">
-              Description of the article. This could be a brief summary or
-              excerpt.
-            </p>
-          </div>
-        </div>
-        <!-- Repeat the above structure for each article -->
+        {
+          posts.map((post) => (
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+              <img
+                src="https://via.placeholder.com/400x200"
+                alt="Article Image"
+                class="w-full h-40 object-cover"
+              />
+              <div class="p-4">
+                <a href={`/blog/${post.relativePath}/`}>
+                  <h2 class="text-xl font-semibold mb-2">{post.title}</h2>
+                </a>
+                <p class="text-sm text-gray-600 mb-4">
+                  Tags: <span class="text-blue-500">#Work</span>,
+                  <span class="text-blue-500">#Travel</span>
+                </p>
+                <p class="text-sm leading-relaxed">{post.description}</p>
+              </div>
+            </div>
+          ))
+        }
       </div>
     </div>
+
     <Footer />
   </body>
 </html>
