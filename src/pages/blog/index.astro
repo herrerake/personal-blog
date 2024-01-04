@@ -12,15 +12,14 @@ const entries = await contentfulClient.getEntries<BlogPost>({
 });
 
 const posts = entries.items.map((item) => {
-  const { title, date, description, relativePath,} = item.fields;
+  const { title, date, description, relativePath } = item.fields;
   return {
     title,
     description,
-	relativePath,
-    date: new Date(date)
+    relativePath,
+    date: new Date(date),
   };
 });
-
 ---
 
 <!doctype html>
