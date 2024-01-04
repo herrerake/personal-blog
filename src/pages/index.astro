@@ -3,24 +3,15 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
-import { contentfulClient, type BlogPost } from "../lib/contentful";
+import { getCollection } from "astro:content";
 
-const entries = await contentfulClient.getEntries<BlogPost>({
-  content_type: "blogPost",
+const allBlogPosts = await getCollection("blog");
+
+const fearturedBlogEntries = await getCollection("blog", ({ data }) => {
+  return data.featured === true;
 });
 
-const posts = entries.items.map((item) => {
-  const { title, date, description, relativePath, blogPostTags, images } =
-    item.fields;
-  return {
-    title,
-    description,
-    relativePath,
-    date: new Date(date),
-    blogPostTags,
-    images,
-  };
-});
+console.log("fearturedBlogEntries", fearturedBlogEntries);
 ---
 
 <!doctype html>
@@ -29,22 +20,45 @@ const posts = entries.items.map((item) => {
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
   </head>
   <body class="bg-gray-100">
-    <Header title={SITE_TITLE} />
-    <div
-      class="bg-cover bg-center h-60 md:h-80"
-      style="background-image: url('public/home-page-2.JPG');"
-    >
-      <div class="flex items-center justify-center h-full">
-        <h1 class="text-4xl md:text-5xl text-white font-bold text-center">
-          Dual Horizons: Code, Citizenship, Travel & Growth
-        </h1>
-      </div>
+    <div class="container mx-auto columns-3 max-sm:columns-1 text-center my-4">
+      {
+        fearturedBlogEntries.map((entry) => (
+          <div class="columns-2 border border-gray-300 shadow-md rounded p-4">
+            <div>
+              <img
+                src={entry.data.image.url}
+                alt={entry.data.image.alt}
+                class="w-full h-40 object-cover"
+              />
+            </div>
+            <div class="p-2">
+              <div>
+                <a href={`${entry.slug}/`}>
+                  <h2 class="line-clamp-2 text-base font-semibold mb-2">
+                    {entry.data.title}
+                  </h2>
+                </a>
+              </div>
+              <div class="text-sm text-gray-600 mb-4 flex justify-evenly">
+                {entry.data.tags.map((tag) => (
+                  <span class="bg-green-700 text-white rounded-full py-1 px-2">
+                    {`#${tag}`}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+    <div class="container mx-auto flex justify-center my-5">
+      <h1 class="tracking-wider">Herrerake</h1>
     </div>
     <div class="container mx-auto py-8">
       <h1 class="text-3xl font-semibold mb-6">Latest Articles</h1>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {
-          posts.map((post) => (
+          allBlogPosts.map((post) => (
             <div class="bg-white rounded-lg shadow-md overflow-hidden">
               <img
                 src="public/blog-post-1.JPG"
@@ -52,14 +66,14 @@ const posts = entries.items.map((item) => {
                 class="w-full h-40 object-cover"
               />
               <div class="p-4">
-                <a href={`/blog/${post.relativePath}/`}>
-                  <h2 class="text-xl font-semibold mb-2">{post.title}</h2>
+                <a href={`/blog/${post.slug}/`}>
+                  <h2 class="text-xl font-semibold mb-2">{post.data.title}</h2>
                 </a>
                 <p class="text-sm text-gray-600 mb-4">
                   Tags: <span class="text-blue-500">#Work</span>,
                   <span class="text-blue-500">#Travel</span>
                 </p>
-                <p class="text-sm leading-relaxed">{post.description}</p>
+                <p class="text-sm leading-relaxed">{post.data.description}</p>
               </div>
             </div>
           ))
