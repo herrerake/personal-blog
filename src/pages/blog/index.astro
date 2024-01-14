@@ -6,20 +6,33 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
 import FormattedDate from "../../components/FormattedDate.astro";
 import { contentfulClient } from "../../lib/contentful";
 import type { BlogPost } from "../../lib/contentful.ts";
+import { getCollection } from "astro:content";
 
-const entries = await contentfulClient.getEntries<BlogPost>({
-  content_type: "blogPost",
-});
+// const entries = await contentfulClient.getEntries<BlogPost>({
+//   content_type: "blogPost",
+// });
+const entries = await getCollection("blog");
 
-const posts = entries.items.map((item) => {
-  const { title, date, description, relativePath } = item.fields;
+const posts = entries.map((item) => {
+  const { slug, id } = item;
+  const { title, description, pubDate } = item.data;
   return {
     title,
     description,
-    relativePath,
-    date: new Date(date),
+    pubDate,
+    slug,
+    id,
   };
 });
+// const posts = entries.items.map((item) => {
+//   const { title, date, description, relativePath } = item.fields;
+//   return {
+//     title,
+//     description,
+//     relativePath,
+//     date: new Date(date),
+//   };
+// });
 ---
 
 <!doctype html>
@@ -104,10 +117,10 @@ const posts = entries.items.map((item) => {
           {
             posts.map((post) => (
               <li>
-                <a href={`/blog/${post.relativePath}/`}>
+                <a href={`/blog/${post.slug}/`}>
                   <h4 class="title">{post.title}</h4>
                   <p class="date">
-                    <FormattedDate date={post.date} />
+                    <FormattedDate date={post.pubDate} />
                   </p>
                 </a>
               </li>

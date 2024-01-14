@@ -10,8 +10,7 @@ const allBlogPosts = await getCollection("blog");
 const fearturedBlogEntries = await getCollection("blog", ({ data }) => {
   return data.featured === true;
 });
-
-console.log("fearturedBlogEntries", fearturedBlogEntries);
+console.log("allBlogPosts", allBlogPosts);
 ---
 
 <!doctype html>
@@ -33,7 +32,7 @@ console.log("fearturedBlogEntries", fearturedBlogEntries);
             </div>
             <div class="p-2">
               <div>
-                <a href={`${entry.slug}/`}>
+                <a href={`posts/${entry.slug}/`}>
                   <h2 class="line-clamp-2 text-base font-semibold mb-2">
                     {entry.data.title}
                   </h2>
@@ -66,7 +65,7 @@ console.log("fearturedBlogEntries", fearturedBlogEntries);
                 class="w-full h-40 object-cover"
               />
               <div class="p-4">
-                <a href={`/blog/${post.slug}/`}>
+                <a href={`posts/${post.slug}/`}>
                   <h2 class="text-xl font-semibold mb-2">{post.data.title}</h2>
                 </a>
                 <p class="text-sm text-gray-600 mb-4">

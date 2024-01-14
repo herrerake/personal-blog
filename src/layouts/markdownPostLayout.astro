@@ -1,0 +1,91 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import FormattedDate from "../components/FormattedDate.astro";
+import Header from "../components/Header.astro";
+// 1. The frontmatter prop gives access to frontmatter and other data
+const { frontmatter } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{frontmatter?.title}</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      /* Add custom styles here if needed */
+    </style>
+  </head>
+  <Header title={frontmatter.SITE_TITLE} />
+  <body class="bg-gray-100 text-gray-800">
+    <div class="container mx-auto py-8">
+      <div class="max-w-3xl mx-auto">
+        <!-- Blog frontmatter Title -->
+        <h1 class="text-4xl font-bold mb-4">{frontmatter?.title}</h1>
+
+        <!-- Author Info -->
+        <div class="flex items-center space-x-4 mb-6">
+          <img
+            src="author-avatar.jpg"
+            alt="Author"
+            class="rounded-full w-12 h-12"
+          />
+          <div>
+            <p class="text-sm font-semibold">{frontmatter.author}</p>
+            <p class="text-xs text-gray-600">{frontmatter?.pubdate}</p>
+          </div>
+        </div>
+
+        <!-- Blog frontmatter Content -->
+        <div class="prose max-w-none">
+          <article set:html={frontmatter?.content} />
+        </div>
+
+        <!-- Tags -->
+        <div class="flex flex-wrap mt-6">
+          <span
+            class="bg-blue-200 text-blue-800 text-xs px-2 py-1 rounded-full mr-2 mb-2"
+            >#Work</span
+          >
+          <span
+            class="bg-blue-200 text-blue-800 text-xs px-2 py-1 rounded-full mr-2 mb-2"
+            >#travel</span
+          >
+          <!-- Add more tags as needed -->
+        </div>
+
+        <!-- Share Icons -->
+        <div class="mt-6 flex items-center space-x-4">
+          <span>Share this:</span>
+          <a href="#" class="text-blue-500 hover:text-blue-700"
+            ><i class="fab fa-twitter"></i></a
+          >
+          <a href="#" class="text-blue-500 hover:text-blue-700"
+            ><i class="fab fa-facebook"></i></a
+          >
+          <a href="#" class="text-blue-500 hover:text-blue-700"
+            ><i class="fab fa-linkedin"></i></a
+          >
+          <!-- Add more social icons as needed -->
+        </div>
+
+        <!-- Comments Section -->
+        <div class="mt-8">
+          <!-- Your comments section can go here -->
+          <h3 class="text-2xl font-semibold mb-4">Comments</h3>
+          <!-- Example comment structure -->
+          <div class="bg-gray-200 p-4 mb-4">
+            <p><strong>Commenter Name</strong></p>
+            <p>Comment content goes here...</p>
+          </div>
+          <!-- Add more comments as needed -->
+        </div>
+      </div>
+    </div>
+  </body>
+  <Footer />
+</html>
