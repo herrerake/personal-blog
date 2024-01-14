@@ -1,4 +1,5 @@
 ---
+layout: ../../layouts/MarkdownPostLayout.astro
 title: 'Allow me to reintroduce myself'
 pubDate: 2023-12-11
 description: 'My name is Kevin Herrera a 21 century scribe'
@@ -6,7 +7,8 @@ author: 'Kevin Herrera'
 image:
     url: 'https://docs.astro.build/assets/full-logo-light.png'
     alt: 'The full Astro logo.'
-tags: ["astro", "blogging", "learning in public"]
+tags: ["narrative"]
+featured: true
 ---
 # Allow me to reintroduce myself
 
