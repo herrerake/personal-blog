@@ -15,22 +15,20 @@ console.log("allBlogPosts", allBlogPosts);
 
 <style>
   body {
-    color: #1d1d1f;
-    background-color: #f5f5f7;
+    color: #042c55;
+    background-color: #fff;
   }
 
   .card {
     display: flex;
-    width: 100%;
-    max-width: 746px;
     padding: 40px 48px;
     flex-direction: column;
     align-items: flex-start;
     grid-column-gap: 32px;
     grid-row-gap: 32px;
     border-radius: 24px;
-    box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.08);
-    background-color: #fff;
+    background-color: #f5f5f5;
+    border: 1px solid #eaecf0;
   }
 
   .card-content {
@@ -52,21 +50,22 @@ console.log("allBlogPosts", allBlogPosts);
     grid-column-gap: 32px;
     grid-row-gap: 32px;
     border-radius: 24px;
-    background-color: #fff;
+    background-color: #f5f5f5;
+    border: 1px solid #eaecf0;
     text-align: center;
   }
 
   .news-ticker-container {
     padding: 18px 32px;
     border-radius: 24px;
-    box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.08);
-    background-color: #fff;
+    background-color: #f5f5f5;
+    border: 1px solid #eaecf0;
   }
 
   .button {
     padding: 24px 32px;
     border-radius: 99px;
-    background-color: #489f49;
+    background-color: #042c55;
     transition: background-color 300ms ease-out;
     line-height: 48px;
     font-weight: 500;
@@ -75,11 +74,23 @@ console.log("allBlogPosts", allBlogPosts);
   }
 
   .button:hover {
-    background-color: #7db97c;
+    background-color: #688099;
   }
 
   .button > a {
     color: white;
+  }
+
+  .cloudflare-orange {
+    color: #ff6532;
+  }
+
+  .cloudflare-orange > a {
+    color: #ff6532;
+  }
+
+  .cloudflare-orange > a:hover {
+    text-decoration: underline;
   }
 </style>
 
@@ -88,38 +99,68 @@ console.log("allBlogPosts", allBlogPosts);
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
   </head>
   <body>
+    <Header />
     <section class="my-5">
       <div class="container mx-auto">
-        <div class="grid grid-cols-2 gap-4">
-          <div class="card">
-            <avatar>PIC</avatar>
-            <h1>Kevin Herrera</h1>
-            <p>
-              is a Frontend Engineer and designer by trade. Collaboration and
-              creating is his passion.
-              <span>Currently creating & collaborating at Cloudflare</span>
-            </p>
+        <div class="grid grid-cols-5 grid-rows-1 gap-4">
+          <div class="card col-span-3">
+            <img
+              src="/public/headshot.jpg"
+              loading="lazy"
+              width="100"
+              alt="Kevin Herrera headshot"
+              class="rounded-full"
+            />
+            <div>
+              <h1>Kevin Herrera</h1>
+              <p class="text-3xl">
+                is a Frontend Engineer and designer by trade. Collaboration and
+                creating is his passion. Currently creating & collaborating at
+                <span class="cloudflare-orange">
+                  <a href="https://www.cloudflare.com" target="_blank"
+                    >Cloudflare</a
+                  >
+                </span>
+              </p>
+            </div>
           </div>
-          <div class="contact-card">
+          <div class="contact-card col-span-2 col-start-4">
             <div class="card-content">
-              LOGO<div>
-                <h2>Lets Collab?</h2>
+              <img
+                src="/public/herrerake-square-logo.png"
+                loading="lazy"
+                width="100"
+                alt="Kevin Herrera headshot"
+                class="rounded-full"
+              />
+              <div>
+                <h2 class="text-md">Have a project in mind?</h2>
                 <button class="button">
-                  <a href="mailto:kevin@herrerake.com">kevin@herrerake.com</a>
+                  <a href="mailto:kevin@herrerake.com">Let's Collaborate</a>
                 </button>
               </div>
             </div>
           </div>
         </div>
-        <div class="news-ticker-container my-4">
+        <div class="news-ticker-container col-span-5 row-start-2 my-4">
           <div>Sports and economic news ticker</div>
         </div>
-        <div class="grid grid-cols-2 gap-4">
-          <div class="card">Based in Austin Texas</div>
+        <div class="grid grid-cols-3 grid-rows-1 gap-4">
           <div class="card">
-            As a Frontend Engineer, I specialize in collaborating with
-            engineers, designers, and business stakeholders to bring web
-            applications to life.
+            <div>
+              <span class="text-7xl">🤘🏾</span>
+              <h3 class="text-5xl">
+                Based in <br /> Austin, Texas <br /> GMT-6
+              </h3>
+            </div>
+          </div>
+          <div class="card col-span-2">
+            <p class="h3 text-3xl">
+              As a software engineer, I specialize in developing unique and
+              user-friendly digital products. I believe that a successful
+              software starts with a solid foundation, clear communication, and
+              a deep understanding of the end user's needs.
+            </p>
           </div>
         </div>
       </div>
