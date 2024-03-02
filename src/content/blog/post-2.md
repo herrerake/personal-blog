@@ -1,35 +1,29 @@
 ---
 layout: ../../layouts/MarkdownPostLayout.astro
-title: 'Allow me to reintroduce myself'
+title: "Embracing the Blend: My Journey as a Dual Citizen Remote Software Engineer"
 pubDate: 2023-12-11
-description: 'My name is Kevin Herrera a 21 century scribe'
-author: 'Kevin Herrera'
+description: "Embracing the Blend: My Journey as a Dual Citizen Remote Software Engineer"
+author: "Kevin Herrera"
 image:
-    url: 'https://docs.astro.build/assets/full-logo-light.png'
-    alt: 'The full Astro logo.'
-tags: ["narrative"]
+  url: "https://docs.astro.build/assets/full-logo-light.png"
+  alt: "The full Astro logo."
+tags: ["personal"]
+series: "Dual Citizen"
 featured: true
 ---
-# Allow me to reintroduce myself
 
-Published on: 2023-12-11
+# Yearning for identity
 
-Lets start with a brief history.
+As a dual citizen of the United States and Colombia, my quest to become a software engineer while relishing the freedom of remote work has been a captivating journey. It's more than a career path; it's a fusion of my aspirations and heritage.
 
-## What I've accomplished
+For a multicultural person like me, straddling between two worlds often sparks a sense of not fully belonging here or there. Yet, it's in this duality that I find a unique kind of richness—a richness in experiencing the vibrant colors of both Colombia and the United States.
 
-### Background!
-Growing up in a household where English was seldom spoken, I found myself immersed in a beautiful blend of cultures. While my friends were relishing pizzas and pop tunes, our home resonated with the aroma of arepas, the zest of chicarron, and the rhythm of salsa. School and the neighborhood gifted me with the quintessential '90s childhood experience. It was a delicate dance between the cultural tapestry of my home and the vibrant world outside.
+My dream of working remotely from Colombia, the land where my parents have woven the tapestry of our family history, has been my beacon. Cartagena, with its enchanting streets and the warm embrace of my roots, beckons me often.
 
-### Pivoting Paths
-Post-undergrad, I embarked on a different journey than expected. Law school, though a common choice, didn't resonate with me. Enter software engineering—a pivot that aligned with my longing for a life that mirrored the duality I cherished. The dream to work remotely, perpetuating the fusion of my dual cultural upbringing, became my guiding star.
+The allure of remote work goes beyond flexibility; it's a doorway to embrace my dual identity fully. It allows me to soak up the sights and sounds of Cartagena, to feel at home while crafting code that transcends borders and cultures.
 
-### Beyond the Code
-Beyond lines of code, I find solace and joy in various pursuits. Writing is my sanctuary, a place where thoughts find their voice. Yoga grounds me, sports keep me lively, and nature beckons me to explore its wonders. I'm an avid reader, especially drawn to self-help and spiritual literature. My faith grounds me, and spirituality is a realm I'm deeply engaged in. Oh, and board games and puzzles? They light up my social gatherings with friends.
+Every moment spent remotely working has added depth and flavor to my life, painting a canvas where my passions, heritage, and career converge harmoniously.
 
-### Why I Share
-This blog isn't just a space for tales and musings—it's a canvas where I blend my writing prowess and engineering finesse. One day, I'll glance back at this digital memoir and reminisce with a smile. And perhaps, in sharing my journey, someone else may find a glimmer of enjoyment or inspiration along the way.
+Join me on this journey as I navigate the terrains of software engineering and the intricacies of being a dual citizen—a blend of cultures, aspirations, and the unwavering pursuit of a fulfilling life.
 
-## What's next
-
-Stay tuned as I attempt to write everything down!
+This is just the beginning—the beginning of a story where remote work, dual citizenship, and a love for Cartagena intertwine to create a vibrant narrative of self-discovery and growth.
