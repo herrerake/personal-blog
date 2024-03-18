@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/MarkdownPostLayout.astro
+layout: ../../layouts/markdownPostLayout.astro
 title: "Allow me to reintroduce myself"
 pubDate: 2023-12-11
 description: "My name is Kevin Herrera a 21 century scribe"
