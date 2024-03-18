@@ -34,13 +34,13 @@ body {
 	margin: 0;
 	padding: 0;
 	text-align: left;
-	background: linear-gradient(var(--gray-gradient)) no-repeat;
 	background-size: 100% 600px;
 	word-wrap: break-word;
 	overflow-wrap: break-word;
-	color: rgb(var(--gray-dark));
 	font-size: 20px;
 	line-height: 1.7;
+	color: #042c55;
+	background-color: #fff;
 }
 main {
 	width: 720px;
@@ -153,75 +153,15 @@ hr {
 	white-space: nowrap;
 }
 
-/* HOME PAGE STYLING 
-TODO: scale this properly  
-*/
-
-  body {
-  	color: #042c55;
-  	background-color: #fff;
-  }
-
-  .card {
-  	padding: 40px 48px;
-  	grid-column-gap: 32px;
-  	grid-row-gap: 32px;
-  	border-radius: 24px;
-  	background-color: #f5f5f5;
-  	border: 1px solid #eaecf0;
-  }
-
-  .card-content {
-  	grid-column-gap: 12px;
-  	grid-row-gap: 12px;
-  }
-
-  .stacked-card-container {
-  	grid-column-gap: 32px;
-  	grid-row-gap: 32px;
-  }
-
-  .stacked-card {
-  	padding: 20px 30px;
-  	grid-column-gap: 4px;
-  	grid-row-gap: 6px;
-  	border-radius: 24px;
-  	background-color: #f5f5f5;
-  	border: 1px solid #eaecf0;
-  }
-
-  .contact-card {
-  	padding: 48px;
-  	grid-column-gap: 32px;
-  	grid-row-gap: 32px;
-  	border-radius: 24px;
-  	background-color: #f5f5f5;
-  	border: 1px solid #eaecf0;
-  }
-
-  .news-ticker-container {
-  	padding: 18px 32px;
-  	border-radius: 24px;
-  	background-color: #f5f5f5;
-  	border: 1px solid #eaecf0;
-  }
-
   .button {
-  	padding: 24px 32px;
-  	border-radius: 99px;
-  	background-color: #042c55;
   	transition: background-color 300ms ease-out;
-  	line-height: 48px;
-  	font-weight: 500;
-  	text-align: center;
-  	letter-spacing: -0.01em;
   }
 
   .button:hover {
   	background-color: #688099;
   }
 
-  .button>a {
+  .button > a {
   	color: white;
   }
 
@@ -229,20 +169,10 @@ TODO: scale this properly
   	color: #ff6532;
   }
 
-  .cloudflare-orange>a {
+  .cloudflare-orange > a {
   	color: #ff6532;
   }
 
-  .cloudflare-orange>a:hover {
+  .cloudflare-orange > a:hover {
   	text-decoration: underline;
-  }
-
-  .detail-button {
-  	overflow: hidden;
-  	width: 80px;
-  	height: 80px;
-  	padding: 16px;
-  	border-radius: 100%;
-  	background-color: #fff;
-  	color: #131315;
   }

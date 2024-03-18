@@ -2,7 +2,9 @@
 const { tag, title, description, url } = Astro.props;
 ---
 
-<div class="stacked-card flex flex-col md:flex-row justify-around items-center">
+<div
+  class="flex flex-col md:flex-row justify-around items-center py-5 px-7 rounded-3xl bg-neutral-100 border border-gray-300 gap-1"
+>
   <div class="w-full max-w-lg">
     <button class="rounded-full ...">{tag}</button>
     <a href={url}>
@@ -13,7 +15,7 @@ const { tag, title, description, url } = Astro.props;
     </p>
   </div>
   <div>
-    <div class="detail-button">
+    <div class="detail-button p-4 bg-white rounded-full">
       <div
         style="opacity: 1; transform: translate3d(0%, 0%, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;"
         class="w-embed"
