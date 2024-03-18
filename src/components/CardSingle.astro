@@ -1,0 +1,8 @@
+---
+const { class: className, ...rest } = Astro.props;
+---
+
+<!-- When no class is passed to this component undefined gets added to class list. Fix so that undefined is not there -->
+<div class=`card flex flex-col items-start ${className}` {...rest}>
+  <slot />
+</div>
