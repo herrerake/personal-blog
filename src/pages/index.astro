@@ -2,6 +2,8 @@
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import CardStackable from "../components/CardStackable.astro";
+import CardFeatured from "../components/CardFeatured.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import { getCollection } from "astro:content";
 
@@ -10,6 +12,30 @@ const allBlogPosts = await getCollection("blog");
 const fearturedBlogEntries = await getCollection("blog", ({ data }) => {
   return data.featured === true;
 });
+
+const placeholderBlogPosts = [
+  {
+    title: "Getting Started with Astro.js",
+    description:
+      "Learn how to kickstart your development journey with Astro.js.",
+    tag: "Astro.js",
+    url: "https://example.com/getting-started-with-astro-js",
+  },
+  {
+    title: "Advanced Techniques in Astro.js",
+    description:
+      "Explore advanced tips and tricks to take your Astro.js skills to the next level.",
+    tag: "Astro.js",
+    url: "https://example.com/advanced-techniques-in-astro-js",
+  },
+  {
+    title: "Introduction to Reactive Programming",
+    description:
+      "Discover the fundamentals of reactive programming and its applications in modern web development.",
+    tag: "Reactive Programming",
+    url: "https://example.com/introduction-to-reactive-programming",
+  },
+];
 ---
 
 <html lang="en">
@@ -85,66 +111,10 @@ const fearturedBlogEntries = await getCollection("blog", ({ data }) => {
       <div class="container mx-auto my-4">
         <div class="grid grid-cols-2 grid-rows-1 gap-4">
           <div class="single-card-container">
-            <div class="card">
-              <button class="rounded-full ...">Featured</button>
-              <h3 class="text-3xl">Featured Blog Entry 1</h3>
-              <p class="text-2xl">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-                vitae elit libero, a pharetra augue. Nulla vitae elit libero, a
-                pharetra augue. Nulla vitae elit libero, a pharetra augue.
-              </p>
-            </div>
+            <CardFeatured {...placeholderBlogPosts[0]} />
           </div>
           <div class="stacked-card-container">
-            <div class="stacked-card">
-              <button class="rounded-full ...">Blog</button>
-              <h3 class="text-3xl">Featured Blog Entry 2</h3>
-              <p class="text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-                vitae elit libero, a pharetra augue. Nulla vitae elit libero, a
-                pharetra augue. Nulla vitae elit libero, a pharetra augue.
-              </p>
-            </div>
-            <div class="stacked-card">
-              <button class="rounded-full ...">Blog</button>
-              <h3 class="text-3xl">Featured Blog Entry 3</h3>
-              <p class="text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-                vitae elit libero, a pharetra augue. Nulla vitae elit libero, a
-                pharetra augue. Nulla vitae elit libero, a pharetra augue.
-              </p>
-            </div>
-            <div class="stacked-card">
-              <div class="w-full max-w-lg">
-                <button class="rounded-full ...">Blog</button>
-                <h3 class="text-3xl">Featured Blog Entry 4</h3>
-                <p class="text">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-                  vitae elit libero, a pharetra augue. Nulla vitae elit libero,
-                  a pharetra augue. Nulla vitae elit libero, a pharetra augue.
-                </p>
-              </div>
-              <div>
-                <div class="detail-button">
-                  <div
-                    style="opacity: 1; transform: translate3d(0%, 0%, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;"
-                    class="icon w-embed"
-                  >
-                    <svg
-                      width="48"
-                      height="48"
-                      viewBox="0 0 48 48"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M15.6406 34.9922L13.0234 32.375L28.7852 16.6133H16.7148L16.7539 13H34.9766V31.2617H31.3633L31.3828 19.2305L15.6406 34.9922Z"
-                        fill="currentColor"></path>
-                    </svg>
-                  </div>
-                </div>
-              </div>
-            </div>
+            {placeholderBlogPosts.map((post) => <CardStackable {...post} />)}
           </div>
         </div>
       </div>
