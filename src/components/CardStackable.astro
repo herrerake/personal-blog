@@ -2,7 +2,9 @@
 const { tag, title, description, url } = Astro.props;
 ---
 
-<div class="stacked-card">
+<div
+  class="stacked-card flex flex-col md:flex-row justify-between items-center"
+>
   <div class="w-full max-w-lg">
     <button class="rounded-full ...">{tag}</button>
     <a href={url}>
