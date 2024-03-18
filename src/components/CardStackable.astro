@@ -1,0 +1,39 @@
+---
+const { tag, title, description, url } = Astro.props;
+---
+
+<div
+  class="flex flex-col md:flex-row justify-around items-center py-5 px-7 rounded-3xl bg-neutral-100 border border-gray-300 gap-1"
+>
+  <div class="w-full max-w-lg">
+    <button class="rounded-full ...">{tag}</button>
+    <a href={url}>
+      <h3 class="text-3xl">{title}</h3>
+    </a>
+    <p class="text">
+      {description}
+    </p>
+  </div>
+  <div>
+    <div class="detail-button p-4 bg-white rounded-full">
+      <div
+        style="opacity: 1; transform: translate3d(0%, 0%, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;"
+        class="w-embed"
+      >
+        <a href={url}>
+          <svg
+            width="48"
+            height="48"
+            viewBox="0 0 48 48"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M15.6406 34.9922L13.0234 32.375L28.7852 16.6133H16.7148L16.7539 13H34.9766V31.2617H31.3633L31.3828 19.2305L15.6406 34.9922Z"
+              fill="currentColor"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
