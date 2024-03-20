@@ -1,9 +1,11 @@
 ---
+import CardWrapper from "./CardWrapper.astro";
+
 const { tag, title, description, url } = Astro.props;
 ---
 
-<div
-  class="flex flex-col md:flex-row justify-around items-center py-5 px-7 rounded-3xl bg-neutral-100 border border-gray-300 gap-1"
+<CardWrapper
+  class="flex flex-col md:flex-row justify-around items-center py-5 px-7 gap-1"
 >
   <div class="w-full max-w-lg">
     <button class="rounded-full ...">{tag}</button>
@@ -36,4 +38,4 @@ const { tag, title, description, url } = Astro.props;
       </div>
     </div>
   </div>
-</div>
+</CardWrapper>

@@ -1,6 +1,6 @@
 ---
 import HeaderLink from "./HeaderLink.astro";
-import { SITE_TITLE } from "../consts";
+import CardWrapper from "./CardWrapper.astro";
 
 const links = [
     {
@@ -23,9 +23,8 @@ const links = [
 
 ---
 
-<header
-  class="container mx-auto my-2 py-2 px-5 rounded-3xl bg-neutral-100 border border-gray-100"
->
+<header class="my-4">
+<CardWrapper>
   <nav class="flex flex-col md:flex-row items-center justify-between">
     <h2>
       <a href="/">
@@ -38,7 +37,7 @@ const links = [
         /></a
       >
     </h2>
-    <div class="flex items-center space-x-8">
+    <div class="flex items-center space-x-8 mt-1">
         {links.map(link => (
             <HeaderLink class="" href={link.location}>
                 {link.name}
@@ -46,6 +45,7 @@ const links = [
         ))}
     </div>
   </nav>
+</CardWrapper>
 </header>
 <style>
   h2 {

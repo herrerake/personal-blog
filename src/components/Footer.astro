@@ -1,10 +1,10 @@
 ---
+import CardWrapper from "./CardWrapper.astro";
+
 const today = new Date();
 ---
-
-<footer
-  class="container mx-auto text-center my-5 py-7 px-10 rounded-3xl bg-neutral-100 border border-gray-100"
->
+<footer class="my-4">
+<CardWrapper>
   <div class="flex place-content-between items-center flex-wrap">
     <div>
         <a href="/">
@@ -62,9 +62,10 @@ const today = new Date();
       </div>
     </div>
     <div>
-        <p class="text-base">&copy; {today.getFullYear()} All rights reserved.</p>
+        <p class="text-base mb-0">&copy; {today.getFullYear()} All rights reserved.</p>
     </div>
   </div>
+</CardWrapper>
 </footer>
 
 <style>

@@ -2,7 +2,13 @@
 export default {
 	content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
 	theme: {
-		extend: {},
+		extend: {
+            colors: {
+                cardBg: "#F5F5F5",
+                cardBorder: "#EAECF0",
+                bluePrimary: "#042C55"
+            }
+        },
 	},
 	plugins: [],
 }
