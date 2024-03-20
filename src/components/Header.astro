@@ -3,49 +3,50 @@ import HeaderLink from "./HeaderLink.astro";
 import CardWrapper from "./CardWrapper.astro";
 
 const links = [
-    {
-        name: "Home",
-        location: "/"
-    },
-    {
-        name: "About me",
-        location: "/about"
-    },
-    {
-        name: "Portfolio",
-        location: "/portfolio"
-    },
-    {
-        name: "Blog",
-        location: "/blog"
-    }
-]
-
+  {
+    name: "Home",
+    location: "/",
+  },
+  {
+    name: "About me",
+    location: "/about",
+  },
+  {
+    name: "Portfolio",
+    location: "/portfolio",
+  },
+  {
+    name: "Blog",
+    location: "/blog",
+  },
+];
 ---
 
 <header class="my-4">
-<CardWrapper>
-  <nav class="flex flex-col md:flex-row items-center justify-between">
-    <h2>
-      <a href="/">
-        <img
-          src="/herrerake-logo-oleo-script-swash-caps-black.png"
-          loading="lazy"
-          width="156"
-          alt="Herrerake Logo"
-          class="h-6 w-auto"
-        /></a
-      >
-    </h2>
-    <div class="flex items-center space-x-8 mt-1">
-        {links.map(link => (
+  <CardWrapper>
+    <nav class="flex flex-col md:flex-row items-center justify-between">
+      <h2>
+        <a href="/">
+          <img
+            src="/herrerake-logo-oleo-script-swash-caps-black.png"
+            loading="lazy"
+            width="156"
+            alt="Herrerake Logo"
+            class="h-6 w-auto"
+          /></a
+        >
+      </h2>
+      <div class="flex items-center space-x-8 mt-1">
+        {
+          links.map((link) => (
             <HeaderLink class="" href={link.location}>
-                {link.name}
+              {link.name}
             </HeaderLink>
-        ))}
-    </div>
-  </nav>
-</CardWrapper>
+          ))
+        }
+      </div>
+    </nav>
+  </CardWrapper>
 </header>
 <style>
   h2 {

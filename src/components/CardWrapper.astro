@@ -1,7 +1,9 @@
 ---
-const { class: className }: {class?: string} = Astro.props;
+const { class: className }: { class?: string } = Astro.props;
 ---
 
-<div class=`container mx-auto py-6 px-10 rounded-2xl bg-cardBg border border-cardBorder ${className}`>
-    <slot />
+<div
+  class=`container mx-auto py-6 px-10 rounded-2xl bg-cardBg border border-cardBorder ${className}`
+>
+  <slot />
 </div>

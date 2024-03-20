@@ -82,7 +82,11 @@ const placeholderBlogPosts = [
             <div>
               <h2 class="text-md">Have a project in mind?</h2>
               <div>
-                <a href="mailto:kevin@herrerake.com" class="text-center py-3 rounded-lg bg-bluePrimary text-white text-xl font-medium flex items-center justify-center space-x-1">Let's Collaborate</a>
+                <a
+                  href="mailto:kevin@herrerake.com"
+                  class="text-center py-3 rounded-lg bg-bluePrimary text-white text-xl font-medium flex items-center justify-center space-x-1"
+                  >Let's Collaborate</a
+                >
               </div>
             </div>
           </CardWrapper>
@@ -118,11 +122,20 @@ const placeholderBlogPosts = [
             {placeholderBlogPosts.map((post) => <CardStackable {...post} />)}
             <a
               href="/blog"
-              class="text-center py-3 px-16 rounded-lg bg-bluePrimary text-white text-base font-medium flex items-center space-x-1">
+              class="text-center py-3 px-16 rounded-lg bg-bluePrimary text-white text-base font-medium flex items-center space-x-1"
+            >
               <span>View all blogs</span>
-              <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M10.75 1C10.75 0.585786 10.4142 0.25 10 0.25L3.25 0.25C2.83579 0.25 2.5 0.585786 2.5 1C2.5 1.41421 2.83579 1.75 3.25 1.75L9.25 1.75L9.25 7.75C9.25 8.16421 9.58579 8.5 10 8.5C10.4142 8.5 10.75 8.16421 10.75 7.75L10.75 1ZM9.46967 0.46967L0.46967 9.46967L1.53033 10.5303L10.5303 1.53033L9.46967 0.46967Z" fill="white"/>
-                </svg>                
+              <svg
+                width="11"
+                height="11"
+                viewBox="0 0 11 11"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M10.75 1C10.75 0.585786 10.4142 0.25 10 0.25L3.25 0.25C2.83579 0.25 2.5 0.585786 2.5 1C2.5 1.41421 2.83579 1.75 3.25 1.75L9.25 1.75L9.25 7.75C9.25 8.16421 9.58579 8.5 10 8.5C10.4142 8.5 10.75 8.16421 10.75 7.75L10.75 1ZM9.46967 0.46967L0.46967 9.46967L1.53033 10.5303L10.5303 1.53033L9.46967 0.46967Z"
+                  fill="white"></path>
+              </svg>
             </a>
           </div>
         </div>
@@ -131,4 +144,3 @@ const placeholderBlogPosts = [
     </section>
   </body>
 </html>
-    
