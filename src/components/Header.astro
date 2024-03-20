@@ -1,6 +1,26 @@
 ---
 import HeaderLink from "./HeaderLink.astro";
 import { SITE_TITLE } from "../consts";
+
+const links = [
+    {
+        name: "Home",
+        location: "/"
+    },
+    {
+        name: "About me",
+        location: "/about"
+    },
+    {
+        name: "Portfolio",
+        location: "/portfolio"
+    },
+    {
+        name: "Blog",
+        location: "/blog"
+    }
+]
+
 ---
 
 <header
@@ -14,14 +34,16 @@ import { SITE_TITLE } from "../consts";
           loading="lazy"
           width="156"
           alt="Herrerake Logo"
+          class="h-6 w-auto"
         /></a
       >
     </h2>
-    <div class="internal-links">
-      <HeaderLink href="/">Home</HeaderLink>
-      <HeaderLink href="/about">About</HeaderLink>
-      <HeaderLink href="/portfolio">Portfolio</HeaderLink>
-      <HeaderLink href="/blog">Blog</HeaderLink>
+    <div class="flex items-center space-x-8">
+        {links.map(link => (
+            <HeaderLink class="" href={link.location}>
+                {link.name}
+            </HeaderLink>
+        ))}
     </div>
   </nav>
 </header>
@@ -35,13 +57,12 @@ import { SITE_TITLE } from "../consts";
     text-decoration: none;
   }
   nav a {
-    padding: 1em 0.5em;
     color: var(--black);
     border-bottom: 4px solid transparent;
     text-decoration: none;
   }
   nav a.active {
     text-decoration: none;
-    border-bottom-color: var(--accent);
+    /* border-bottom-color: var(--accent); */
   }
 </style>
