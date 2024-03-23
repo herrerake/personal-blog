@@ -1,29 +1,52 @@
 ---
 import HeaderLink from "./HeaderLink.astro";
-import { SITE_TITLE } from "../consts";
+import CardWrapper from "./CardWrapper.astro";
+
+const links = [
+  {
+    name: "Home",
+    location: "/",
+  },
+  {
+    name: "About me",
+    location: "/about",
+  },
+  {
+    name: "Portfolio",
+    location: "/portfolio",
+  },
+  {
+    name: "Blog",
+    location: "/blog",
+  },
+];
 ---
 
-<header
-  class="container mx-auto my-2 py-2 px-5 rounded-3xl bg-neutral-100 border border-gray-100"
->
-  <nav class="flex flex-col md:flex-row items-center justify-between">
-    <h2>
-      <a href="/">
-        <img
-          src="/herrerake-logo-oleo-script-swash-caps-black.png"
-          loading="lazy"
-          width="156"
-          alt="Herrerake Logo"
-        /></a
-      >
-    </h2>
-    <div class="internal-links">
-      <HeaderLink href="/">Home</HeaderLink>
-      <HeaderLink href="/about">About</HeaderLink>
-      <HeaderLink href="/portfolio">Portfolio</HeaderLink>
-      <HeaderLink href="/blog">Blog</HeaderLink>
-    </div>
-  </nav>
+<header class="my-4">
+  <CardWrapper>
+    <nav class="flex flex-col md:flex-row items-center justify-between">
+      <h2>
+        <a href="/">
+          <img
+            src="/herrerake-logo-oleo-script-swash-caps-black.png"
+            loading="lazy"
+            width="156"
+            alt="Herrerake Logo"
+            class="h-6 w-auto"
+          /></a
+        >
+      </h2>
+      <div class="flex items-center space-x-8 mt-1">
+        {
+          links.map((link) => (
+            <HeaderLink class="" href={link.location}>
+              {link.name}
+            </HeaderLink>
+          ))
+        }
+      </div>
+    </nav>
+  </CardWrapper>
 </header>
 <style>
   h2 {
@@ -35,13 +58,12 @@ import { SITE_TITLE } from "../consts";
     text-decoration: none;
   }
   nav a {
-    padding: 1em 0.5em;
     color: var(--black);
     border-bottom: 4px solid transparent;
     text-decoration: none;
   }
   nav a.active {
     text-decoration: none;
-    border-bottom-color: var(--accent);
+    /* border-bottom-color: var(--accent); */
   }
 </style>

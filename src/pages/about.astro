@@ -6,7 +6,11 @@ import Layout from "../layouts/BlogPost.astro";
   title="About Me"
   description="Background"
   pubDate={new Date("December 11 2023")}
-  heroImage="/blog-placeholder-about.jpg"
+  image={{ url: "/blog-placeholder-about.jpg", alt: "" }}
+  tags={["about", "personal", "background"]}
+  author="Jorge Vargas"
+  series="About Me"
+  featured
 >
   <p>
     <h2>Background!</h2>
@@ -37,9 +41,7 @@ import Layout from "../layouts/BlogPost.astro";
       and board games and puzzles? They light up my social gatherings with
       friends.
     </p>
-    <h2>
-      Why I Share
-    </h2>
+    <h2>Why I Share</h2>
     <p>
       This blog isn't just a space for tales and musings—it's a canvas where I
       blend my writing prowess and engineering finesse. One day, I'll glance

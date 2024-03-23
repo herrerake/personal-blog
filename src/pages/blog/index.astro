@@ -96,25 +96,27 @@ const posts = entries.map((item) => {
     </style>
   </head>
   <body>
-    <Header />
-    <main>
-      <section>
-        <ul>
-          {
-            posts.map((post) => (
-              <li>
-                <a href={`/blog/${post.slug}/`}>
-                  <h4 class="title">{post.title}</h4>
-                  <p class="date">
-                    <FormattedDate date={post.pubDate} />
-                  </p>
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </section>
-    </main>
-    <Footer />
+    <section class="my-8 max-w-[1200px] mx-auto px-4">
+      <Header />
+      <main>
+        <section>
+          <ul>
+            {
+              posts.map((post) => (
+                <li>
+                  <a href={`/blog/${post.slug}/`}>
+                    <h4 class="title">{post.title}</h4>
+                    <p class="date">
+                      <FormattedDate date={post.pubDate} />
+                    </p>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </section>
+      </main>
+      <Footer />
+    </section>
   </body>
 </html>

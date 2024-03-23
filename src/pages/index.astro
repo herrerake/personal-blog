@@ -4,7 +4,7 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import CardStackable from "../components/CardStackable.astro";
 import CardFeatured from "../components/CardFeatured.astro";
-import CardSingle from "../components/CardSingle.astro";
+import CardWrapper from "../components/CardWrapper.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import { getCollection } from "astro:content";
 
@@ -44,11 +44,11 @@ const placeholderBlogPosts = [
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
   </head>
   <body>
-    <Header />
-    <section class="my-5">
+    <section class="my-8 max-w-[1200px] mx-auto px-4">
+      <Header />
       <div class="container mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
-          <CardSingle class="md:col-span-3">
+          <CardWrapper class="md:col-span-3">
             <img
               src="/headshot.jpg"
               loading="lazy"
@@ -68,9 +68,9 @@ const placeholderBlogPosts = [
                 </span>
               </p>
             </div>
-          </CardSingle>
-          <div
-            class="flex flex-col justify-center items-center text-center md:col-span-2 py-5 px-6 rounded-3xl bg-neutral-100 border border-gray-300 gap-8"
+          </CardWrapper>
+          <CardWrapper
+            class="flex flex-col justify-center items-center text-center md:col-span-2 gap-8"
           >
             <img
               src="/herrerake-square-logo.png"
@@ -81,34 +81,36 @@ const placeholderBlogPosts = [
             />
             <div>
               <h2 class="text-md">Have a project in mind?</h2>
-              <button
-                class="button text-center py-6 px-8 rounded-full bg-blue-950 font-medium leading-10"
-              >
-                <a href="mailto:kevin@herrerake.com">Let's Collaborate</a>
-              </button>
+              <div>
+                <a
+                  href="mailto:kevin@herrerake.com"
+                  class="text-center py-3 rounded-lg bg-bluePrimary text-white text-xl font-medium flex items-center justify-center space-x-1"
+                  >Let's Collaborate</a
+                >
+              </div>
             </div>
-          </div>
+          </CardWrapper>
         </div>
-        <div
-          class="news-ticker-container col-span-5 row-start-2 py-4 px-8 my-4 rounded-3xl bg-neutral-100 border border-gray-300"
+        <CardWrapper
+          class="news-ticker-container col-span-5 row-start-2 py-4 px-8 my-4"
         >
           <div>Sports and economic news ticker</div>
-        </div>
+        </CardWrapper>
         <div class="grid md:grid-cols-3 grid-rows-1 gap-4">
-          <CardSingle>
+          <CardWrapper>
             <span class="text-7xl">🤘🏾</span>
             <h3 class="text-5xl">
               Based in <br /> Austin, Texas <br /> GMT-6
             </h3>
-          </CardSingle>
-          <CardSingle class="md:col-span-2">
+          </CardWrapper>
+          <CardWrapper class="md:col-span-2">
             <p class="h3 text-3xl">
               As a software engineer, I specialize in developing unique and
               user-friendly digital products. I believe that a successful
               software starts with a solid foundation, clear communication, and
               a deep understanding of the end user's needs.
             </p>
-          </CardSingle>
+          </CardWrapper>
         </div>
       </div>
       <div class="container mx-auto my-4">
@@ -116,8 +118,25 @@ const placeholderBlogPosts = [
           <div class="single-card-container">
             <CardFeatured {...placeholderBlogPosts[0]} />
           </div>
-          <div class="flex flex-col justify-between items-stretch gap-8">
+          <div class="flex flex-col justify-between items-start gap-8">
             {placeholderBlogPosts.map((post) => <CardStackable {...post} />)}
+            <a
+              href="/blog"
+              class="text-center py-3 px-16 rounded-lg bg-bluePrimary text-white text-base font-medium flex items-center space-x-1"
+            >
+              <span>View all blogs</span>
+              <svg
+                width="11"
+                height="11"
+                viewBox="0 0 11 11"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M10.75 1C10.75 0.585786 10.4142 0.25 10 0.25L3.25 0.25C2.83579 0.25 2.5 0.585786 2.5 1C2.5 1.41421 2.83579 1.75 3.25 1.75L9.25 1.75L9.25 7.75C9.25 8.16421 9.58579 8.5 10 8.5C10.4142 8.5 10.75 8.16421 10.75 7.75L10.75 1ZM9.46967 0.46967L0.46967 9.46967L1.53033 10.5303L10.5303 1.53033L9.46967 0.46967Z"
+                  fill="white"></path>
+              </svg>
+            </a>
           </div>
         </div>
       </div>
