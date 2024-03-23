@@ -12,15 +12,8 @@ const { frontmatter } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <title>{frontmatter?.title}</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
-      rel="stylesheet"
-    />
-    <style>
-      /* Add custom styles here if needed */
-    </style>
   </head>
-  <Header title={frontmatter.SITE_TITLE} />
+  <Header />
   <body class="bg-gray-100 text-gray-800">
     <div class="container mx-auto py-8">
       <div class="max-w-3xl mx-auto">
@@ -48,7 +41,7 @@ const { frontmatter } = Astro.props;
         <!-- Tags -->
         <div class="flex flex-wrap mt-6">
           {
-            frontmatter.tags.map((tag: any) => (
+            frontmatter.tags.map((tag: string) => (
               <span class="bg-blue-200 text-blue-800 text-xs px-2 py-1 rounded-full mr-2 mb-2">
                 #{tag}
               </span>
