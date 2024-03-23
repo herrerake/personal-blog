@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/MarkdownPostLayout.astro
+layout: ../../layouts/markdownPostLayout.astro
 title: "Embracing the Blend: My Journey as a Dual Citizen Remote Software Engineer"
 pubDate: 2023-12-11
 description: "Embracing the Blend: My Journey as a Dual Citizen Remote Software Engineer"
