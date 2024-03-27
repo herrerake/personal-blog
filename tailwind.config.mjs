@@ -7,6 +7,7 @@ export default {
         cardBg: "#F5F5F5",
         cardBorder: "#EAECF0",
         bluePrimary: "#042C55",
+        textPrimary: "#667085",
       },
     },
   },
