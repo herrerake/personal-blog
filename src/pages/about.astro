@@ -6,49 +6,37 @@ import Header from "../components/Header.astro";
 
 const educationList = [
   {
-    title: "Computer Science",
-    institution: "MIT University",
-    logo: "/MIT_logo.png",
-    year: "2015 - 2019",
+    title: "Web Development Bootcamp Immersive Course",
+    institution: "General Assembly DC",
+    logo: "/general-assembly.png",
+    year: "2016",
   },
   {
-    title: "Computer Science",
-    institution: "MIT University",
-    logo: "/MIT_logo.png",
-    year: "2019 - 2021",
-  },
-  {
-    title: "Computer Science",
-    institution: "MIT University",
-    logo: "/MIT_logo.png",
-    year: "2015 - 2019",
-  },
-  {
-    title: "Computer Science",
-    institution: "MIT University",
-    logo: "/MIT_logo.png",
-    year: "2019 - 2021",
+    title: "Bachelor of Arts (B.A.) in History",
+    institution: "Virginia Commonwealth University",
+    logo: "/vcu.png",
+    year: "2014",
   },
 ];
 
 const experienceList = [
   {
     title: "CloudFlare",
-    time: "3 Years",
+    time: "2 Years",
     logo: "/Cloudflare_Logo.png",
-    year: "2015 - Present",
+    year: "2022 - Present",
   },
   {
-    title: "CloudFlare",
-    time: "3 Years",
+    title: "Accruent",
+    time: "18 Months",
     logo: "/Cloudflare_Logo.png",
-    year: "2015 - Present",
+    year: "2020 - 2021",
   },
   {
-    title: "CloudFlare",
-    time: "3 Years",
+    title: "AVIXA",
+    time: "18 Months",
     logo: "/Cloudflare_Logo.png",
-    year: "2015 - Present",
+    year: "2018 - 2019",
   },
 ];
 ---
@@ -67,8 +55,12 @@ const experienceList = [
             class="py-12 flex flex-col-reverse lg:flex-row items-center justify-between lg:space-x-8"
           >
             <div class="flex-1 mt-8 lg:mt-0 max-w-[630px]">
-              <h1 class="text-bluePrimary text-3xl md:text-4xl font-bold mb-4">About Me</h1>
-              <p class="text-xl md:text-2xl leading-7 font-bold text-textPrimary">
+              <h1 class="text-bluePrimary text-3xl md:text-4xl font-bold mb-4">
+                About Me
+              </h1>
+              <p
+                class="text-xl md:text-2xl leading-7 font-bold text-textPrimary"
+              >
                 Lorem ipsum dolor sit amet consectetur. Diam sit eu eu morbi
                 venenatis faucibus duis nisl. Orci justo tellus nec eget
                 ullamcorper tristique egestas lacus. Sed tortor diam ultrices eu
@@ -93,7 +85,9 @@ const experienceList = [
         </CardWrapper>
       </div>
       <div class="">
-        <div class="w-full my-4 gap-4 grid lg:grid-cols-[2fr_1fr] auto-rows-max">
+        <div
+          class="w-full my-4 gap-4 grid lg:grid-cols-[2fr_1fr] auto-rows-max"
+        >
           <div class="w-full">
             <CardWrapper class="h-full">
               <div class="py-6">
@@ -129,7 +123,7 @@ const experienceList = [
                           </p>
                         </div>
                         <div class="">
-                          <p class="text-textPrimary text-xs 2xl:text-sm">
+                          <p class="text-textPrimary text-xs ml-2 2xl:text-sm">
                             {education.year}
                           </p>
                         </div>
@@ -172,7 +166,7 @@ const experienceList = [
                           </p>
                         </div>
                         <div class="">
-                          <p class="text-textPrimary text-xs 2xl:text-sm">
+                          <p class="text-textPrimary text-xs ml-2 2xl:text-sm">
                             {education.year}
                           </p>
                         </div>
