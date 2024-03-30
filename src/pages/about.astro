@@ -9,36 +9,47 @@ const educationList = [
     title: "Web Development Bootcamp Immersive Course",
     institution: "General Assembly DC",
     logo: "/general-assembly.png",
+    alt: "General Assembly logo",
     year: "2016",
   },
   {
     title: "Bachelor of Arts (B.A.) in History",
     institution: "Virginia Commonwealth University",
     logo: "/vcu.png",
+    alt: "VCU logo",
     year: "2014",
   },
 ];
 
 const experienceList = [
   {
-    title: "CloudFlare",
+    title: "Cloudflare",
     time: "2 Years",
-    logo: "/Cloudflare_Logo.png",
+    logo: "/cloudflare-logo.png",
+    alt: "Cloudflare logo",
     year: "2022 - Present",
   },
   {
     title: "Accruent",
     time: "18 Months",
-    logo: "/Cloudflare_Logo.png",
+    logo: "/accruent-logo.png",
+    alt: "Accruent logo",
     year: "2020 - 2021",
   },
   {
     title: "AVIXA",
     time: "18 Months",
-    logo: "/Cloudflare_Logo.png",
+    logo: "/avixa-logo.jpeg",
+    alt: "AVIXA logo",
     year: "2018 - 2019",
   },
 ];
+
+const aboutMePageContent = {
+  summary: "Hey there! Im Kevin Herrera, a Colombian American front-end engineer calling Austin, Texas home. Fluent in both English and Spanish, I thrive in multicultural environments, drawing inspiration from my Colombian heritage and American upbringing. As a proud puppy parent to Baby Miko, I've discovered newfound joy and responsibility. Professionally, Im passionate about collaboration and inclusive leadership, aiming to bridge diverse perspectives in the tech world. Join me as I navigate the dynamic landscape of web development, embracing creativity, growth, and meaningful connections along the way! 🚀🐶",
+  education: "I graduate from Virginia Commonwealth University in 2014 with a Bachelor of Arts in History with a minor in Economics. The idea was to become a lawyer. But I quickily pivoted to web dev once I worked a few paralegal jobs and realized the career was not for me. In the fall of 2016 I attended General Assembly's Web Development Immersive course in Washington, DC. I learned the basics of web development and continue to stay up to date with the latest technologies and best practices. I am a lifelong learner and enjoy learning new things.",
+  experience: "My diverse experience spans retail, food service, and paralegal roles. Yet, as a front-end engineer at AVIXA, Accruent, and Cloudflare, I found my passion. Each role honed my teamwork, communication, and coding skills."
+}
 ---
 
 <html lang="en">
@@ -60,16 +71,7 @@ const experienceList = [
               </h1>
               <p
                 class="text-xl md:text-2xl leading-7 font-bold text-textPrimary"
-              >
-                Lorem ipsum dolor sit amet consectetur. Diam sit eu eu morbi
-                venenatis faucibus duis nisl. Orci justo tellus nec eget
-                ullamcorper tristique egestas lacus. Sed tortor diam ultrices eu
-                elementum. Ipsum ac diam leo morbi ultrices.tellus nec eget
-                ullamcorper tristiqueOrci justo tellus nec eget ullamcorper
-                tristique egestas lacus. Sed tortor diam ultrices eu elementum.
-                Lorem ipsum dolor sit amet consectetur. Diam sit eu eu morbi
-                venenatis faucibus duis nisl. Orci justo tellus nec eget
-                ullamcorper tristique egestas lacus.
+              > {aboutMePageContent.summary}
               </p>
             </div>
             <div class="max-w-sm w-full">
@@ -95,11 +97,7 @@ const experienceList = [
                   Education
                 </h2>
                 <p class="text-textPrimary text-xl leading-6">
-                  Lorem ipsum dolor sit amet consectetur. Non amet lacus gravida
-                  ultrices. Etiam id ut in lorem aenean. Vitae sapien dolor
-                  praesent morbi. Nunc non.Lorem ipsum dolor sit amet
-                  consectetur. Lorem ipsum dolor sit amet consectetur. Non amet
-                  lacus gravida ultrices.
+                  {aboutMePageContent.education}
                 </p>
                 <div class="grid sm:grid-cols-2 gap-6 mt-8">
                   {
@@ -110,7 +108,7 @@ const experienceList = [
                             src={education.logo}
                             loading="lazy"
                             width="50"
-                            alt="MIT logo"
+                            alt={education.alt}
                             class="w-8 2xl:w-12 h-auto"
                           />
                         </div>
@@ -141,33 +139,32 @@ const experienceList = [
                   Experience
                 </h2>
                 <p class="text-textPrimary text-xl leading-6">
-                  Lorem ipsum dolor sit amet consectetur. Non amet lacus gravida
-                  ultrices. Etiam id ut in lorem aenean.
+                  {aboutMePageContent.experience}
                 </p>
                 <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-1 mt-8">
                   {
-                    experienceList.map((education) => (
+                    experienceList.map((experience) => (
                       <div class="flex items-center justify-between py-3 px-4 rounded-lg bg-white">
                         <div class="">
                           <img
-                            src={education.logo}
+                            src={experience.logo}
                             loading="lazy"
                             width="50"
-                            alt="MIT logo"
+                            alt={experience.alt}
                             class="w-8 2xl:w-12 h-auto"
                           />
                         </div>
                         <div class="ml-2 mr-auto">
                           <h3 class="text-bluePrimary text-sm xl:text-base leading-4 font-bold">
-                            {education.title}
+                            {experience.title}
                           </h3>
                           <p class="text-textPrimary text-xs">
-                            {education.time}
+                            {experience.time}
                           </p>
                         </div>
                         <div class="">
                           <p class="text-textPrimary text-xs ml-2 2xl:text-sm">
-                            {education.year}
+                            {experience.year}
                           </p>
                         </div>
                       </div>
