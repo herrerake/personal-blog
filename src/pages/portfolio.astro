@@ -3,6 +3,13 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import CardWrapper from "../components/CardWrapper.astro";
+import CollaborateCard from "../components/CollaborateCard.astro";
+import { getCollection } from "astro:content";
+
+const portfolios = await getCollection("portfolio", ({ data }) => {
+  return data.featured === true;
+});
 ---
 
 <html lang="en">
@@ -12,8 +19,69 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
   <body>
     <section class="my-8 max-w-[1200px] mx-auto px-4">
       <Header />
-      <h1 class="text-center">Portfolio coming soon</h1>
-      <Footer />
+      <div class="w-full">
+        <div
+          class="w-full my-4 gap-4 grid lg:grid-cols-[5fr_3fr] auto-rows-max"
+        >
+          <div class="w-full">
+            <CardWrapper class="h-full">
+              <div class="py-6">
+                <h2 class="text-bluePrimary text-3xl font-bold mb-4">
+                  Portfolio
+                </h2>
+                <p class="text-textPrimary text-2xl font-bold leading-7">
+                  Lorem ipsum dolor sit amet consectetur. Diam sit eu eu morbi
+                  venenatis faucibus duis nisl. Orci justo tellus nec eget
+                  ullamcorper tristique egestas lacus. Sed tortor diam ultrices
+                  eu elementum. Ipsum ac diam leo morbi ultrices.tellus nec eget
+                  ullamcorper tristiqueOrci justo tellus nec eget ullamcorper
+                  tristique egestas lacus. Sed tortor diam ultrices eu
+                  elementum.
+                </p>
+              </div>
+            </CardWrapper>
+          </div>
+          <CollaborateCard />
+        </div>
+        <div class="space-y-4">
+          {
+            portfolios.map((portfolio, index) => (
+              <CardWrapper class="h-full" key={portfolio.slug}>
+                <div class="py-6 grid md:grid-cols-2 items-center space-y-12 md:space-y-0">
+                  <div
+                    class={`${(index + 1) % 2 ? "" : "md:col-start-2"} space-y-4`}
+                  >
+                    <h2 class="text-bluePrimary text-3xl font-bold">
+                      {portfolio.data.title}
+                    </h2>
+                    <p class="text-textPrimary text-xl font-bold leading-6">
+                      {portfolio.data.description}
+                    </p>
+                    <div class="">
+                      <a
+                        href={`/portfolio/${portfolio.slug}`}
+                        class="text-center py-3 rounded-lg bg-bluePrimary text-white text-sm font-medium px-10"
+                      >
+                        View Project
+                      </a>
+                    </div>
+                  </div>
+                  <div
+                    class={`${(index + 1) % 2 ? "md:pl-16" : "md:pr-16 md:row-start-1"}`}
+                  >
+                    <img
+                      src={portfolio.data.image.url}
+                      alt={portfolio.data.title}
+                      class="w-full h-auto object-cover aspect-video rounded-[20px]"
+                    />
+                  </div>
+                </div>
+              </CardWrapper>
+            ))
+          }
+        </div>
+        <Footer />
+      </div>
     </section>
   </body>
 </html>

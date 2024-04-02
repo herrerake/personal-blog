@@ -7,6 +7,7 @@ import CardFeatured from "../components/CardFeatured.astro";
 import CardWrapper from "../components/CardWrapper.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import { getCollection } from "astro:content";
+import CollaborateCard from "../components/CollaborateCard.astro";
 
 const allBlogPosts = await getCollection("blog");
 
@@ -69,27 +70,9 @@ const placeholderBlogPosts = [
               </p>
             </div>
           </CardWrapper>
-          <CardWrapper
-            class="flex flex-col justify-center items-center text-center md:col-span-2 gap-8"
-          >
-            <img
-              src="/herrerake-square-logo.png"
-              loading="lazy"
-              width="100"
-              alt="Kevin Herrera headshot"
-              class="rounded-full"
-            />
-            <div>
-              <h2 class="text-md">Have a project in mind?</h2>
-              <div>
-                <a
-                  href="mailto:kevin@herrerake.com"
-                  class="text-center py-3 rounded-lg bg-bluePrimary text-white text-xl font-medium flex items-center justify-center space-x-1"
-                  >Let's Collaborate</a
-                >
-              </div>
-            </div>
-          </CardWrapper>
+          <div class="md:col-span-2">
+            <CollaborateCard />
+          </div>
         </div>
         <CardWrapper
           class="news-ticker-container col-span-5 row-start-2 py-4 px-8 my-4"
