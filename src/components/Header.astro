@@ -1,6 +1,7 @@
 ---
 import HeaderLink from "./HeaderLink.astro";
 import CardWrapper from "./CardWrapper.astro";
+import ThemeToggle from "./ThemeToggle.astro";
 
 const links = [
   {
@@ -32,7 +33,7 @@ const links = [
             loading="lazy"
             width="156"
             alt="Herrerake Logo"
-            class="h-6 w-auto"
+            class="h-6 w-auto dark:invert dark:brightness-200"
           /></a
         >
       </h2>
@@ -44,6 +45,7 @@ const links = [
             </HeaderLink>
           ))
         }
+        <ThemeToggle />
       </div>
     </nav>
   </CardWrapper>

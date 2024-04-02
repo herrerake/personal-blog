@@ -40,12 +40,12 @@ const { Content } = await entry.render();
             <div class="py-6">
               <h2
                 transition:name={`portfilio-title-${entry.slug}`}
-                class="text-bluePrimary text-3xl font-bold mb-2"
+                class="text-bluePrimary text-3xl font-bold mb-2 dark:text-darkText"
               >
                 {entry.data.title}
               </h2>
               <p
-                class="text-textPrimary text-sm md:text-lg divide-x divide-[#9BABBB] leading-7 -ml-2"
+                class="text-textPrimary text-sm md:text-lg divide-x divide-[#9BABBB] dark:divide-darkBorder leading-7 -ml-2 dark:text-darkTextSecondary"
               >
                 {
                   entry.data.tags.map((tag) => (

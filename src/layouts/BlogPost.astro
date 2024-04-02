@@ -28,7 +28,8 @@ const { title, description, pubDate, image } = Astro.props;
         max-width: calc(100% - 2em);
         margin: auto;
         padding: 1em;
-        color: rgb(var(--gray-dark));
+        /* Uses CSS variable that adapts to dark mode */
+        color: var(--body-text);
       }
       .title {
         margin-bottom: 1em;
@@ -38,13 +39,20 @@ const { title, description, pubDate, image } = Astro.props;
       }
       .title h1 {
         margin: 0 0 0.5em 0;
+        /* Uses CSS variable that adapts to dark mode */
+        color: var(--body-text);
       }
       .date {
         margin-bottom: 0.5em;
-        color: rgb(var(--gray));
+        /* Uses CSS variable that adapts to dark mode */
+        color: var(--text-secondary);
       }
       .last-updated-on {
         font-style: italic;
+      }
+      hr {
+        /* Uses CSS variable that adapts to dark mode */
+        border-color: var(--color-divider);
       }
     </style>
   </head>
