@@ -3,7 +3,11 @@ import type { HTMLAttributes } from "astro/types";
 
 type Props = HTMLAttributes<"a">;
 
-const { href, class: className, ...props } = Astro.props;
+interface LinkProps {
+  href: string;
+}
+
+const { href } = Astro.props as LinkProps;
 
 const { pathname } = Astro.url;
 const isActive = href === pathname || href === pathname.replace(/\/$/, "");
@@ -11,12 +15,7 @@ const isActive = href === pathname || href === pathname.replace(/\/$/, "");
 
 <a
   href={href}
-  class:list={[
-    className,
-    { active: isActive },
-    "flex flex-col items-center relative",
-  ]}
-  {...props}
+  class:list={[{ active: isActive }, "flex flex-col items-center relative"]}
 >
   <span class="leading-[18px] text-base"><slot /></span>
   {

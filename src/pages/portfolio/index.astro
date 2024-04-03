@@ -1,10 +1,10 @@
 ---
-import BaseHead from "../components/BaseHead.astro";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
-import CardWrapper from "../components/CardWrapper.astro";
-import CollaborateCard from "../components/CollaborateCard.astro";
+import BaseHead from "../../components/BaseHead.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
+import CardWrapper from "../../components/CardWrapper.astro";
+import CollaborateCard from "../../components/CollaborateCard.astro";
 import { getCollection } from "astro:content";
 
 const portfolios = await getCollection("portfolio", ({ data }) => {
@@ -17,7 +17,7 @@ const portfolios = await getCollection("portfolio", ({ data }) => {
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
   </head>
   <body>
-    <section class="my-8 max-w-[1200px] mx-auto px-4">
+    <section class="my-8 max-w-[1240px] mx-auto px-4">
       <Header />
       <div class="w-full">
         <div
@@ -51,7 +51,10 @@ const portfolios = await getCollection("portfolio", ({ data }) => {
                   <div
                     class={`${(index + 1) % 2 ? "" : "md:col-start-2"} space-y-4`}
                   >
-                    <h2 class="text-bluePrimary text-3xl font-bold">
+                    <h2
+                      transition:name="portfilio-title"
+                      class="text-bluePrimary text-3xl font-bold"
+                    >
                       {portfolio.data.title}
                     </h2>
                     <p class="text-textPrimary text-xl font-bold leading-6">
@@ -73,6 +76,7 @@ const portfolios = await getCollection("portfolio", ({ data }) => {
                       src={portfolio.data.image.url}
                       alt={portfolio.data.title}
                       class="w-full h-auto object-cover aspect-video rounded-[20px]"
+                      transition:name="portfilio-image"
                     />
                   </div>
                 </div>
