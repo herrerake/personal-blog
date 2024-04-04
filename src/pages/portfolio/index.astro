@@ -6,6 +6,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
 import CardWrapper from "../../components/CardWrapper.astro";
 import CollaborateCard from "../../components/CollaborateCard.astro";
 import { getCollection } from "astro:content";
+import { ViewTransitions } from "astro:transitions";
 
 const portfolios = await getCollection("portfolio", ({ data }) => {
   return data.featured === true;
@@ -15,6 +16,7 @@ const portfolios = await getCollection("portfolio", ({ data }) => {
 <html lang="en">
   <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <ViewTransitions />
   </head>
   <body>
     <section class="my-8 max-w-[1240px] mx-auto px-4">
@@ -52,7 +54,7 @@ const portfolios = await getCollection("portfolio", ({ data }) => {
                     class={`${(index + 1) % 2 ? "" : "md:col-start-2"} space-y-4`}
                   >
                     <h2
-                      transition:name="portfilio-title"
+                      transition:name={`portfilio-title-${portfolio.slug}`}
                       class="text-bluePrimary text-3xl font-bold"
                     >
                       {portfolio.data.title}
@@ -76,7 +78,7 @@ const portfolios = await getCollection("portfolio", ({ data }) => {
                       src={portfolio.data.image.url}
                       alt={portfolio.data.title}
                       class="w-full h-auto object-cover aspect-video rounded-[20px]"
-                      transition:name="portfilio-image"
+                      transition:name={`portfilio-image-${portfolio.slug}`}
                     />
                   </div>
                 </div>

@@ -10,7 +10,7 @@ interface LinkProps {
 const { href } = Astro.props as LinkProps;
 
 const { pathname } = Astro.url;
-const isActive = href === pathname || href === pathname.replace(/\/$/, "");
+const isActive = pathname === href || pathname.startsWith(`${href}/`);
 ---
 
 <a
