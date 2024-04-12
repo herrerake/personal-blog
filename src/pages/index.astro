@@ -7,10 +7,9 @@ import CardFeatured from "../components/CardFeatured.astro";
 import CardWrapper from "../components/CardWrapper.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import { getCollection } from "astro:content";
+import CollaborateCard from "../components/CollaborateCard.astro";
 
-const allBlogPosts = await getCollection("blog");
-
-const fearturedBlogEntries = await getCollection("blog", ({ data }) => {
+const featuredBlogs = await getCollection("blog", ({ data }) => {
   return data.featured === true;
 });
 
@@ -44,10 +43,10 @@ const placeholderBlogPosts = [
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
   </head>
   <body>
-    <section class="my-8 max-w-[1200px] mx-auto px-4">
+    <section class="my-8 max-w-[1240px] mx-auto px-4">
       <Header />
-      <div class="container mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+      <div class="w-full">
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-4 items-stretch">
           <CardWrapper class="md:col-span-3">
             <img
               src="/headshot.png"
@@ -69,27 +68,9 @@ const placeholderBlogPosts = [
               </p>
             </div>
           </CardWrapper>
-          <CardWrapper
-            class="flex flex-col justify-center items-center text-center md:col-span-2 gap-8"
-          >
-            <img
-              src="/herrerake-square-logo.png"
-              loading="lazy"
-              width="100"
-              alt="Herrerake Logo"
-              class="rounded-full"
-            />
-            <div>
-              <h2 class="text-md">Have a project in mind?</h2>
-              <div>
-                <a
-                  href="mailto:kevin@herrerake.com"
-                  class="text-center py-3 rounded-lg bg-bluePrimary text-white text-xl font-medium flex items-center justify-center space-x-1"
-                  >Let's Collaborate</a
-                >
-              </div>
-            </div>
-          </CardWrapper>
+          <div class="md:col-span-2">
+            <CollaborateCard />
+          </div>
         </div>
         <CardWrapper
           class="news-ticker-container col-span-5 row-start-2 py-4 px-8 my-4"
@@ -113,7 +94,7 @@ const placeholderBlogPosts = [
           </CardWrapper>
         </div>
       </div>
-      <div class="container mx-auto my-4">
+      <div class="w-full my-4">
         <div class="grid md:grid-cols-2 grid-rows-1 gap-4">
           <div class="single-card-container">
             <CardFeatured {...placeholderBlogPosts[0]} />

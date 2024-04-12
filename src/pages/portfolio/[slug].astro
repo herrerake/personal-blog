@@ -1,0 +1,77 @@
+---
+// import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
+import Footer from "../../components/Footer.astro";
+import { getCollection, type CollectionEntry } from "astro:content";
+import BaseHead from "../../components/BaseHead.astro";
+import CardWrapper from "../../components/CardWrapper.astro";
+import Prose from "../../components/Prose.astro";
+import CollaborateCard from "../../components/CollaborateCard.astro";
+import { ViewTransitions } from "astro:transitions";
+
+// 1. Generate a new path for every collection entry
+export async function getStaticPaths() {
+  const PortfolioEntries = await getCollection("portfolio");
+  return PortfolioEntries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+type Props = {
+  entry: CollectionEntry<"portfolio">;
+};
+
+// 2. For your template, you can get the entry directly from the prop
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <ViewTransitions />
+  </head>
+  <body>
+    <section class="my-8 max-w-[1240px] mx-auto px-4">
+      <Header />
+      <div class="w-full my-4">
+        <div class="w-full">
+          <CardWrapper class="h-full">
+            <div class="py-6">
+              <h2
+                transition:name={`portfilio-title-${entry.slug}`}
+                class="text-bluePrimary text-3xl font-bold mb-2"
+              >
+                {entry.data.title}
+              </h2>
+              <p
+                class="text-textPrimary text-sm md:text-lg divide-x divide-[#9BABBB] leading-7 -ml-2"
+              >
+                {
+                  entry.data.tags.map((tag) => (
+                    <span class="capitalize px-2">{tag}</span>
+                  ))
+                }
+              </p>
+              <img
+                src={entry.data.image.url}
+                alt={entry.data.title}
+                class="w-full h-auto aspect-video md:aspect-[11/5] rounded-3xl mt-6"
+                transition:name={`portfilio-image-${entry.slug}`}
+              />
+            </div>
+          </CardWrapper>
+        </div>
+      </div>
+      <Prose> <Content /></Prose>
+      <CardWrapper>
+        <div class="max-w-sm mx-auto my-4">
+          <CollaborateCard />
+        </div>
+      </CardWrapper>
+      <Footer />
+    </section>
+  </body>
+</html>

@@ -1,0 +1,29 @@
+---
+import CardWrapper from "./CardWrapper.astro";
+---
+
+<div class="w-full h-full">
+  <CardWrapper
+    class="flex flex-col justify-center items-center text-center h-full"
+  >
+    <img
+      src="/herrerake-square-logo.png"
+      loading="lazy"
+      width="100"
+      alt="Kevin Herrera headshot"
+      class="h-28 w-auto"
+    />
+    <div class="mt-2">
+      <h2 class="text-[40px] leading-[56px] font-bold">
+        Have a project in mind?
+      </h2>
+      <div class="mt-4">
+        <a
+          href="mailto:kevin@herrerake.com"
+          class="text-center py-3 rounded-lg bg-bluePrimary text-white text-xl font-medium flex items-center justify-center space-x-1"
+          >Let's Collaborate</a
+        >
+      </div>
+    </div>
+  </CardWrapper>
+</div>
