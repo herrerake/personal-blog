@@ -17,7 +17,10 @@ const isActive = pathname === href || pathname.startsWith(`${href}/`);
   href={href}
   class:list={[{ active: isActive }, "flex flex-col items-center relative"]}
 >
-  <span class="leading-[18px] text-base"><slot /></span>
+  <span
+    class={`leading-[18px] text-base ${isActive ? "font-bold" : "font-normal"}`}
+    ><slot /></span
+  >
   {
     isActive && (
       <div class="absolute -bottom-1">

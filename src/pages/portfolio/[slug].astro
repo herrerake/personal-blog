@@ -8,7 +8,6 @@ import BaseHead from "../../components/BaseHead.astro";
 import CardWrapper from "../../components/CardWrapper.astro";
 import Prose from "../../components/Prose.astro";
 import CollaborateCard from "../../components/CollaborateCard.astro";
-import { ViewTransitions } from "astro:transitions";
 
 // 1. Generate a new path for every collection entry
 export async function getStaticPaths() {
@@ -31,7 +30,6 @@ const { Content } = await entry.render();
 <html lang="en">
   <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-    <ViewTransitions />
   </head>
   <body>
     <section class="my-8 max-w-[1240px] mx-auto px-4">

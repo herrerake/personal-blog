@@ -6,12 +6,13 @@ import CardStackable from "../components/CardStackable.astro";
 import CardFeatured from "../components/CardFeatured.astro";
 import CardWrapper from "../components/CardWrapper.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
-import { getCollection } from "astro:content";
+// import { getCollection } from "astro:content";
 import CollaborateCard from "../components/CollaborateCard.astro";
 
-const featuredBlogs = await getCollection("blog", ({ data }) => {
-  return data.featured === true;
-});
+// const featuredBlogs = await getCollection("blog", ({ data }) => {
+//   return data.featured === true;
+// });
+
 
 const placeholderBlogPosts = [
   {

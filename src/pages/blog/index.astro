@@ -3,118 +3,115 @@ import BaseHead from "../../components/BaseHead.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
-import FormattedDate from "../../components/FormattedDate.astro";
 import { getCollection } from "astro:content";
+import CardWrapper from "../../components/CardWrapper.astro";
+import BlogCard from "../../components/BlogCard.astro";
 
-const entries = await getCollection("blog");
-
-const posts = entries.map((item) => {
-  const { slug, id } = item;
-  const { title, description, pubDate } = item.data;
-  return {
-    title,
-    description,
-    pubDate,
-    slug,
-    id,
-  };
+const blogs = await getCollection("blog", ({ data }) => {
+  return data.featured === true;
 });
+
+const searchParams = Astro.url.searchParams;
+
+const filter = searchParams.get("filter") || "all";
+
+const search = searchParams.get("search") || "";
+
+const filterOptions = [
+  {
+    label: "All Blogs - 120",
+    value: "all",
+  },
+  {
+    label: "72 Hours in - 7",
+    value: "latest",
+  },
+  {
+    label: "The Fiction - 3",
+    value: "fiction",
+  },
+  {
+    label: "Series - 2",
+    value: "series",
+  },
+];
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-    <style>
-      main {
-        width: 960px;
-      }
-      ul {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 2rem;
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-      }
-      ul li {
-        width: calc(50% - 1rem);
-      }
-      ul li * {
-        text-decoration: none;
-        transition: 0.2s ease;
-      }
-      ul li:first-child {
-        width: 100%;
-        margin-bottom: 1rem;
-        text-align: center;
-      }
-      ul li:first-child img {
-        width: 100%;
-      }
-      ul li:first-child .title {
-        font-size: 2.369rem;
-      }
-      ul li img {
-        margin-bottom: 0.5rem;
-        border-radius: 12px;
-      }
-      ul li a {
-        display: block;
-      }
-      .title {
-        margin: 0;
-        color: rgb(var(--black));
-        line-height: 1;
-      }
-      .date {
-        margin: 0;
-        color: rgb(var(--gray));
-      }
-      ul li a:hover h4,
-      ul li a:hover .date {
-        color: rgb(var(--accent));
-      }
-      ul a:hover img {
-        box-shadow: var(--box-shadow);
-      }
-      @media (max-width: 720px) {
-        ul {
-          gap: 0.5em;
-        }
-        ul li {
-          width: 100%;
-          text-align: center;
-        }
-        ul li:first-child {
-          margin-bottom: 0;
-        }
-        ul li:first-child .title {
-          font-size: 1.563em;
-        }
-      }
-    </style>
   </head>
   <body>
     <section class="my-8 max-w-[1240px] mx-auto px-4">
       <Header />
       <main>
-        <section>
-          <ul>
-            {
-              posts.map((post) => (
-                <li>
-                  <a href={`/blog/${post.slug}/`}>
-                    <h4 class="title">{post.title}</h4>
-                    <p class="date">
-                      <FormattedDate date={post.pubDate} />
-                    </p>
-                  </a>
-                </li>
-              ))
-            }
-          </ul>
-        </section>
+        <CardWrapper class="mb-4">
+          <div class="">
+            <h1 class="text-6xl px-0 font-bold text-bluePrimary -ml-1">Blog</h1>
+          </div>
+          <div class="flex mt-6 justify-between">
+            <div class="hidden md:inline-block">
+              <h3 class="text-bluePrimary text-xl font-bold">Filter</h3>
+              <div
+                class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 item-center gap-4"
+              >
+                {
+                  filterOptions.map((option) => (
+                    <form class="flex items-center mt-2">
+                      <input type="hidden" name="filter" value={option.value} />
+                      <button
+                        type="submit"
+                        class={`${filter === option.value ? "text-white" : "text-textPrimary"} text-base border-[#e0e0e0] ${filter === option.value ? "bg-bluePrimary" : "bg-[#eaeaea]"} rounded-full px-6 py-2`}
+                      >
+                        {option.label}
+                      </button>
+                    </form>
+                  ))
+                }
+              </div>
+            </div>
+            <div class="">
+              <h3 class="text-bluePrimary text-xl font-bold">Search Blog</h3>
+              <div class="flex item-center space-x-4">
+                <form
+                  class="md:min-w-[300px] lg:min-w-[340px] flex items-center mt-2 text-textPrimary text-base border-[#e0e0e0] bg-[#eaeaea] rounded-full px-6 py-2"
+                >
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 18 18"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M13.125 13.125L16.5 16.5"
+                      stroke="#667085"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"></path>
+                    <path
+                      d="M15 8.25C15 4.52208 11.978 1.5 8.25 1.5C4.52208 1.5 1.5 4.52208 1.5 8.25C1.5 11.978 4.52208 15 8.25 15C11.978 15 15 11.978 15 8.25Z"
+                      stroke="#667085"
+                      stroke-width="1.5"
+                      stroke-linejoin="round"></path>
+                  </svg>
+
+                  <input
+                    type="text"
+                    name="search"
+                    value={search}
+                    class="bg-transparent w-full text-textPrimary placeholder:text-textPrimary/80 px-2 outline-none focus:outline-none"
+                    placeholder="I want to read about"
+                  />
+                </form>
+              </div>
+            </div>
+          </div>
+        </CardWrapper>
+        <div class="grid sm:grid-cols-2 mt-4 gap-8">
+          {blogs.map((blog) => <BlogCard blog={blog} />)}
+        </div>
       </main>
       <Footer />
     </section>
