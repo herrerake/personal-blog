@@ -1,0 +1,88 @@
+---
+import { CollectionEntry } from "astro:content";
+import FormattedDate from "./FormattedDate.astro";
+
+type Blog = CollectionEntry<"blog">;
+
+const { blog, className } = Astro.props as { blog: Blog; className?: string };
+---
+
+<>
+  <div
+    class={`w-full lg:aspect-[1.1/1] bg-cover bg-center relative overflow-hidden rounded-3xl ${className}`}
+    style={{ backgroundImage: `url(${blog.data.image.url})` }}
+    transition:name={`blog-card-${blog.slug}`}
+  >
+    <div
+      class="backdrop-brightness-50 w-full h-full p-6 sm:p-8 flex flex-col items-start justify-between"
+    >
+      {
+        blog.data.featured && (
+          <span class="text-bluePrimary shadow bg-white border border-bluePrimary/40 px-4 py-1.5 rounded-full text-xs font-bold">
+            Featured
+          </span>
+        )
+      }
+      <div
+        class="flex overflow-hidden relative flex-col w-full tracking-tight fill-white max-md:px-5 mt-10 max-md:max-w-full bg-white px-6 py-4 rounded-[25px]"
+      >
+        <div class="w-36 rounded-t-3xl inverted-border-radius-bottom-right">
+          <span
+            class="relative justify-center self-start px-4 py-1.5 whitespace-nowrap border border-solid bg-green-600 bg-opacity-20 border-green-600 border-opacity-20 rounded-full text-sm"
+          >
+            Blog
+          </span>
+        </div>
+        <div class="bg-white">
+          <div
+            class="relative mt-3.5 text-xl md:text-2xl font-bold tracking-tighter max-md:max-w-full"
+            transition:name={`blog-title-${blog.slug}`}
+          >
+            {blog.data.title}
+          </div>
+          <div
+            class="relative mt-2 leading-5 text-gray-500 max-md:max-w-full text-sm"
+          >
+            {blog.data.description}
+          </div>
+        </div>
+        <div
+          class="flex sm:flex-col-reverse md:flex-row relative gap-4 items-center self-start mt-4 text-xs tracking-tight leading-5 text-gray-500"
+        >
+          <a
+            href={`/blog/${blog.slug}`}
+            class="flex gap-2 self-stretch px-3 py-2 text-sm tracking-tight leading-5 text-white rounded-md bg-sky-950 items-center"
+          >
+            <div class="grow">Read More</div>
+            <svg
+              width="9"
+              height="8"
+              viewBox="0 0 9 8"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M8.18183 0.818046C8.18183 0.541903 7.95797 0.318046 7.68183 0.318046L3.18183 0.318046C2.90569 0.318046 2.68183 0.541904 2.68183 0.818046C2.68183 1.09419 2.90569 1.31805 3.18183 1.31805L7.18183 1.31805L7.18183 5.31805C7.18183 5.59419 7.40569 5.81805 7.68183 5.81805C7.95797 5.81805 8.18183 5.59419 8.18183 5.31805L8.18183 0.818046ZM1.67142 7.53556L8.03539 1.1716L7.32828 0.464493L0.964318 6.82845L1.67142 7.53556Z"
+                fill="white"></path>
+            </svg>
+          </a>
+          <div
+            class="flex flex-col sm:flex-row md:flex-col lg:flex-row items-center sm:space-x-4 md:space-x-0 lg:space-x-4 font-bold"
+          >
+            <div class="self-stretch my-auto">
+              <FormattedDate date={blog.data.pubDate} />
+            </div>
+            <div class="self-stretch my-auto">5 minutes Read</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</>
+
+<!-- TODO: The clip path is here
+style={{
+    clipPath:
+        "polygon(0 0, 25% 0, 25% 18%, 100% 18%, 100% 80%, 70% 80%, 70% 100%, 0 100%)",
+    borderRadius: "25px",
+}} -->

@@ -1,41 +1,57 @@
 ---
+import { CollectionEntry } from "astro:content";
 import CardWrapper from "./CardWrapper.astro";
+import FormattedDate from "./FormattedDate.astro";
 
-const { tag, title, description, url } = Astro.props;
+type Blog = CollectionEntry<"blog">;
+
+const { blog } = Astro.props as { blog: Blog };
 ---
 
-<CardWrapper
-  class="flex flex-col md:flex-row justify-around items-center py-5 px-7 gap-1"
->
-  <div class="w-full max-w-lg">
-    <button class="rounded-full ...">{tag}</button>
-    <a href={url}>
-      <h3 class="text-3xl">{title}</h3>
-    </a>
-    <p class="text">
-      {description}
-    </p>
-  </div>
-  <div>
-    <div class="detail-button p-4 bg-white rounded-full">
-      <div
-        style="opacity: 1; transform: translate3d(0%, 0%, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;"
-        class="w-embed"
-      >
-        <a href={url}>
-          <svg
-            width="48"
-            height="48"
-            viewBox="0 0 48 48"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M15.6406 34.9922L13.0234 32.375L28.7852 16.6133H16.7148L16.7539 13H34.9766V31.2617H31.3633L31.3828 19.2305L15.6406 34.9922Z"
-              fill="currentColor"></path>
-          </svg>
-        </a>
+<CardWrapper class="py-4 px-7 gap-1 w-full">
+  <div class="flex flex-col md:flex-row justify-around items-center">
+    <div class="w-full max-w-lg">
+      <div class="w-36 rounded-t-3xl inverted-border-radius-bottom-right">
+        <span
+          class="relative justify-center self-start px-4 py-1.5 whitespace-nowrap border border-solid bg-green-600 bg-opacity-20 border-green-600 border-opacity-20 rounded-full text-sm"
+        >
+          {blog.data.tags[0]}
+        </span>
+      </div>
+      <a href={`/blog/${blog.slug}`}>
+        <h3 class="text-2xl font-bold mt-2">{blog.data.title}</h3>
+      </a>
+      <p class="text-base text-textPrimary">
+        {blog.data.description}
+      </p>
+    </div>
+    <div>
+      <div class="detail-button p-4 bg-white rounded-full">
+        <div
+          style="opacity: 1; transform: translate3d(0%, 0%, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;"
+          class="w-embed"
+        >
+          <a href={`/blog/${blog.slug}`}>
+            <svg
+              width="48"
+              height="48"
+              viewBox="0 0 48 48"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15.6406 34.9922L13.0234 32.375L28.7852 16.6133H16.7148L16.7539 13H34.9766V31.2617H31.3633L31.3828 19.2305L15.6406 34.9922Z"
+                fill="currentColor"></path>
+            </svg>
+          </a>
+        </div>
       </div>
     </div>
+  </div>
+  <div class="flex items-center justify-end space-x-2 text-textPrimary text-sm">
+    <div class="self-stretch my-auto">
+      <FormattedDate date={blog.data.pubDate} />
+    </div>
+    <div class="self-stretch my-auto">5 minutes Read</div>
   </div>
 </CardWrapper>
