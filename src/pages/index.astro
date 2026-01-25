@@ -9,9 +9,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import { getCollection } from "astro:content";
 import CollaborateCard from "../components/CollaborateCard.astro";
 
-const allBlogPosts = await getCollection("blog");
-
-const fearturedBlogEntries = await getCollection("blog", ({ data }) => {
+const featuredBlogs = await getCollection("blog", ({ data }) => {
   return data.featured === true;
 });
 
@@ -47,8 +45,8 @@ const placeholderBlogPosts = [
   <body>
     <section class="my-8 max-w-[1240px] mx-auto px-4">
       <Header />
-      <div class="container mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+      <div class="w-full">
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-4 items-stretch">
           <CardWrapper class="md:col-span-3">
             <img
               src="/headshot.png"
@@ -96,7 +94,7 @@ const placeholderBlogPosts = [
           </CardWrapper>
         </div>
       </div>
-      <div class="container mx-auto my-4">
+      <div class="w-full my-4">
         <div class="grid md:grid-cols-2 grid-rows-1 gap-4">
           <div class="single-card-container">
             <CardFeatured {...placeholderBlogPosts[0]} />
