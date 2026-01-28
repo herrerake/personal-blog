@@ -1,13 +1,13 @@
 ---
-// import Layout from "../../layouts/Layout.astro";
-import Header from "../../components/Header.astro";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
-import Footer from "../../components/Footer.astro";
+// import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "@/consts";
+import Footer from "@/components/Footer.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
-import BaseHead from "../../components/BaseHead.astro";
-import CardWrapper from "../../components/CardWrapper.astro";
-import Prose from "../../components/Prose.astro";
-import CollaborateCard from "../../components/CollaborateCard.astro";
+import BaseHead from "@/components/BaseHead.astro";
+import CardWrapper from "@/components/CardWrapper.astro";
+import Prose from "@/components/Prose.astro";
+import CollaborateCard from "@/components/CollaborateCard.astro";
 import { ViewTransitions } from "astro:transitions";
 
 // 1. Generate a new path for every collection entry
