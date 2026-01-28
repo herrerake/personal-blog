@@ -1,11 +1,11 @@
 ---
-import BaseHead from "../../components/BaseHead.astro";
-import Header from "../../components/Header.astro";
-import Footer from "../../components/Footer.astro";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
+import BaseHead from "@/components/BaseHead.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "@/consts";
 import { getCollection } from "astro:content";
-import CardWrapper from "../../components/CardWrapper.astro";
-import BlogCard from "../../components/BlogCard.astro";
+import CardWrapper from "@/components/CardWrapper.astro";
+import BlogCard from "@/components/BlogCard.astro";
 
 const blogs = await getCollection("blog", ({ data }) => {
   return data.featured === true;

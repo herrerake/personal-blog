@@ -1,4 +1,5 @@
 import { defineConfig } from "astro/config";
+import { fileURLToPath } from "node:url";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import cloudflare from "@astrojs/cloudflare";
@@ -11,4 +12,11 @@ export default defineConfig({
   integrations: [mdx(), sitemap(), tailwind(), react()],
   output: "server",
   adapter: cloudflare(),
+  vite: {
+    resolve: {
+      alias: {
+        "@": fileURLToPath(new URL("./src", import.meta.url)),
+      },
+    },
+  },
 });
