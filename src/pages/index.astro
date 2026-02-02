@@ -41,6 +41,39 @@ const placeholderBlogPosts = [
 <html lang="en">
   <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <style>
+      @keyframes ticker-scroll {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-50%);
+        }
+      }
+      .ticker-track.is-animated {
+        animation: ticker-scroll 10s linear infinite;
+      }
+      .ticker-track > .ticker-divider {
+        opacity: 0.35;
+      }
+      @keyframes live-pulse {
+        0% {
+          opacity: 0.2;
+          transform: scale(0.85);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        100% {
+          opacity: 0.2;
+          transform: scale(0.85);
+        }
+      }
+      .live-dot {
+        animation: live-pulse 1.2s ease-in-out infinite;
+      }
+    </style>
   </head>
   <body>
     <section class="my-8 max-w-[1240px] mx-auto px-4">
@@ -75,7 +108,105 @@ const placeholderBlogPosts = [
         <CardWrapper
           class="news-ticker-container col-span-5 row-start-2 py-4 px-8 my-4"
         >
-          <div>Sports and economic news ticker</div>
+          <div
+            class="ticker flex items-center gap-4"
+            data-endpoint="/api/ticker.json"
+          >
+            <div
+              class="shrink-0 flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-gray-500"
+            >
+              <span class="live-dot inline-block h-2.5 w-2.5 rounded-full bg-red-600"></span>
+              <span>Live</span>
+            </div>
+            <div class="relative w-full overflow-hidden">
+              <div
+                class="ticker-track flex items-center gap-8 whitespace-nowrap text-sm md:text-base"
+              >
+                <span class="text-gray-500">Loading ticker...</span>
+              </div>
+            </div>
+          </div>
+          <script is:inline>
+            const tickerRoot = document.querySelector(
+              ".news-ticker-container [data-endpoint]",
+            );
+            const track = tickerRoot?.querySelector(".ticker-track");
+            if (tickerRoot && track) {
+              const endpoint = tickerRoot.getAttribute("data-endpoint");
+
+              const formatChange = (value) => {
+                if (typeof value !== "number" || Number.isNaN(value)) return "";
+                const sign = value > 0 ? "+" : "";
+                return `${sign}${value.toFixed(2)}%`;
+              };
+
+              const renderItems = (items) => {
+                track.innerHTML = "";
+                if (!items?.length) {
+                  track.innerHTML =
+                    '<span class="text-gray-500">No live updates available.</span>';
+                  track.classList.remove("is-animated");
+                  return;
+                }
+
+                items.forEach((item, index) => {
+                  const wrapper = document.createElement("span");
+                  wrapper.className =
+                    "ticker-item inline-flex items-center gap-2";
+
+                  const label = document.createElement("span");
+                  label.className = "font-semibold text-gray-700";
+                  label.textContent = item.label;
+                  wrapper.appendChild(label);
+
+                  const value = document.createElement("span");
+                  value.className = "text-gray-600";
+                  value.textContent = item.value;
+                  wrapper.appendChild(value);
+
+                  if (typeof item.change === "number") {
+                    const change = document.createElement("span");
+                    const isPositive = item.change >= 0;
+                    change.className = isPositive
+                      ? "text-green-600"
+                      : "text-red-600";
+                    change.textContent = formatChange(item.change);
+                    wrapper.appendChild(change);
+                  }
+
+                  track.appendChild(wrapper);
+
+                  // Always add divider after each item (needed for seamless loop)
+                  const divider = document.createElement("span");
+                  divider.className = "ticker-divider";
+                  divider.textContent = "|";
+                  track.appendChild(divider);
+                });
+
+                track.innerHTML += track.innerHTML;
+                track.classList.add("is-animated");
+              };
+
+              const loadTicker = async () => {
+                try {
+                  const response = await fetch(endpoint, { cache: "no-store" });
+                  if (!response.ok) throw new Error("Ticker fetch failed");
+                  const data = await response.json();
+                  renderItems(data.items);
+                } catch (error) {
+                  renderItems([
+                    {
+                      label: "Ticker",
+                      value: "Unavailable (check API keys)",
+                    },
+                  ]);
+                }
+              };
+
+              loadTicker();
+              setInterval(loadTicker, 60_000);
+            }
+          </script>
         </CardWrapper>
         <div class="grid md:grid-cols-3 grid-rows-1 gap-4">
           <CardWrapper>
