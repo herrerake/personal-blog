@@ -50,7 +50,64 @@ import Header from "@/components/Header.astro";
 
 Tailwind CSS with custom design tokens defined in `tailwind.config.mjs`. Use utility classes as the primary styling mechanism.
 
+### Dark Mode
+
+Dark mode uses Tailwind's `darkMode: "class"` strategy. The `.dark` class is toggled on `<html>`.
+
+**Key files:**
+- `src/styles/global.css` - CSS custom properties (single source of truth for theme colors)
+- `src/components/ThemeToggle.astro` - Toggle button with sun/moon icons
+- `src/components/BaseHead.astro` - Inline script prevents FOUC by reading localStorage/system preference
+
+**Color variables in global.css:**
+```css
+:root {
+  --body-bg: #FFFEF5;      /* Light: ivory */
+  --body-text: #042c55;    /* Light: dark blue */
+  --text-secondary: #667085;
+  --color-positive: #16a34a;
+  --color-negative: #dc2626;
+  --color-divider: #9ca3af;
+  --color-active-dot: #ED1C24;
+}
+.dark {
+  --body-bg: #0d1117;      /* Dark: terminal black */
+  --body-text: #e6edf3;    /* Dark: off-white */
+  --text-secondary: #8b949e;
+  --color-positive: #3fb950;
+  --color-negative: #f85149;
+  --color-divider: #8b949e;
+  --color-active-dot: #39d353; /* Green for TUI aesthetic */
+}
+```
+
+**Theme change event:** Components can listen for theme changes:
+```javascript
+window.addEventListener("themechange", (e) => {
+  console.log("Dark mode:", e.detail.isDark);
+});
+```
+
+### Live Ticker
+
+The homepage ticker (`src/pages/index.astro`) fetches data from `/api/ticker.json` and displays scrolling sports/market updates.
+
+**Implementation notes:**
+- Uses `requestAnimationFrame` for smooth scrolling (not CSS animations)
+- Reads colors from CSS custom properties via `getComputedStyle()` for theme support
+- Listens for `themechange` event to re-render with correct colors
+- Cleanup function stored in `window.__herrerake.tickerCleanup` for View Transitions
+- Re-initializes on `astro:page-load` event
+
+### View Transitions
+
+The site uses Astro's View Transitions. Components with client-side state must:
+1. Clean up on navigation (cancel animations, clear intervals, remove listeners)
+2. Re-initialize on `astro:page-load` event
+3. Store cleanup functions in `window.__herrerake` namespace
+
 ## Verification
 
 - UI/content changes: run `yarn dev` to spot-check
 - Build/deployment changes: run `yarn build` to verify
+- Dark mode: toggle theme and verify all pages render correctly in both modes

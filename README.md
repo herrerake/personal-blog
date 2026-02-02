@@ -1,20 +1,20 @@
 # Herrerake
 
-Personal site built with Astro, Tailwind CSS, and MDX. It includes a homepage,
-portfolio, and blog powered by content collections.
+Personal portfolio/blog site built with Astro, Tailwind CSS, and MDX. Features a homepage with live sports/markets ticker, portfolio showcase, and blog powered by content collections. Includes dark mode with a TUI (terminal) aesthetic.
 
 ## Stack
 
-- Astro 3
+- Astro 5 (hybrid SSR)
 - Tailwind CSS
 - MDX + content collections
-- Cloudflare Pages adapter
+- Cloudflare Workers adapter
+- View Transitions API
 
 ## Quick start
 
 ```sh
-npm install
-npm run dev
+yarn install
+yarn dev
 ```
 
 Dev server runs at `http://localhost:4321`.
@@ -23,13 +23,12 @@ Dev server runs at `http://localhost:4321`.
 
 | Command | Action |
 | --- | --- |
-| `npm run dev` | Start local dev server |
-| `npm run build` | Build production site into `dist/` |
-| `npm run preview` | Preview the production build |
-| `npm run lint` | Run ESLint on `.astro`, `.js`, `.ts`, `.tsx` |
-| `npm run format` | Format with Prettier + Astro plugin |
-| `npm run workers:dev` | Build and run Cloudflare Workers dev |
-| `npm run workers:deploy` | Build and deploy to Cloudflare Workers |
+| `yarn dev` | Start local dev server |
+| `yarn build` | Build production site into `dist/` |
+| `yarn preview` | Preview the production build |
+| `yarn lint` | Run ESLint on `.astro`, `.js`, `.ts`, `.tsx` |
+| `yarn format` | Format with Prettier + Astro plugin |
+| `yarn workers:deploy` | Build and deploy to Cloudflare Workers |
 
 ## Content
 
@@ -65,12 +64,25 @@ tags: ["design", "development"]
 featured: true
 ```
 
+## Features
+
+### Dark Mode
+
+Toggle between light (Apple-minimalist) and dark (TUI terminal aesthetic) themes. Theme preference is saved to localStorage and respects system preference on first visit.
+
+- Light: Ivory background (#FFFEF5), blue text
+- Dark: Terminal black (#0d1117), high-contrast text, green accents
+
+### Live Ticker
+
+Homepage displays a scrolling ticker with live sports scores and market data. Colors adapt to theme via CSS custom properties defined in `src/styles/global.css`.
+
 ## Deployment
 
 Set the canonical site URL in `astro.config.mjs` and use:
 
 ```sh
-npm run workers:deploy
+yarn workers:deploy
 ```
 
 ## Structure
