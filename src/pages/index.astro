@@ -42,17 +42,6 @@ const placeholderBlogPosts = [
   <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
     <style>
-      @keyframes ticker-scroll {
-        from {
-          transform: translateX(0);
-        }
-        to {
-          transform: translateX(-50%);
-        }
-      }
-      .ticker-track.is-animated {
-        animation: ticker-scroll 10s linear infinite;
-      }
       .ticker-track > .ticker-divider {
         opacity: 0.35;
       }
@@ -120,7 +109,7 @@ const placeholderBlogPosts = [
             </div>
             <div class="relative w-full overflow-hidden">
               <div
-                class="ticker-track flex items-center gap-8 whitespace-nowrap text-sm md:text-base"
+                class="ticker-track flex items-center whitespace-nowrap text-sm md:text-base"
               >
                 <span class="text-gray-500">Loading ticker...</span>
               </div>
@@ -133,6 +122,11 @@ const placeholderBlogPosts = [
             const track = tickerRoot?.querySelector(".ticker-track");
             if (tickerRoot && track) {
               const endpoint = tickerRoot.getAttribute("data-endpoint");
+              let lastDataHash = "";
+              let scrollPos = 0;
+              let halfWidth = 0;
+              let animationId = null;
+              const speed = 50; // pixels per second
 
               const formatChange = (value) => {
                 if (typeof value !== "number" || Number.isNaN(value)) return "";
@@ -140,19 +134,13 @@ const placeholderBlogPosts = [
                 return `${sign}${value.toFixed(2)}%`;
               };
 
-              const renderItems = (items) => {
-                track.innerHTML = "";
-                if (!items?.length) {
-                  track.innerHTML =
-                    '<span class="text-gray-500">No live updates available.</span>';
-                  track.classList.remove("is-animated");
-                  return;
-                }
+              const hashData = (items) => JSON.stringify(items);
 
-                items.forEach((item, index) => {
+              const buildContent = (items) => {
+                const fragment = document.createDocumentFragment();
+                items.forEach((item) => {
                   const wrapper = document.createElement("span");
-                  wrapper.className =
-                    "ticker-item inline-flex items-center gap-2";
+                  wrapper.className = "ticker-item inline-flex items-center gap-2";
 
                   const label = document.createElement("span");
                   label.className = "font-semibold text-gray-700";
@@ -166,45 +154,82 @@ const placeholderBlogPosts = [
 
                   if (typeof item.change === "number") {
                     const change = document.createElement("span");
-                    const isPositive = item.change >= 0;
-                    change.className = isPositive
-                      ? "text-green-600"
-                      : "text-red-600";
+                    change.className = item.change >= 0 ? "text-green-600" : "text-red-600";
                     change.textContent = formatChange(item.change);
                     wrapper.appendChild(change);
                   }
 
-                  track.appendChild(wrapper);
+                  fragment.appendChild(wrapper);
 
-                  // Always add divider after each item (needed for seamless loop)
                   const divider = document.createElement("span");
-                  divider.className = "ticker-divider";
+                  divider.className = "ticker-divider mx-4";
                   divider.textContent = "|";
-                  track.appendChild(divider);
+                  fragment.appendChild(divider);
                 });
-
-                track.innerHTML += track.innerHTML;
-                track.classList.add("is-animated");
+                return fragment;
               };
 
-              const loadTicker = async () => {
+              let lastTime = 0;
+              const animate = (timestamp) => {
+                if (!lastTime) lastTime = timestamp;
+                const delta = timestamp - lastTime;
+                lastTime = timestamp;
+
+                scrollPos += (speed * delta) / 1000;
+
+                // Reset seamlessly when first half scrolls out
+                if (scrollPos >= halfWidth) {
+                  scrollPos -= halfWidth;
+                }
+
+                track.style.transform = `translateX(-${scrollPos}px)`;
+                animationId = requestAnimationFrame(animate);
+              };
+
+              const startAnimation = () => {
+                if (animationId) cancelAnimationFrame(animationId);
+                lastTime = 0;
+                scrollPos = 0;
+                // Measure half width after content is rendered
+                halfWidth = track.scrollWidth / 2;
+                animationId = requestAnimationFrame(animate);
+              };
+
+              const renderItems = (items, force = false) => {
+                const newHash = hashData(items);
+                if (!force && newHash === lastDataHash) return;
+                lastDataHash = newHash;
+
+                if (animationId) cancelAnimationFrame(animationId);
+                track.style.transform = "";
+                track.innerHTML = "";
+
+                if (!items?.length) {
+                  track.innerHTML = '<span class="text-gray-500">No live updates available.</span>';
+                  return;
+                }
+
+                // Build content twice for seamless loop
+                track.appendChild(buildContent(items));
+                track.appendChild(buildContent(items));
+
+                // Start smooth scrolling
+                requestAnimationFrame(() => startAnimation());
+              };
+
+              const loadTicker = async (force = false) => {
                 try {
                   const response = await fetch(endpoint, { cache: "no-store" });
                   if (!response.ok) throw new Error("Ticker fetch failed");
                   const data = await response.json();
-                  renderItems(data.items);
+                  renderItems(data.items, force);
                 } catch (error) {
-                  renderItems([
-                    {
-                      label: "Ticker",
-                      value: "Unavailable (check API keys)",
-                    },
-                  ]);
+                  renderItems([{ label: "Ticker", value: "Unavailable" }], force);
                 }
               };
 
-              loadTicker();
-              setInterval(loadTicker, 60_000);
+              loadTicker(true);
+              setInterval(() => loadTicker(false), 60_000);
             }
           </script>
         </CardWrapper>
