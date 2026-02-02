@@ -1,0 +1,11 @@
+name = "herrerake"
+main = "dist/_worker.js"
+compatibility_date = "2024-12-01"
+compatibility_flags = ["nodejs_compat"]
+
+assets = { directory = "./dist", binding = "ASSETS" }
+
+[[kv_namespaces]]
+binding = "TICKER_CACHE"
+id = "3f0726ba6a0f49b085fca6d716570442"
+preview_id = "7b33cb0473a74993a874080c19178b03"

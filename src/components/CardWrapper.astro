@@ -3,7 +3,7 @@ const { class: className }: { class?: string } = Astro.props;
 ---
 
 <div
-  class={`py-6 px-6 sm:px-10 rounded-2xl bg-cardBg border border-cardBorder ${className}`}
+  class={`py-6 px-6 sm:px-10 rounded-2xl bg-cardBg border border-cardBorder dark:bg-darkCard dark:border-darkBorder transition-colors ${className}`}
 >
   <slot />
 </div>

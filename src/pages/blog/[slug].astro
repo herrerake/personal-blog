@@ -1,21 +1,23 @@
 ---
-import Header from "../../components/Header.astro";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
-import Footer from "../../components/Footer.astro";
-import { CollectionEntry, getCollection } from "astro:content";
-import BaseHead from "../../components/BaseHead.astro";
-import Prose from "../../components/Prose.astro";
-import FormattedDate from "../../components/FormattedDate.astro";
-import BlogCard from "../../components/BlogCard.astro";
+import Header from "@/components/Header.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "@/consts";
+import Footer from "@/components/Footer.astro";
+import { type CollectionEntry, getCollection } from "astro:content";
+import BaseHead from "@/components/BaseHead.astro";
+import Prose from "@/components/Prose.astro";
+import FormattedDate from "@/components/FormattedDate.astro";
+import BlogCard from "@/components/BlogCard.astro";
 
 type BlogEntry = CollectionEntry<"blog">;
+
+export const prerender = true;
 
 // 1. Generate a new path for every collection entry
 export async function getStaticPaths() {
   const blogEntries = await getCollection("blog");
   const featuredBlogs = blogEntries.filter((entry) => entry.data.featured);
   return blogEntries.map((blog) => ({
-    params: { slug: blog.slug },
+    params: { slug: blog.id },
     props: { blog, featuredBlogs: featuredBlogs.slice(0, 2) },
   }));
 }
@@ -41,11 +43,11 @@ const { Content } = await blog.render();
           style={{
             backgroundImage: `linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.8)), url(${blog.data.image.url})`,
           }}
-          transition:name={`blog-card-${blog.slug}`}
+          transition:name={`blog-card-${blog.id}`}
         >
           <div class="max-w-[900px] space-y-8">
             <h2
-              transition:name={`blog-title-${blog.slug}`}
+              transition:name={`blog-title-${blog.id}`}
               class="text-white text-4xl sm:text-5xl font-bold mb-2"
             >
               {blog.data.title}
@@ -63,7 +65,7 @@ const { Content } = await blog.render();
       </div>
       <Prose> <Content /></Prose>
       <div class="my-4 mt-12">
-        <h3 class="text-2xl font-bold mb-4">Related blog posts</h3>
+        <h3 class="text-2xl font-bold mb-4 dark:text-darkText">Related blog posts</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           {featuredBlogs.map((blog) => <BlogCard blog={blog} />)}
         </div>

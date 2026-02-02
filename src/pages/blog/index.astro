@@ -1,11 +1,11 @@
 ---
-import BaseHead from "../../components/BaseHead.astro";
-import Header from "../../components/Header.astro";
-import Footer from "../../components/Footer.astro";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
+import BaseHead from "@/components/BaseHead.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "@/consts";
 import { getCollection } from "astro:content";
-import CardWrapper from "../../components/CardWrapper.astro";
-import BlogCard from "../../components/BlogCard.astro";
+import CardWrapper from "@/components/CardWrapper.astro";
+import BlogCard from "@/components/BlogCard.astro";
 
 const blogs = await getCollection("blog", ({ data }) => {
   return data.featured === true;
@@ -48,11 +48,11 @@ const filterOptions = [
       <main>
         <CardWrapper class="mb-4">
           <div class="">
-            <h1 class="text-6xl px-0 font-bold text-bluePrimary -ml-1">Blog</h1>
+            <h1 class="text-6xl px-0 font-bold text-bluePrimary dark:text-darkText -ml-1">Blog</h1>
           </div>
           <div class="flex mt-6 justify-between">
             <div class="hidden md:inline-block">
-              <h3 class="text-bluePrimary text-xl font-bold">Filter</h3>
+              <h3 class="text-bluePrimary text-xl font-bold dark:text-darkText">Filter</h3>
               <div
                 class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 item-center gap-4"
               >
@@ -62,7 +62,7 @@ const filterOptions = [
                       <input type="hidden" name="filter" value={option.value} />
                       <button
                         type="submit"
-                        class={`${filter === option.value ? "text-white" : "text-textPrimary"} text-base border-[#e0e0e0] ${filter === option.value ? "bg-bluePrimary" : "bg-[#eaeaea]"} rounded-full px-6 py-2`}
+                        class={`${filter === option.value ? "text-white" : "text-textPrimary dark:text-darkTextSecondary"} text-base border-[#e0e0e0] dark:border-darkBorder ${filter === option.value ? "bg-bluePrimary dark:bg-darkAccent dark:text-darkBg" : "bg-[#eaeaea] dark:bg-darkBg"} rounded-full px-6 py-2`}
                       >
                         {option.label}
                       </button>
@@ -72,10 +72,10 @@ const filterOptions = [
               </div>
             </div>
             <div class="">
-              <h3 class="text-bluePrimary text-xl font-bold">Search Blog</h3>
+              <h3 class="text-bluePrimary text-xl font-bold dark:text-darkText">Search Blog</h3>
               <div class="flex item-center space-x-4">
                 <form
-                  class="md:min-w-[300px] lg:min-w-[340px] flex items-center mt-2 text-textPrimary text-base border-[#e0e0e0] bg-[#eaeaea] rounded-full px-6 py-2"
+                  class="md:min-w-[300px] lg:min-w-[340px] flex items-center mt-2 text-textPrimary dark:text-darkTextSecondary text-base border-[#e0e0e0] dark:border-darkBorder bg-[#eaeaea] dark:bg-darkBg rounded-full px-6 py-2"
                 >
                   <svg
                     width="18"
@@ -83,16 +83,17 @@ const filterOptions = [
                     viewBox="0 0 18 18"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
+                    class="text-textPrimary dark:text-darkTextSecondary"
                   >
                     <path
                       d="M13.125 13.125L16.5 16.5"
-                      stroke="#667085"
+                      stroke="currentColor"
                       stroke-width="1.5"
                       stroke-linecap="round"
                       stroke-linejoin="round"></path>
                     <path
                       d="M15 8.25C15 4.52208 11.978 1.5 8.25 1.5C4.52208 1.5 1.5 4.52208 1.5 8.25C1.5 11.978 4.52208 15 8.25 15C11.978 15 15 11.978 15 8.25Z"
-                      stroke="#667085"
+                      stroke="currentColor"
                       stroke-width="1.5"
                       stroke-linejoin="round"></path>
                   </svg>
@@ -101,7 +102,7 @@ const filterOptions = [
                     type="text"
                     name="search"
                     value={search}
-                    class="bg-transparent w-full text-textPrimary placeholder:text-textPrimary/80 px-2 outline-none focus:outline-none"
+                    class="bg-transparent w-full text-textPrimary dark:text-darkText placeholder:text-textPrimary/80 dark:placeholder:text-darkTextSecondary/80 px-2 outline-none focus:outline-none"
                     placeholder="I want to read about"
                   />
                 </form>

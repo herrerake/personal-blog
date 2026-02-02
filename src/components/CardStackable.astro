@@ -13,25 +13,25 @@ const { blog } = Astro.props as { blog: Blog };
     <div class="w-full max-w-lg">
       <div class="w-36 rounded-t-3xl inverted-border-radius-bottom-right">
         <span
-          class="relative justify-center self-start px-4 py-1.5 whitespace-nowrap border border-solid bg-green-600 bg-opacity-20 border-green-600 border-opacity-20 rounded-full text-sm"
+          class="relative justify-center self-start px-4 py-1.5 whitespace-nowrap border border-solid bg-green-600 bg-opacity-20 border-green-600 border-opacity-20 rounded-full text-sm text-green-800 dark:text-darkPositive dark:bg-darkPositive dark:bg-opacity-20 dark:border-darkPositive dark:border-opacity-20"
         >
           {blog.data.tags[0]}
         </span>
       </div>
-      <a href={`/blog/${blog.slug}`}>
-        <h3 class="text-2xl font-bold mt-2">{blog.data.title}</h3>
+      <a href={`/blog/${blog.id}`}>
+        <h3 class="text-2xl font-bold mt-2 dark:text-darkText">{blog.data.title}</h3>
       </a>
-      <p class="text-base text-textPrimary">
+      <p class="text-base text-textPrimary dark:text-darkTextSecondary">
         {blog.data.description}
       </p>
     </div>
     <div>
-      <div class="detail-button p-4 bg-white rounded-full">
+      <div class="detail-button p-4 bg-white dark:bg-darkBg rounded-full">
         <div
           style="opacity: 1; transform: translate3d(0%, 0%, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;"
           class="w-embed"
         >
-          <a href={`/blog/${blog.slug}`}>
+          <a href={`/blog/${blog.id}`}>
             <svg
               width="48"
               height="48"
@@ -48,7 +48,7 @@ const { blog } = Astro.props as { blog: Blog };
       </div>
     </div>
   </div>
-  <div class="flex items-center justify-end space-x-2 text-textPrimary text-sm">
+  <div class="flex items-center justify-end space-x-2 text-textPrimary dark:text-darkTextSecondary text-sm">
     <div class="self-stretch my-auto">
       <FormattedDate date={blog.data.pubDate} />
     </div>
