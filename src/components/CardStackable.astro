@@ -10,14 +10,14 @@ const { tag, title, description, url } = Astro.props;
   <div class="w-full max-w-lg">
     <button class="rounded-full ...">{tag}</button>
     <a href={url}>
-      <h3 class="text-3xl">{title}</h3>
+      <h3 class="text-3xl dark:text-darkText">{title}</h3>
     </a>
-    <p class="text">
+    <p class="text dark:text-darkTextSecondary">
       {description}
     </p>
   </div>
   <div>
-    <div class="detail-button p-4 bg-white rounded-full">
+    <div class="detail-button p-4 bg-white dark:bg-darkBg rounded-full">
       <div
         style="opacity: 1; transform: translate3d(0%, 0%, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;"
         class="w-embed"

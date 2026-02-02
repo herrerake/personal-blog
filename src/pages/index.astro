@@ -102,10 +102,10 @@ const placeholderBlogPosts = [
             data-endpoint="/api/ticker.json"
           >
             <div
-              class="shrink-0 flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-gray-500"
+              class="shrink-0 flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-gray-500 dark:text-darkTextSecondary"
             >
               <span
-                class="live-dot inline-block h-2.5 w-2.5 rounded-full bg-red-600"
+                class="live-dot inline-block h-2.5 w-2.5 rounded-full bg-red-600 dark:bg-darkGreen"
               ></span>
               <span>Live</span>
             </div>
@@ -113,7 +113,7 @@ const placeholderBlogPosts = [
               <div
                 class="ticker-track flex items-center whitespace-nowrap text-sm md:text-base"
               >
-                <span class="text-gray-500">Loading ticker...</span>
+                <span class="text-gray-500 dark:text-darkTextSecondary">Loading ticker...</span>
               </div>
             </div>
           </div>
@@ -140,25 +140,29 @@ const placeholderBlogPosts = [
 
               const buildContent = (items) => {
                 const fragment = document.createDocumentFragment();
+                const isDark = document.documentElement.classList.contains("dark");
                 items.forEach((item) => {
                   const wrapper = document.createElement("span");
                   wrapper.className =
                     "ticker-item inline-flex items-center gap-2";
 
                   const label = document.createElement("span");
-                  label.className = "font-semibold text-gray-700";
+                  label.className = isDark ? "font-semibold text-darkText" : "font-semibold text-gray-700";
                   label.textContent = item.label;
                   wrapper.appendChild(label);
 
                   const value = document.createElement("span");
-                  value.className = "text-gray-600";
+                  value.className = isDark ? "text-darkTextSecondary" : "text-gray-600";
                   value.textContent = item.value;
                   wrapper.appendChild(value);
 
                   if (typeof item.change === "number") {
                     const change = document.createElement("span");
-                    change.className =
-                      item.change >= 0 ? "text-green-600" : "text-red-600";
+                    if (isDark) {
+                      change.className = item.change >= 0 ? "text-[#3fb950]" : "text-[#f85149]";
+                    } else {
+                      change.className = item.change >= 0 ? "text-green-600" : "text-red-600";
+                    }
                     change.textContent = formatChange(item.change);
                     wrapper.appendChild(change);
                   }
@@ -166,7 +170,7 @@ const placeholderBlogPosts = [
                   fragment.appendChild(wrapper);
 
                   const divider = document.createElement("span");
-                  divider.className = "ticker-divider mx-4";
+                  divider.className = isDark ? "ticker-divider mx-4 text-darkTextSecondary" : "ticker-divider mx-4";
                   divider.textContent = "|";
                   fragment.appendChild(divider);
                 });
@@ -209,8 +213,9 @@ const placeholderBlogPosts = [
                 track.innerHTML = "";
 
                 if (!items?.length) {
+                  const isDark = document.documentElement.classList.contains("dark");
                   track.innerHTML =
-                    '<span class="text-gray-500">No live updates available.</span>';
+                    `<span class="${isDark ? 'text-darkTextSecondary' : 'text-gray-500'}">No live updates available.</span>`;
                   return;
                 }
 
@@ -244,12 +249,12 @@ const placeholderBlogPosts = [
         <div class="grid md:grid-cols-3 grid-rows-1 gap-4">
           <CardWrapper>
             <span class="text-7xl">🤘🏾</span>
-            <h3 class="text-5xl">
+            <h3 class="text-5xl dark:text-darkText">
               Based in <br /> Austin, Texas <br /> GMT-6
             </h3>
           </CardWrapper>
           <CardWrapper class="md:col-span-2">
-            <p class="h3 text-3xl">
+            <p class="h3 text-3xl dark:text-darkTextSecondary">
               I design build and deliver AI-assisted systemns that automate
               repetative human workflows. Right now I'm specifically focused on
               creating an agent that takes data from Google docs into
@@ -267,7 +272,7 @@ const placeholderBlogPosts = [
             {placeholderBlogPosts.map((post) => <CardStackable {...post} />)}
             <a
               href="/blog"
-              class="text-center py-3 px-16 rounded-lg bg-bluePrimary text-white text-base font-medium flex items-center space-x-1"
+              class="text-center py-3 px-16 rounded-lg bg-bluePrimary text-white text-base font-medium flex items-center space-x-1 dark:bg-darkAccent dark:text-darkBg"
             >
               <span>View all blogs</span>
               <svg

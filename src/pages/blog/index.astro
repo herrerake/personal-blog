@@ -67,13 +67,23 @@ const posts = entries.map((item) => {
         color: rgb(var(--black));
         line-height: 1;
       }
+      :global(.dark) .title {
+        color: #e6edf3;
+      }
       .date {
         margin: 0;
         color: rgb(var(--gray));
       }
+      :global(.dark) .date {
+        color: #8b949e;
+      }
       ul li a:hover h4,
       ul li a:hover .date {
         color: rgb(var(--accent));
+      }
+      :global(.dark) ul li a:hover h4,
+      :global(.dark) ul li a:hover .date {
+        color: #58a6ff;
       }
       ul a:hover img {
         box-shadow: var(--box-shadow);
