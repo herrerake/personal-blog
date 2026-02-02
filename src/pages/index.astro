@@ -80,7 +80,7 @@ const placeholderBlogPosts = [
             <div>
               <h1>Kevin Herrera</h1>
               <p class="text-3xl">
-                is a Frontend Engineer and designer by trade. Collaboration and
+                is a Frontend Engineer by trade. Collaboration and
                 creating is his passion. Currently creating & collaborating at
                 <span class="cloudflare-orange">
                   <a href="https://www.cloudflare.com" target="_blank"
@@ -104,7 +104,9 @@ const placeholderBlogPosts = [
             <div
               class="shrink-0 flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-gray-500"
             >
-              <span class="live-dot inline-block h-2.5 w-2.5 rounded-full bg-red-600"></span>
+              <span
+                class="live-dot inline-block h-2.5 w-2.5 rounded-full bg-red-600"
+              ></span>
               <span>Live</span>
             </div>
             <div class="relative w-full overflow-hidden">
@@ -140,7 +142,8 @@ const placeholderBlogPosts = [
                 const fragment = document.createDocumentFragment();
                 items.forEach((item) => {
                   const wrapper = document.createElement("span");
-                  wrapper.className = "ticker-item inline-flex items-center gap-2";
+                  wrapper.className =
+                    "ticker-item inline-flex items-center gap-2";
 
                   const label = document.createElement("span");
                   label.className = "font-semibold text-gray-700";
@@ -154,7 +157,8 @@ const placeholderBlogPosts = [
 
                   if (typeof item.change === "number") {
                     const change = document.createElement("span");
-                    change.className = item.change >= 0 ? "text-green-600" : "text-red-600";
+                    change.className =
+                      item.change >= 0 ? "text-green-600" : "text-red-600";
                     change.textContent = formatChange(item.change);
                     wrapper.appendChild(change);
                   }
@@ -205,7 +209,8 @@ const placeholderBlogPosts = [
                 track.innerHTML = "";
 
                 if (!items?.length) {
-                  track.innerHTML = '<span class="text-gray-500">No live updates available.</span>';
+                  track.innerHTML =
+                    '<span class="text-gray-500">No live updates available.</span>';
                   return;
                 }
 
@@ -224,7 +229,10 @@ const placeholderBlogPosts = [
                   const data = await response.json();
                   renderItems(data.items, force);
                 } catch (error) {
-                  renderItems([{ label: "Ticker", value: "Unavailable" }], force);
+                  renderItems(
+                    [{ label: "Ticker", value: "Unavailable" }],
+                    force,
+                  );
                 }
               };
 
@@ -242,10 +250,10 @@ const placeholderBlogPosts = [
           </CardWrapper>
           <CardWrapper class="md:col-span-2">
             <p class="h3 text-3xl">
-              As a software engineer, I specialize in developing unique and
-              user-friendly digital products. I believe that a successful
-              software starts with a solid foundation, clear communication, and
-              a deep understanding of the end user's needs.
+              I design build and deliver AI-assisted systemns that automate
+              repetative human workflows. Right now I'm specifically focused on
+              creating an agent that takes data from Google docs into
+              Contentful. I also make Arepas 🫓
             </p>
           </CardWrapper>
         </div>
