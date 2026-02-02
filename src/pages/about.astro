@@ -1,8 +1,8 @@
 ---
-import BaseHead from "../components/BaseHead.astro";
-import CardWrapper from "../components/CardWrapper.astro";
-import Footer from "../components/Footer.astro";
-import Header from "../components/Header.astro";
+import BaseHead from "@/components/BaseHead.astro";
+import CardWrapper from "@/components/CardWrapper.astro";
+import Footer from "@/components/Footer.astro";
+import Header from "@/components/Header.astro";
 
 const educationList = [
   {
@@ -24,7 +24,7 @@ const educationList = [
 const experienceList = [
   {
     title: "Cloudflare",
-    time: "2 Years",
+    time: "4 Years",
     logo: "/cloudflare-logo.png",
     alt: "Cloudflare logo",
     year: "2022 - Present",
@@ -66,11 +66,11 @@ const aboutMePageContent = {
             class="py-12 flex flex-col-reverse lg:flex-row items-center justify-between lg:space-x-8"
           >
             <div class="flex-1 mt-8 lg:mt-0 max-w-[630px]">
-              <h1 class="text-bluePrimary text-3xl md:text-4xl font-bold mb-4">
+              <h1 class="text-bluePrimary text-3xl md:text-4xl font-bold mb-4 dark:text-darkText">
                 About Me
               </h1>
               <p
-                class="text-xl md:text-2xl leading-7 font-bold text-textPrimary"
+                class="text-xl md:text-2xl leading-7 font-bold text-textPrimary dark:text-darkTextSecondary"
               > {aboutMePageContent.summary}
               </p>
             </div>
@@ -93,16 +93,16 @@ const aboutMePageContent = {
           <div class="w-full">
             <CardWrapper class="h-full">
               <div class="py-6">
-                <h2 class="text-bluePrimary text-3xl font-bold mb-4">
+                <h2 class="text-bluePrimary text-3xl font-bold mb-4 dark:text-darkText">
                   Education
                 </h2>
-                <p class="text-textPrimary text-xl leading-6">
+                <p class="text-textPrimary text-xl leading-6 dark:text-darkTextSecondary">
                   {aboutMePageContent.education}
                 </p>
                 <div class="grid sm:grid-cols-2 gap-6 mt-8">
                   {
                     educationList.map((education) => (
-                      <div class="flex items-center justify-between py-4 px-4 rounded-lg bg-white">
+                      <div class="flex items-center justify-between py-4 px-4 rounded-lg bg-white dark:bg-darkBg">
                         <div class="">
                           <img
                             src={education.logo}
@@ -113,15 +113,15 @@ const aboutMePageContent = {
                           />
                         </div>
                         <div class="ml-2 mr-auto">
-                          <h3 class="text-bluePrimary text-sm xl:text-base leading-4 font-bold">
+                          <h3 class="text-bluePrimary text-sm xl:text-base leading-4 font-bold dark:text-darkText">
                             {education.institution}
                           </h3>
-                          <p class="text-textPrimary text-xs">
+                          <p class="text-textPrimary text-xs dark:text-darkTextSecondary">
                             {education.title}
                           </p>
                         </div>
                         <div class="">
-                          <p class="text-textPrimary text-xs ml-2 2xl:text-sm">
+                          <p class="text-textPrimary text-xs ml-2 2xl:text-sm dark:text-darkTextSecondary">
                             {education.year}
                           </p>
                         </div>
@@ -135,16 +135,16 @@ const aboutMePageContent = {
           <div class="w-full">
             <CardWrapper class="h-full">
               <div class="py-6">
-                <h2 class="text-bluePrimary text-3xl font-bold mb-4">
+                <h2 class="text-bluePrimary text-3xl font-bold mb-4 dark:text-darkText">
                   Experience
                 </h2>
-                <p class="text-textPrimary text-xl leading-6">
+                <p class="text-textPrimary text-xl leading-6 dark:text-darkTextSecondary">
                   {aboutMePageContent.experience}
                 </p>
                 <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-1 mt-8">
                   {
                     experienceList.map((experience) => (
-                      <div class="flex items-center justify-between py-3 px-4 rounded-lg bg-white">
+                      <div class="flex items-center justify-between py-3 px-4 rounded-lg bg-white dark:bg-darkBg">
                         <div class="">
                           <img
                             src={experience.logo}
@@ -155,15 +155,15 @@ const aboutMePageContent = {
                           />
                         </div>
                         <div class="ml-2 mr-auto">
-                          <h3 class="text-bluePrimary text-sm xl:text-base leading-4 font-bold">
+                          <h3 class="text-bluePrimary text-sm xl:text-base leading-4 font-bold dark:text-darkText">
                             {experience.title}
                           </h3>
-                          <p class="text-textPrimary text-xs">
+                          <p class="text-textPrimary text-xs dark:text-darkTextSecondary">
                             {experience.time}
                           </p>
                         </div>
                         <div class="">
-                          <p class="text-textPrimary text-xs ml-2 2xl:text-sm">
+                          <p class="text-textPrimary text-xs ml-2 2xl:text-sm dark:text-darkTextSecondary">
                             {experience.year}
                           </p>
                         </div>
@@ -179,7 +179,7 @@ const aboutMePageContent = {
       <div>
         <CardWrapper>
           <div class="py-4">
-            <h2 class="text-bluePrimary text-3xl font-bold">
+            <h2 class="text-bluePrimary text-3xl font-bold dark:text-darkText">
               Photos I took 📸
             </h2>
             <div class="grid md:grid-cols-2 gap-4 my-6 auto-rows-[330px]">

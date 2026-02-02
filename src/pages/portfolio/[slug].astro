@@ -1,13 +1,13 @@
 ---
-// import Layout from "../../layouts/Layout.astro";
-import Header from "../../components/Header.astro";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
-import Footer from "../../components/Footer.astro";
+// import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "@/consts";
+import Footer from "@/components/Footer.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
-import BaseHead from "../../components/BaseHead.astro";
-import CardWrapper from "../../components/CardWrapper.astro";
-import Prose from "../../components/Prose.astro";
-import CollaborateCard from "../../components/CollaborateCard.astro";
+import BaseHead from "@/components/BaseHead.astro";
+import CardWrapper from "@/components/CardWrapper.astro";
+import Prose from "@/components/Prose.astro";
+import CollaborateCard from "@/components/CollaborateCard.astro";
 
 // 1. Generate a new path for every collection entry
 export async function getStaticPaths() {
@@ -40,12 +40,12 @@ const { Content } = await entry.render();
             <div class="py-6">
               <h2
                 transition:name={`portfilio-title-${entry.slug}`}
-                class="text-bluePrimary text-3xl font-bold mb-2"
+                class="text-bluePrimary text-3xl font-bold mb-2 dark:text-darkText"
               >
                 {entry.data.title}
               </h2>
               <p
-                class="text-textPrimary text-sm md:text-lg divide-x divide-[#9BABBB] leading-7 -ml-2"
+                class="text-textPrimary text-sm md:text-lg divide-x divide-[#9BABBB] dark:divide-darkBorder leading-7 -ml-2 dark:text-darkTextSecondary"
               >
                 {
                   entry.data.tags.map((tag) => (

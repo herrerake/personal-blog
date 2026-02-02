@@ -1,10 +1,10 @@
 ---
-import BaseHead from "../../components/BaseHead.astro";
-import Header from "../../components/Header.astro";
-import Footer from "../../components/Footer.astro";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
-import CardWrapper from "../../components/CardWrapper.astro";
-import CollaborateCard from "../../components/CollaborateCard.astro";
+import BaseHead from "@/components/BaseHead.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "@/consts";
+import CardWrapper from "@/components/CardWrapper.astro";
+import CollaborateCard from "@/components/CollaborateCard.astro";
 import { getCollection } from "astro:content";
 
 const portfolios = await getCollection("portfolio", ({ data }) => {
@@ -26,10 +26,10 @@ const portfolios = await getCollection("portfolio", ({ data }) => {
           <div class="w-full">
             <CardWrapper class="h-full">
               <div class="py-6">
-                <h2 class="text-bluePrimary text-3xl font-bold mb-4">
+                <h2 class="text-bluePrimary text-3xl font-bold mb-4 dark:text-darkText">
                   Portfolio
                 </h2>
-                <p class="text-textPrimary text-2xl font-bold leading-7">
+                <p class="text-textPrimary text-2xl font-bold leading-7 dark:text-darkTextSecondary">
                   Lorem ipsum dolor sit amet consectetur. Diam sit eu eu morbi
                   venenatis faucibus duis nisl. Orci justo tellus nec eget
                   ullamcorper tristique egestas lacus. Sed tortor diam ultrices
@@ -53,17 +53,17 @@ const portfolios = await getCollection("portfolio", ({ data }) => {
                   >
                     <h2
                       transition:name={`portfilio-title-${portfolio.slug}`}
-                      class="text-bluePrimary text-3xl font-bold"
+                      class="text-bluePrimary text-3xl font-bold dark:text-darkText"
                     >
                       {portfolio.data.title}
                     </h2>
-                    <p class="text-textPrimary text-xl font-bold leading-6">
+                    <p class="text-textPrimary text-xl font-bold leading-6 dark:text-darkTextSecondary">
                       {portfolio.data.description}
                     </p>
                     <div class="">
                       <a
                         href={`/portfolio/${portfolio.slug}`}
-                        class="text-center py-3 rounded-lg bg-bluePrimary text-white text-sm font-medium px-10"
+                        class="text-center py-3 rounded-lg bg-bluePrimary text-white text-sm font-medium px-10 dark:bg-darkAccent dark:text-darkBg"
                       >
                         View Project
                       </a>
