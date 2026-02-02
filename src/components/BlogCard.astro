@@ -4,12 +4,12 @@ import FormattedDate from "./FormattedDate.astro";
 
 type Blog = CollectionEntry<"blog">;
 
-const { blog, className } = Astro.props as { blog: Blog; className?: string };
+const { blog } = Astro.props as { blog: Blog };
 ---
 
 <>
   <div
-    class={`w-full lg:aspect-[1.1/1] bg-cover bg-center relative overflow-hidden rounded-3xl ${className}`}
+    class="w-full lg:aspect-[1.1/1] bg-cover bg-center relative overflow-hidden rounded-3xl"
     style={{ backgroundImage: `url(${blog.data.image.url})` }}
     transition:name={`blog-card-${blog.slug}`}
   >

@@ -5,13 +5,38 @@ import Footer from "../components/Footer.astro";
 import CardStackable from "../components/CardStackable.astro";
 import CardWrapper from "../components/CardWrapper.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
-import { getCollection } from "astro:content";
+// import { getCollection } from "astro:content";
 import CollaborateCard from "../components/CollaborateCard.astro";
 import BlogCard from "../components/BlogCard.astro";
 
-const featuredBlogs = await getCollection("blog", ({ data }) => {
-  return data.featured === true;
-});
+// const featuredBlogs = await getCollection("blog", ({ data }) => {
+//   return data.featured === true;
+// });
+
+
+const placeholderBlogPosts = [
+  {
+    title: "Getting Started with Astro.js",
+    description:
+      "Learn how to kickstart your development journey with Astro.js.",
+    tag: "Astro.js",
+    url: "https://example.com/getting-started-with-astro-js",
+  },
+  {
+    title: "Advanced Techniques in Astro.js",
+    description:
+      "Explore advanced tips and tricks to take your Astro.js skills to the next level.",
+    tag: "Astro.js",
+    url: "https://example.com/advanced-techniques-in-astro-js",
+  },
+  {
+    title: "Introduction to Reactive Programming",
+    description:
+      "Discover the fundamentals of reactive programming and its applications in modern web development.",
+    tag: "Reactive Programming",
+    url: "https://example.com/introduction-to-reactive-programming",
+  },
+];
 ---
 
 <html lang="en">
