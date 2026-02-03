@@ -18,7 +18,7 @@ const { blog } = Astro.props as { blog: Blog };
           {blog.data.tags[0]}
         </span>
       </div>
-      <a href={`/blog/${blog.slug}`}>
+      <a href={`/blog/${blog.id}`}>
         <h3 class="text-2xl font-bold mt-2 dark:text-darkText">{blog.data.title}</h3>
       </a>
       <p class="text-base text-textPrimary dark:text-darkTextSecondary">
@@ -31,7 +31,7 @@ const { blog } = Astro.props as { blog: Blog };
           style="opacity: 1; transform: translate3d(0%, 0%, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg); transform-style: preserve-3d;"
           class="w-embed"
         >
-          <a href={`/blog/${blog.slug}`}>
+          <a href={`/blog/${blog.id}`}>
             <svg
               width="48"
               height="48"
