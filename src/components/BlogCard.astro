@@ -11,7 +11,7 @@ const { blog } = Astro.props as { blog: Blog };
   <div
     class="w-full lg:aspect-[1.1/1] bg-cover bg-center relative overflow-hidden rounded-3xl"
     style={{ backgroundImage: `url(${blog.data.image.url})` }}
-    transition:name={`blog-card-${blog.slug}`}
+    transition:name={`blog-card-${blog.id}`}
   >
     <div
       class="backdrop-brightness-50 w-full h-full p-6 sm:p-8 flex flex-col items-start justify-between"
@@ -36,7 +36,7 @@ const { blog } = Astro.props as { blog: Blog };
         <div class="bg-white dark:bg-darkCard">
           <div
             class="relative mt-3.5 text-xl md:text-2xl font-bold tracking-tighter max-md:max-w-full text-bluePrimary dark:text-darkText"
-            transition:name={`blog-title-${blog.slug}`}
+            transition:name={`blog-title-${blog.id}`}
           >
             {blog.data.title}
           </div>
@@ -50,7 +50,7 @@ const { blog } = Astro.props as { blog: Blog };
           class="flex sm:flex-col-reverse md:flex-row relative gap-4 items-center self-start mt-4 text-xs tracking-tight leading-5 text-gray-500 dark:text-darkTextSecondary"
         >
           <a
-            href={`/blog/${blog.slug}`}
+            href={`/blog/${blog.id}`}
             class="flex gap-2 self-stretch px-3 py-2 text-sm tracking-tight leading-5 text-white rounded-md bg-sky-950 dark:bg-darkAccent dark:text-darkBg items-center"
           >
             <div class="grow">Read More</div>
