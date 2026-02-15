@@ -25,7 +25,8 @@ This is a personal portfolio/blog site built with **Astro 5** using hybrid serve
 - **Output mode:** `server` (hybrid SSR via `@astrojs/cloudflare` adapter)
 - **File-based routing:** Pages in `src/pages/` map directly to routes
 - **API endpoints:** Server-side routes at `src/pages/api/*.ts` (e.g., `ticker.json.ts` for live sports/market data)
-- **Prerendered pages:** Blog, portfolio, and OTR pages use `export const prerender = true` with `getStaticPaths()`
+- **Prerendered pages:** Blog and portfolio pages use `export const prerender = true` with `getStaticPaths()`
+- **Server-rendered pages:** OTR pages are fully server-rendered (no `prerender`) to support runtime `Astro.locals.isColumns` routing
 
 ### Content Collections
 
@@ -40,7 +41,7 @@ Required frontmatter fields (all collections):
 - `image: { url, alt }`
 - Blog only: `series` (required string)
 - OTR only: `column` (optional string, overrides columnist's default `columnName`)
-- OTR `author` field must match a columnist `slug` from `src/data/columnists.ts`
+- OTR `author` field must match an author content collection entry slug from `src/content/authors/`
 
 ### OTR (Off the Record) — Subdomain Feature
 
@@ -48,7 +49,7 @@ Weekly columns by mentors, served at `otr.herrerake.com` in production and `/otr
 
 **Subdomain routing:** `src/middleware.ts` rewrites requests from `otr.herrerake.com` by prepending `/otr` to the path. In local dev, pages work directly at `/otr/*` without middleware since file-based routes exist.
 
-**Author registry:** `src/data/columnists.ts` — typed `Columnist[]` array with `getColumnistBySlug()` helper. This is the source of truth for author profiles (not a content collection). Avatar images go in `public/columnists/`.
+**Author registry:** Authors are an Astro content collection (`src/content/authors/*.json`) with helper functions in `src/data/authors.ts` (`getAuthorBySlug()`, `getAllAuthors()`). Avatar images go in `public/columnists/`.
 
 **Key routes:**
 - `/otr/` — Hub page (columnists grid + latest posts)

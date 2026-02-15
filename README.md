@@ -78,7 +78,7 @@ featured: true
 
 ### OTR columns
 
-Add `.md` or `.mdx` files to `src/content/otr/`. The `author` field must match a columnist `slug` from `src/data/columnists.ts`.
+Add `.md` or `.mdx` files to `src/content/otr/`. The `author` field must match an author `slug` (filename without extension) from `src/content/authors/`.
 
 ```yaml
 title: "Column title"
@@ -93,7 +93,7 @@ featured: true
 column: "Optional Column Name Override"
 ```
 
-To add a new columnist, add an entry to the `columnists` array in `src/data/columnists.ts` and place their avatar image in `public/columnists/`.
+To add a new author, create a JSON file in `src/content/authors/` (e.g., `john-doe.json`) and place their avatar image in `public/columnists/`. The helper functions in `src/data/authors.ts` query the content collection.
 
 ## Features
 
@@ -126,7 +126,7 @@ src/
 │   ├── otr/            # OTR column posts (.md/.mdx)
 │   └── config.ts       # Collection schemas (Zod)
 ├── data/
-│   └── columnists.ts   # Author registry for OTR
+│   └── authors.ts      # Author query helpers (content collection)
 ├── layouts/            # Page layouts (BlogPost, OTRLayout)
 ├── pages/
 │   ├── api/            # Server-side API routes
@@ -138,3 +138,18 @@ src/
 ├── middleware.ts        # Subdomain routing (otr.herrerake.com)
 └── consts.ts           # Site-wide constants
 ```
+
+## Agent Skills
+
+This project includes [agent skills](https://www.npmjs.com/package/skills) that extend AI coding agents with domain-specific knowledge. Skills live in `.agents/skills/` and are symlinked into `.claude/skills/` for Claude Code.
+
+**Installed project skills:**
+
+| Skill | Source | Description |
+| --- | --- | --- |
+| `astro` | `astrolicious/agent-skills` | Astro framework best practices |
+| `cloudflare` | `cloudflare/skills` | Cloudflare platform knowledge |
+| `tailwind-design-system` | `wshobson/agents` | Tailwind design system patterns |
+| `frontend-design` | `anthropics/skills` | Frontend design guidelines |
+
+To install a new skill: `npx skills add <owner/repo> -s <skill-name>`

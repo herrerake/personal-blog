@@ -18,7 +18,7 @@ export async function getStaticPaths() {
   const featuredBlogs = blogEntries.filter((entry) => entry.data.featured);
   return blogEntries.map((blog) => ({
     params: { slug: blog.id },
-    props: { blog, featuredBlogs: featuredBlogs.slice(0, 2) },
+    props: { blog, featuredBlogs: featuredBlogs.filter((b) => b.id !== blog.id).slice(0, 2) },
   }));
 }
 
@@ -30,6 +30,7 @@ const { blog, featuredBlogs } = Astro.props as {
 const { Content } = await blog.render();
 ---
 
+<!doctype html>
 <html lang="en">
   <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />

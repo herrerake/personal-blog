@@ -20,24 +20,39 @@ type CacheEntry<T> = {
 
 // Cache TTLs in milliseconds - tuned for free tier limits
 const CACHE_TTL = {
-  forex: 30 * 60 * 1000,      // 30 min (ExchangeRate-API: 1,500/month = ~48/day max)
-  stocks: 60 * 60 * 1000,     // 1 hour (AlphaVantage: 25/day)
-  crypto: 10 * 60 * 1000,     // 10 min
-  gold: 30 * 60 * 1000,       // 30 min
-  sports: 2 * 60 * 1000,      // 2 min (only during live games)
-  response: 60 * 1000,        // 1 min for assembled response
+  forex: 30 * 60 * 1000, // 30 min (ExchangeRate-API: 1,500/month = ~48/day max)
+  stocks: 60 * 60 * 1000, // 1 hour (AlphaVantage: 25/day)
+  crypto: 10 * 60 * 1000, // 10 min
+  gold: 30 * 60 * 1000, // 30 min
+  sports: 2 * 60 * 1000, // 2 min (only during live games)
+  response: 60 * 1000, // 1 min for assembled response
 };
 
 // In-memory fallback cache (for local dev or KV unavailable)
 const memoryCache = new Map<string, CacheEntry<unknown>>();
 
-const getEnv = (context: Parameters<APIRoute>[0]) => ({
-  REALTIME_SPORTS_API_KEY: import.meta.env.REALTIME_SPORTS_API_KEY ?? context.locals?.runtime?.env?.REALTIME_SPORTS_API_KEY,
-  API_FOOTBALL_KEY: import.meta.env.API_FOOTBALL_KEY ?? context.locals?.runtime?.env?.API_FOOTBALL_KEY,
-  ALPHAVANTAGE_KEY: import.meta.env.ALPHAVANTAGE_KEY ?? context.locals?.runtime?.env?.ALPHAVANTAGE_KEY,
-  EXCHANGERATE_API_KEY: import.meta.env.EXCHANGERATE_API_KEY ?? context.locals?.runtime?.env?.EXCHANGERATE_API_KEY,
-  TICKER_CACHE: context.locals?.runtime?.env?.TICKER_CACHE as KVNamespace | undefined,
-});
+type RuntimeEnv = {
+  REALTIME_SPORTS_API_KEY?: string;
+  API_FOOTBALL_KEY?: string;
+  ALPHAVANTAGE_KEY?: string;
+  EXCHANGERATE_API_KEY?: string;
+  TICKER_CACHE?: KVNamespace;
+};
+
+const getRuntimeEnv = (context: Parameters<APIRoute>[0]) =>
+  (context.locals as { runtime?: { env?: RuntimeEnv } } | undefined)?.runtime
+    ?.env;
+
+const getEnv = (context: Parameters<APIRoute>[0]) => {
+  const runtimeEnv = getRuntimeEnv(context);
+  return {
+    REALTIME_SPORTS_API_KEY: runtimeEnv?.REALTIME_SPORTS_API_KEY,
+    API_FOOTBALL_KEY: runtimeEnv?.API_FOOTBALL_KEY,
+    ALPHAVANTAGE_KEY: runtimeEnv?.ALPHAVANTAGE_KEY,
+    EXCHANGERATE_API_KEY: runtimeEnv?.EXCHANGERATE_API_KEY,
+    TICKER_CACHE: runtimeEnv?.TICKER_CACHE,
+  };
+};
 
 async function getCached<T>(
   key: string,
@@ -50,7 +65,7 @@ async function getCached<T>(
   // Try KV first (persistent across worker invocations)
   if (kv) {
     try {
-      const cached = await kv.get(key, "json") as CacheEntry<T> | null;
+      const cached = (await kv.get(key, "json")) as CacheEntry<T> | null;
       if (cached && cached.expiresAt > now) {
         return cached.data;
       }
@@ -73,7 +88,9 @@ async function getCached<T>(
     // Store in KV
     if (kv) {
       try {
-        await kv.put(key, JSON.stringify(entry), { expirationTtl: Math.ceil(ttl / 1000) + 60 });
+        await kv.put(key, JSON.stringify(entry), {
+          expirationTtl: Math.ceil(ttl / 1000) + 60,
+        });
       } catch {
         // KV write failed, continue
       }
@@ -121,10 +138,16 @@ const formatChange = (current: number, previous: number | null) => {
   return ((current - previous) / previous) * 100;
 };
 
-const getRealtimeEvents = (payload: unknown, leagueLabel: string): TickerItem[] => {
+const getRealtimeEvents = (
+  payload: unknown,
+  leagueLabel: string,
+): TickerItem[] => {
   const data = payload as Record<string, unknown>;
   const events: unknown[] =
-    (data?.data as unknown[]) || (data?.events as unknown[]) || (data?.response as unknown[]) || [];
+    (data?.data as unknown[]) ||
+    (data?.events as unknown[]) ||
+    (data?.response as unknown[]) ||
+    [];
 
   return events
     .map((event) => {
@@ -133,14 +156,24 @@ const getRealtimeEvents = (payload: unknown, leagueLabel: string): TickerItem[] 
         normalizeText((e?.home_team as Record<string, unknown>)?.name) ||
         normalizeText((e?.homeTeam as Record<string, unknown>)?.name) ||
         normalizeText((e?.home as Record<string, unknown>)?.name) ||
-        normalizeText((e?.teams as Record<string, unknown>)?.home as Record<string, unknown>) ||
+        normalizeText(
+          (e?.teams as Record<string, unknown>)?.home as Record<
+            string,
+            unknown
+          >,
+        ) ||
         normalizeText(e?.home_team) ||
         normalizeText(e?.home);
       const away =
         normalizeText((e?.away_team as Record<string, unknown>)?.name) ||
         normalizeText((e?.awayTeam as Record<string, unknown>)?.name) ||
         normalizeText((e?.away as Record<string, unknown>)?.name) ||
-        normalizeText((e?.teams as Record<string, unknown>)?.away as Record<string, unknown>) ||
+        normalizeText(
+          (e?.teams as Record<string, unknown>)?.away as Record<
+            string,
+            unknown
+          >,
+        ) ||
         normalizeText(e?.away_team) ||
         normalizeText(e?.away);
       if (!home || !away) return null;
@@ -177,7 +210,9 @@ const getRealtimeEvents = (payload: unknown, leagueLabel: string): TickerItem[] 
         normalizeText(e?.minute);
 
       const scoreText = formatScore(homeScore, awayScore);
-      const statusText = [scoreText, time || status].filter(Boolean).join(" • ");
+      const statusText = [scoreText, time || status]
+        .filter(Boolean)
+        .join(" • ");
 
       return {
         category: "sports" as const,
@@ -195,8 +230,12 @@ const getApiFootballEvents = (payload: unknown): TickerItem[] => {
     .map((event) => {
       const e = event as Record<string, unknown>;
       const teams = e?.teams as Record<string, unknown>;
-      const home = normalizeText((teams?.home as Record<string, unknown>)?.name);
-      const away = normalizeText((teams?.away as Record<string, unknown>)?.name);
+      const home = normalizeText(
+        (teams?.home as Record<string, unknown>)?.name,
+      );
+      const away = normalizeText(
+        (teams?.away as Record<string, unknown>)?.name,
+      );
       if (!home || !away) return null;
 
       const goals = e?.goals as Record<string, unknown>;
@@ -227,20 +266,33 @@ const createFetchers = (env: ReturnType<typeof getEnv>) => ({
     const items: TickerItem[] = [];
 
     if (env.REALTIME_SPORTS_API_KEY) {
-      const headers = { Authorization: `Bearer ${env.REALTIME_SPORTS_API_KEY}` };
+      const headers = {
+        Authorization: `Bearer ${env.REALTIME_SPORTS_API_KEY}`,
+      };
       const [nflResult, nbaResult] = await Promise.allSettled([
-        fetchJson("https://www.realtimesportsapi.com/api/v1/sports/football/leagues/nfl/events/live", { headers }),
-        fetchJson("https://www.realtimesportsapi.com/api/v1/sports/basketball/leagues/nba/events/live", { headers }),
+        fetchJson(
+          "https://www.realtimesportsapi.com/api/v1/sports/football/leagues/nfl/events/live",
+          { headers },
+        ),
+        fetchJson(
+          "https://www.realtimesportsapi.com/api/v1/sports/basketball/leagues/nba/events/live",
+          { headers },
+        ),
       ]);
-      if (nflResult.status === "fulfilled") items.push(...getRealtimeEvents(nflResult.value, "NFL"));
-      if (nbaResult.status === "fulfilled") items.push(...getRealtimeEvents(nbaResult.value, "NBA"));
+      if (nflResult.status === "fulfilled")
+        items.push(...getRealtimeEvents(nflResult.value, "NFL"));
+      if (nbaResult.status === "fulfilled")
+        items.push(...getRealtimeEvents(nbaResult.value, "NBA"));
     }
 
     if (env.API_FOOTBALL_KEY) {
       try {
-        const payload = await fetchJson("https://v3.football.api-sports.io/fixtures?live=all", {
-          headers: { "x-apisports-key": env.API_FOOTBALL_KEY },
-        });
+        const payload = await fetchJson(
+          "https://v3.football.api-sports.io/fixtures?live=all",
+          {
+            headers: { "x-apisports-key": env.API_FOOTBALL_KEY },
+          },
+        );
         items.push(...getApiFootballEvents(payload));
       } catch {
         // Soccer fetch failed
@@ -256,8 +308,14 @@ const createFetchers = (env: ReturnType<typeof getEnv>) => ({
     url.searchParams.set("function", "TIME_SERIES_DAILY");
     url.searchParams.set("symbol", "SPY");
     url.searchParams.set("apikey", env.ALPHAVANTAGE_KEY);
-    const payload = await fetchJson(url.toString()) as Record<string, unknown>;
-    const series = payload?.["Time Series (Daily)"] as Record<string, Record<string, unknown>>;
+    const payload = (await fetchJson(url.toString())) as Record<
+      string,
+      unknown
+    >;
+    const series = payload?.["Time Series (Daily)"] as Record<
+      string,
+      Record<string, unknown>
+    >;
     if (!series) return null;
     const dates = Object.keys(series).sort().reverse();
     const latest = series?.[dates[0]];
@@ -279,8 +337,14 @@ const createFetchers = (env: ReturnType<typeof getEnv>) => ({
     url.searchParams.set("function", "TIME_SERIES_DAILY");
     url.searchParams.set("symbol", "NET");
     url.searchParams.set("apikey", env.ALPHAVANTAGE_KEY);
-    const payload = await fetchJson(url.toString()) as Record<string, unknown>;
-    const series = payload?.["Time Series (Daily)"] as Record<string, Record<string, unknown>>;
+    const payload = (await fetchJson(url.toString())) as Record<
+      string,
+      unknown
+    >;
+    const series = payload?.["Time Series (Daily)"] as Record<
+      string,
+      Record<string, unknown>
+    >;
     if (!series) return null;
     const dates = Object.keys(series).sort().reverse();
     const latest = series?.[dates[0]];
@@ -298,8 +362,12 @@ const createFetchers = (env: ReturnType<typeof getEnv>) => ({
 
   async fetchCrypto(): Promise<TickerItem[]> {
     // CoinGecko free API - no key required
-    const url = "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=usd&include_24hr_change=true";
-    const payload = await fetchJson(url) as Record<string, Record<string, number>>;
+    const url =
+      "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=usd&include_24hr_change=true";
+    const payload = (await fetchJson(url)) as Record<
+      string,
+      Record<string, number>
+    >;
     const items: TickerItem[] = [];
 
     if (payload?.bitcoin) {
@@ -331,7 +399,9 @@ const createFetchers = (env: ReturnType<typeof getEnv>) => ({
   },
 
   async fetchGold(): Promise<TickerItem | null> {
-    const payload = await fetchJson("https://api.gold-api.com/price/XAU") as Record<string, unknown>;
+    const payload = (await fetchJson(
+      "https://api.gold-api.com/price/XAU",
+    )) as Record<string, unknown>;
     const price = toNumber(payload?.price);
     if (price === null) return null;
     return {
@@ -344,17 +414,32 @@ const createFetchers = (env: ReturnType<typeof getEnv>) => ({
   async fetchForex(): Promise<TickerItem[]> {
     if (!env.EXCHANGERATE_API_KEY) return [];
     const url = `https://v6.exchangerate-api.com/v6/${env.EXCHANGERATE_API_KEY}/latest/USD`;
-    const payload = await fetchJson(url) as Record<string, unknown>;
+    const payload = (await fetchJson(url)) as Record<string, unknown>;
     const rates = payload?.conversion_rates as Record<string, unknown>;
     if (!rates) return [];
 
     const items: TickerItem[] = [];
     const eurRate = toNumber(rates?.EUR);
-    if (eurRate !== null) items.push({ category: "markets", label: "USD/EUR", value: `€${eurRate.toFixed(4)}` });
+    if (eurRate !== null)
+      items.push({
+        category: "markets",
+        label: "USD/EUR",
+        value: `€${eurRate.toFixed(4)}`,
+      });
     const copRate = toNumber(rates?.COP);
-    if (copRate !== null) items.push({ category: "markets", label: "USD/COP", value: `$${copRate.toFixed(0)}` });
+    if (copRate !== null)
+      items.push({
+        category: "markets",
+        label: "USD/COP",
+        value: `$${copRate.toFixed(0)}`,
+      });
     const gbpRate = toNumber(rates?.GBP);
-    if (gbpRate !== null) items.push({ category: "markets", label: "USD/GBP", value: `£${gbpRate.toFixed(4)}` });
+    if (gbpRate !== null)
+      items.push({
+        category: "markets",
+        label: "USD/GBP",
+        value: `£${gbpRate.toFixed(4)}`,
+      });
     return items;
   },
 });
@@ -368,12 +453,17 @@ export const GET: APIRoute = async (context) => {
   const cachedResponse = await getCached<TickerResponse>(
     "ticker:response",
     CACHE_TTL.response,
-    async () => { throw new Error("skip"); },
+    async () => {
+      throw new Error("skip");
+    },
     kv,
   );
   if (cachedResponse) {
     return new Response(JSON.stringify(cachedResponse), {
-      headers: { "content-type": "application/json", "cache-control": "public, max-age=60" },
+      headers: {
+        "content-type": "application/json",
+        "cache-control": "public, max-age=60",
+      },
     });
   }
 
@@ -389,29 +479,42 @@ export const GET: APIRoute = async (context) => {
 
   const items: TickerItem[] = [
     ...(sports ?? []).slice(0, 6),
-    ...[stocks, net].filter(Boolean) as TickerItem[],
+    ...([stocks, net].filter(Boolean) as TickerItem[]),
     ...(crypto ?? []),
-    ...[gold].filter(Boolean) as TickerItem[],
+    ...([gold].filter(Boolean) as TickerItem[]),
     ...(forex ?? []),
   ];
 
   const data: TickerResponse = {
     updatedAt: new Date().toISOString(),
-    items: items.length ? items : [{ category: "markets", label: "Ticker", value: "No data available" }],
+    items: items.length
+      ? items
+      : [{ category: "markets", label: "Ticker", value: "No data available" }],
   };
 
   // Cache the assembled response
   if (kv) {
     try {
-      const entry: CacheEntry<TickerResponse> = { data, expiresAt: Date.now() + CACHE_TTL.response };
-      await kv.put("ticker:response", JSON.stringify(entry), { expirationTtl: 120 });
+      const entry: CacheEntry<TickerResponse> = {
+        data,
+        expiresAt: Date.now() + CACHE_TTL.response,
+      };
+      await kv.put("ticker:response", JSON.stringify(entry), {
+        expirationTtl: 120,
+      });
     } catch {
       // KV write failed
     }
   }
-  memoryCache.set("ticker:response", { data, expiresAt: Date.now() + CACHE_TTL.response });
+  memoryCache.set("ticker:response", {
+    data,
+    expiresAt: Date.now() + CACHE_TTL.response,
+  });
 
   return new Response(JSON.stringify(data), {
-    headers: { "content-type": "application/json", "cache-control": "public, max-age=60" },
+    headers: {
+      "content-type": "application/json",
+      "cache-control": "public, max-age=60",
+    },
   });
 };
