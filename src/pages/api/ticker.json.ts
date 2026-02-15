@@ -40,8 +40,12 @@ type RuntimeEnv = {
 };
 
 const getRuntimeEnv = (context: Parameters<APIRoute>[0]) =>
+<<<<<<< HEAD
   (context.locals as { runtime?: { env?: RuntimeEnv } } | undefined)?.runtime
     ?.env;
+=======
+  (context.locals as { runtime?: { env?: RuntimeEnv } } | undefined)?.runtime?.env;
+>>>>>>> a27efa5 (fix: audit critical issues — dead code, a11y, and security)
 
 const getEnv = (context: Parameters<APIRoute>[0]) => {
   const runtimeEnv = getRuntimeEnv(context);
