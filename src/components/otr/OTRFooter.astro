@@ -2,15 +2,16 @@
 import CardWrapper from "@/components/CardWrapper.astro";
 
 const today = new Date();
+const mainSiteLink = Astro.locals.isColumns ? "https://herrerake.com" : "/";
 ---
 
 <footer class="my-4">
   <CardWrapper>
     <div class="flex place-content-between items-center flex-wrap gap-4">
       <div>
-        <a href="/otr">
+        <a href="/">
           <img
-            src="/herrerake-logo-oleo-script-swash-caps-black.png"
+            src="/branding/herrerake-logo-oleo-script-swash-caps-black.png"
             loading="lazy"
             width="156"
             alt="Herrerake Logo"
@@ -20,7 +21,7 @@ const today = new Date();
       </div>
       <div class="text-sm text-textPrimary dark:text-darkTextSecondary">
         <a
-          href="/"
+          href={mainSiteLink}
           class="hover:underline text-bluePrimary dark:text-darkAccent"
         >
           herrerake.com

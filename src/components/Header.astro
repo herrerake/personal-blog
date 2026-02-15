@@ -3,6 +3,8 @@ import HeaderLink from "./HeaderLink.astro";
 import CardWrapper from "./CardWrapper.astro";
 import ThemeToggle from "./ThemeToggle.astro";
 
+const otrLink = "/otr/";
+
 const links = [
   {
     name: "Home",
@@ -22,7 +24,7 @@ const links = [
   },
   {
     name: "OTR",
-    location: "/otr",
+    location: otrLink,
   },
 ];
 ---
@@ -33,7 +35,7 @@ const links = [
       <h2>
         <a href="/">
           <img
-            src="/herrerake-logo-oleo-script-swash-caps-black.png"
+            src="/branding/herrerake-logo-oleo-script-swash-caps-black.png"
             loading="lazy"
             width="156"
             alt="Herrerake Logo"

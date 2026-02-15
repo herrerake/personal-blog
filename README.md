@@ -53,7 +53,7 @@ pubDate: 2023-12-11
 description: "Short summary"
 author: "Your name"
 image:
-  url: "/blog-placeholder-1.jpg"
+  url: "/images/blog-placeholder-1.jpg"
   alt: "Alt text"
 tags: ["personal", "engineering"]
 series: "Series name"

@@ -5,18 +5,18 @@ import Prose from "@/components/Prose.astro";
 import FormattedDate from "@/components/FormattedDate.astro";
 import OTRCard from "@/components/otr/OTRCard.astro";
 import { getCollection } from "astro:content";
-import { getColumnistBySlug } from "@/data/columnists";
+import { getAuthorBySlug } from "@/data/authors";
 
 const { slug } = Astro.params;
 const allEntries = await getCollection("otr");
 const post = allEntries.find((p) => p.id === slug);
 
 if (!post) {
-  return Astro.redirect("/otr");
+  return Astro.redirect("/");
 }
 
 const { Content } = await post.render();
-const columnist = getColumnistBySlug(post.data.author);
+const columnist = await getAuthorBySlug(post.data.author);
 const columnName = post.data.column || columnist?.columnName || "Column";
 
 // Related posts from same author
@@ -57,7 +57,7 @@ const relatedPosts = allPosts
   <!-- Author Info Card -->
   {columnist && (
     <CardWrapper class="mb-6">
-      <a href={columnist.hidden ? "/blog" : `/otr/authors/${columnist.slug}`} class="flex items-center gap-4 group">
+      <a href={columnist.hidden ? (Astro.locals.isColumns ? "https://herrerake.com/blog" : "/blog") : `${Astro.locals.isColumns ? "" : "/otr"}/authors/${columnist.slug}`} class="flex items-center gap-4 group">
         <img
           src={columnist.avatar}
           alt={columnist.name}
