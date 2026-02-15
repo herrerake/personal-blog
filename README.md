@@ -149,9 +149,7 @@ This project includes [agent skills](https://www.npmjs.com/package/skills) that 
 | --- | --- | --- |
 | `astro` | `astrolicious/agent-skills` | Astro framework best practices |
 | `cloudflare` | `cloudflare/skills` | Cloudflare platform knowledge |
-| `wrangler` | `cloudflare/skills` | Wrangler CLI and Workers deployment |
 | `tailwind-design-system` | `wshobson/agents` | Tailwind design system patterns |
 | `frontend-design` | `anthropics/skills` | Frontend design guidelines |
-| `ui-ux-pro-max` | `anthropics/skills` | UI/UX design patterns and data |
 
 To install a new skill: `npx skills add <owner/repo> -s <skill-name>`

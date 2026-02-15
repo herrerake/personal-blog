@@ -54,7 +54,7 @@ yarn workers:deploy
 
 ## Agent Skills
 
-Project-level skills are in `.agents/skills/` (astro, cloudflare, wrangler, tailwind-design-system, frontend-design, ui-ux-pro-max). These provide domain-specific knowledge for Astro, Cloudflare Workers, Tailwind CSS, and frontend design. Symlinks in `.claude/skills/` and `.agent/skills/` point back to `.agents/skills/`.
+Project-level skills are in `.agents/skills/` (astro, cloudflare, tailwind-design-system, frontend-design). These provide domain-specific knowledge for Astro, Cloudflare Workers, Tailwind CSS, and frontend design. Symlinks in `.claude/skills/` and `.agent/skills/` point back to `.agents/skills/`.
 
 Install new skills with `npx skills add <owner/repo> -s <skill-name>`.
 
