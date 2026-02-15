@@ -4,7 +4,7 @@ pubDate: 2023-12-11
 description: "Lorem ipsum dolor sit amet consectetur. Adipiscing pellentesque nec sapien vulputate tristique aliquet vestibulum quis vitae. Magna nec morbi pellentesque lectus erat ipsum mi. Donec risus pellentesque egestas porttitor pretium. Commodo ultrices vestibulum."
 author: "Kevin Herrera"
 image:
-  url: "/facebook-1.png"
+  url: "/images/facebook-1.png"
   alt: "Facebook logo."
 tags:
   - "design"
