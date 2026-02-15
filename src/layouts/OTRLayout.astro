@@ -1,0 +1,28 @@
+---
+import BaseHead from "@/components/BaseHead.astro";
+import OTRHeader from "@/components/otr/OTRHeader.astro";
+import OTRFooter from "@/components/otr/OTRFooter.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+}
+
+const { title, description, image } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={`${title} | OTR`} description={description} image={image} />
+  </head>
+  <body>
+    <section class="my-8 max-w-[1240px] mx-auto px-4">
+      <OTRHeader />
+      <main>
+        <slot />
+      </main>
+      <OTRFooter />
+    </section>
+  </body>
+</html>

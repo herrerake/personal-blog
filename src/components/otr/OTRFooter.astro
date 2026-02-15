@@ -1,0 +1,36 @@
+---
+import CardWrapper from "@/components/CardWrapper.astro";
+
+const today = new Date();
+---
+
+<footer class="my-4">
+  <CardWrapper>
+    <div class="flex place-content-between items-center flex-wrap gap-4">
+      <div>
+        <a href="/otr">
+          <img
+            src="/herrerake-logo-oleo-script-swash-caps-black.png"
+            loading="lazy"
+            width="156"
+            alt="Herrerake Logo"
+            class="h-6 w-auto dark:invert dark:brightness-200"
+          />
+        </a>
+      </div>
+      <div class="text-sm text-textPrimary dark:text-darkTextSecondary">
+        <a
+          href="/"
+          class="hover:underline text-bluePrimary dark:text-darkAccent"
+        >
+          herrerake.com
+        </a>
+      </div>
+      <div>
+        <p class="text-base mb-0 dark:text-darkTextSecondary">
+          &copy; {today.getFullYear()} All rights reserved.
+        </p>
+      </div>
+    </div>
+  </CardWrapper>
+</footer>

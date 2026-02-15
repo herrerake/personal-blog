@@ -25,19 +25,37 @@ This is a personal portfolio/blog site built with **Astro 5** using hybrid serve
 - **Output mode:** `server` (hybrid SSR via `@astrojs/cloudflare` adapter)
 - **File-based routing:** Pages in `src/pages/` map directly to routes
 - **API endpoints:** Server-side routes at `src/pages/api/*.ts` (e.g., `ticker.json.ts` for live sports/market data)
+- **Prerendered pages:** Blog, portfolio, and OTR pages use `export const prerender = true` with `getStaticPaths()`
 
 ### Content Collections
 
-Content is managed through Astro's content collections with Zod schema validation:
+Content is managed through Astro's content collections with Zod schema validation (`src/content/config.ts`):
 
 - **Blog entries:** `src/content/blog/*.md|mdx`
 - **Portfolio entries:** `src/content/portfolio/*.mdx`
-- **Schema definitions:** `src/content/config.ts`
+- **OTR entries:** `src/content/otr/*.md|mdx`
 
-Required frontmatter fields (both collections):
+Required frontmatter fields (all collections):
 - `title`, `pubDate`, `description`, `author`, `tags[]`, `featured`
 - `image: { url, alt }`
 - Blog only: `series` (required string)
+- OTR only: `column` (optional string, overrides columnist's default `columnName`)
+- OTR `author` field must match a columnist `slug` from `src/data/columnists.ts`
+
+### OTR (Off the Record) — Subdomain Feature
+
+Weekly columns by mentors, served at `otr.herrerake.com` in production and `/otr/*` routes in local dev.
+
+**Subdomain routing:** `src/middleware.ts` rewrites requests from `otr.herrerake.com` by prepending `/otr` to the path. In local dev, pages work directly at `/otr/*` without middleware since file-based routes exist.
+
+**Author registry:** `src/data/columnists.ts` — typed `Columnist[]` array with `getColumnistBySlug()` helper. This is the source of truth for author profiles (not a content collection). Avatar images go in `public/columnists/`.
+
+**Key routes:**
+- `/otr/` — Hub page (columnists grid + latest posts)
+- `/otr/authors/{slug}` — Author profile + their posts
+- `/otr/posts/{slug}` — Individual post with author card and related posts
+
+**OTR components** live in `src/components/otr/` and use a dedicated layout (`src/layouts/OTRLayout.astro`) with its own header/footer, separate from the main site's `Header`/`Footer`.
 
 ### Path Alias
 

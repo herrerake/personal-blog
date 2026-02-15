@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <defs>
+    <clipPath id="clip-m2"><circle cx="128" cy="128" r="128"/></clipPath>
+    <linearGradient id="bg-m2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+  </defs>
+  <circle cx="128" cy="128" r="128" fill="url(#bg-m2)"/>
+  <g clip-path="url(#clip-m2)">
+    <!-- Body / blazer over v-neck tee -->
+    <ellipse cx="128" cy="310" rx="110" ry="120" fill="#1E3A5F"/>
+    <!-- Blazer lapels -->
+    <polygon points="108,194 88,220 106,236 118,208" fill="#274B75"/>
+    <polygon points="148,194 168,220 150,236 138,208" fill="#274B75"/>
+    <!-- V-neck tee underneath -->
+    <polygon points="118,194 128,214 138,194" fill="#292524"/>
+    <!-- Lapel edge detail -->
+    <path d="M108,194 L88,220" stroke="#1E3A5F" stroke-width="1" opacity="0.4"/>
+    <path d="M148,194 L168,220" stroke="#1E3A5F" stroke-width="1" opacity="0.4"/>
+    <!-- Shoulder structure -->
+    <path d="M88,220 Q74,224 62,236" stroke="#274B75" stroke-width="1.5" fill="none" opacity="0.25"/>
+    <path d="M168,220 Q182,224 194,236" stroke="#274B75" stroke-width="1.5" fill="none" opacity="0.25"/>
+    <!-- Cross necklace -->
+    <path d="M120,192 Q128,198 136,192" stroke="#C9A84C" stroke-width="1.2" fill="none"/>
+    <!-- Cross pendant -->
+    <line x1="128" y1="198" x2="128" y2="212" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/>
+    <line x1="123" y1="204" x2="133" y2="204" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/>
+
+    <!-- Neck -->
+    <rect x="110" y="165" width="36" height="30" rx="4" fill="#B5784E"/>
+
+    <!-- Head -->
+    <ellipse cx="128" cy="115" rx="48" ry="56" fill="#C68B59"/>
+
+    <!-- Jaw / slight beard shadow -->
+    <ellipse cx="128" cy="148" rx="38" ry="18" fill="#B07A4A" opacity="0.5"/>
+    <!-- Stubble texture - salt & pepper blend -->
+    <ellipse cx="128" cy="150" rx="32" ry="14" fill="#9A6B3E" opacity="0.2"/>
+    <ellipse cx="120" cy="150" rx="12" ry="8" fill="#7A7A7A" opacity="0.1"/>
+    <ellipse cx="140" cy="148" rx="10" ry="7" fill="#6B6B6B" opacity="0.08"/>
+    <!-- Mustache - salt & pepper -->
+    <path d="M114,134 Q121,130 128,131 Q135,130 142,134" fill="#6B4423" opacity="0.35"/>
+    <path d="M120,133 Q126,130 132,132" stroke="#7A7A7A" stroke-width="1.5" fill="none" opacity="0.18"/>
+
+    <!-- Nose -->
+    <ellipse cx="128" cy="125" rx="8" ry="6" fill="#BA7F50" opacity="0.6"/>
+
+    <!-- Eyes (no visible detail - matching female style) -->
+
+    <!-- Eyebrows (thick, expressive) -->
+    <path d="M100,98 Q112,91 122,96" stroke="#3B2314" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M134,96 Q144,91 156,98" stroke="#3B2314" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+    <!-- Hair (thick, wavy with volume - salt & pepper) -->
+    <ellipse cx="128" cy="74" rx="54" ry="34" fill="#2C1810"/>
+    <!-- Volume top -->
+    <path d="M74,80 Q74,50 100,42 Q128,34 156,42 Q182,50 182,80 Q178,58 155,48 Q128,40 101,48 Q78,58 74,80Z" fill="#1A0F08"/>
+    <!-- Gray blended patches at temples and through top -->
+    <path d="M74,80 Q74,62 86,56 Q80,62 78,76Z" fill="#6B6B6B" opacity="0.3"/>
+    <path d="M182,80 Q182,62 170,56 Q176,62 178,76Z" fill="#6B6B6B" opacity="0.3"/>
+    <ellipse cx="140" cy="60" rx="14" ry="10" fill="#7A7A7A" opacity="0.15"/>
+    <ellipse cx="105" cy="62" rx="12" ry="8" fill="#6B6B6B" opacity="0.12"/>
+    <!-- Wave texture - alternating dark and silver strokes -->
+    <path d="M86,62 Q98,54 110,62" stroke="#3B2314" stroke-width="2.5" fill="none" opacity="0.3"/>
+    <path d="M110,62 Q122,70 134,62" stroke="#8A8A8A" stroke-width="2.5" fill="none" opacity="0.28"/>
+    <path d="M134,62 Q146,54 158,62" stroke="#3B2314" stroke-width="2.5" fill="none" opacity="0.3"/>
+    <path d="M82,72 Q94,64 106,72" stroke="#7A7A7A" stroke-width="2" fill="none" opacity="0.25"/>
+    <path d="M106,72 Q118,80 130,72" stroke="#3B2314" stroke-width="2" fill="none" opacity="0.25"/>
+    <path d="M130,72 Q142,64 154,72" stroke="#8A8A8A" stroke-width="2" fill="none" opacity="0.22"/>
+    <path d="M154,72 Q162,78 170,72" stroke="#3B2314" stroke-width="2" fill="none" opacity="0.25"/>
+    <!-- Gray temple streaks -->
+    <path d="M78,78 Q76,88 78,98" stroke="#8A8A8A" stroke-width="4" fill="none" opacity="0.3"/>
+    <path d="M178,78 Q180,88 178,98" stroke="#8A8A8A" stroke-width="4" fill="none" opacity="0.3"/>
+    <!-- Hair pushed to one side — slight sweep -->
+    <path d="M74,76 Q72,68 78,62 Q86,56 90,60" fill="#1A0F08" opacity="0.6"/>
+
+    <!-- Ears -->
+    <ellipse cx="80" cy="114" rx="9" ry="14" fill="#C68B59"/>
+    <ellipse cx="80" cy="114" rx="5" ry="8" fill="#BA7F50" opacity="0.4"/>
+    <ellipse cx="176" cy="114" rx="9" ry="14" fill="#C68B59"/>
+    <ellipse cx="176" cy="114" rx="5" ry="8" fill="#BA7F50" opacity="0.4"/>
+
+    <!-- Mouth -->
+    <path d="M118,140 Q128,147 138,140" stroke="#8B5A34" stroke-width="2" fill="none" stroke-linecap="round"/>
+  </g>
+</svg>

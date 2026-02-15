@@ -9,3 +9,12 @@ assets = { directory = "./dist", binding = "ASSETS" }
 binding = "TICKER_CACHE"
 id = "3f0726ba6a0f49b085fca6d716570442"
 preview_id = "7b33cb0473a74993a874080c19178b03"
+
+# Routes for main site and OTR subdomain
+# Uncomment after adding otr.herrerake.com CNAME in Cloudflare DNS
+# [[routes]]
+# pattern = "herrerake.com/*"
+# zone_name = "herrerake.com"
+# [[routes]]
+# pattern = "otr.herrerake.com/*"
+# zone_name = "herrerake.com"

@@ -1,0 +1,101 @@
+---
+import OTRLayout from "@/layouts/OTRLayout.astro";
+import CardWrapper from "@/components/CardWrapper.astro";
+import OTRCard from "@/components/otr/OTRCard.astro";
+import { getCollection } from "astro:content";
+import { columnists } from "@/data/columnists";
+
+export const prerender = true;
+
+export function getStaticPaths() {
+  return columnists.filter((c) => !c.hidden).map((columnist) => ({
+    params: { slug: columnist.slug },
+    props: { columnist },
+  }));
+}
+
+const { columnist } = Astro.props;
+
+const posts = await getCollection(
+  "otr",
+  ({ data }) => data.author === columnist.slug
+);
+const sortedPosts = posts.sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<OTRLayout title={columnist.name} description={columnist.bio}>
+  <!-- Author Profile -->
+  <CardWrapper class="mb-6">
+    <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6">
+      <img
+        src={columnist.avatar}
+        alt={columnist.name}
+        class="w-24 h-24 rounded-full object-cover flex-shrink-0"
+      />
+      <div class="text-center sm:text-left">
+        <h1 class="text-3xl sm:text-4xl font-bold text-bluePrimary dark:text-darkText">
+          {columnist.name}
+        </h1>
+        <p class="text-green-700 dark:text-green-400 font-medium mt-1">
+          {columnist.columnName}
+        </p>
+        <p class="mt-3 text-gray-500 dark:text-darkTextSecondary">
+          {columnist.bio}
+        </p>
+        {columnist.socialLinks && (
+          <div class="flex gap-4 mt-3 justify-center sm:justify-start">
+            {columnist.socialLinks.twitter && (
+              <a
+                href={columnist.socialLinks.twitter}
+                target="_blank"
+                rel="noreferrer noopener"
+                class="text-sm text-bluePrimary dark:text-darkAccent hover:underline"
+              >
+                Twitter
+              </a>
+            )}
+            {columnist.socialLinks.linkedin && (
+              <a
+                href={columnist.socialLinks.linkedin}
+                target="_blank"
+                rel="noreferrer noopener"
+                class="text-sm text-bluePrimary dark:text-darkAccent hover:underline"
+              >
+                LinkedIn
+              </a>
+            )}
+            {columnist.socialLinks.instagram && (
+              <a
+                href={columnist.socialLinks.instagram}
+                target="_blank"
+                rel="noreferrer noopener"
+                class="text-sm text-bluePrimary dark:text-darkAccent hover:underline"
+              >
+                Instagram
+              </a>
+            )}
+          </div>
+        )}
+      </div>
+    </div>
+  </CardWrapper>
+
+  <!-- Author's Posts -->
+  <h2 class="text-2xl font-bold text-bluePrimary dark:text-darkText mb-4">
+    Posts by {columnist.name}
+  </h2>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    {sortedPosts.map((post) => (
+      <OTRCard post={post} />
+    ))}
+  </div>
+  {sortedPosts.length === 0 && (
+    <CardWrapper>
+      <p class="text-center text-gray-500 dark:text-darkTextSecondary py-8">
+        No posts yet from {columnist.name}. Check back soon!
+      </p>
+    </CardWrapper>
+  )}
+</OTRLayout>

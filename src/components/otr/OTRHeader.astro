@@ -1,29 +1,11 @@
 ---
-import HeaderLink from "./HeaderLink.astro";
-import CardWrapper from "./CardWrapper.astro";
-import ThemeToggle from "./ThemeToggle.astro";
+import HeaderLink from "@/components/HeaderLink.astro";
+import CardWrapper from "@/components/CardWrapper.astro";
+import ThemeToggle from "@/components/ThemeToggle.astro";
 
 const links = [
-  {
-    name: "Home",
-    location: "/",
-  },
-  {
-    name: "About me",
-    location: "/about",
-  },
-  {
-    name: "Portfolio",
-    location: "/portfolio",
-  },
-  {
-    name: "Blog",
-    location: "/blog",
-  },
-  {
-    name: "OTR",
-    location: "/otr",
-  },
+  { name: "OTR", location: "/otr" },
+  { name: "herrerake.com", location: "/" },
 ];
 ---
 
@@ -31,24 +13,23 @@ const links = [
   <CardWrapper class="w-full">
     <nav class="flex flex-col md:flex-row items-center justify-between">
       <h2>
-        <a href="/">
+        <a href="/otr" class="flex items-center gap-2">
           <img
             src="/herrerake-logo-oleo-script-swash-caps-black.png"
             loading="lazy"
             width="156"
             alt="Herrerake Logo"
             class="h-6 w-auto dark:invert dark:brightness-200"
-          /></a
-        >
+          />
+          <span class="text-sm font-bold text-bluePrimary dark:text-darkAccent uppercase tracking-wider">OTR</span>
+        </a>
       </h2>
       <div class="flex items-center space-x-4 sm:space-x-8 mt-4 md:mt-1">
-        {
-          links.map((link) => (
-            <HeaderLink href={link.location}>
-              {link.name}
-            </HeaderLink>
-          ))
-        }
+        {links.map((link) => (
+          <HeaderLink href={link.location}>
+            {link.name}
+          </HeaderLink>
+        ))}
         <ThemeToggle />
       </div>
     </nav>
@@ -67,9 +48,5 @@ const links = [
     color: var(--black);
     border-bottom: 4px solid transparent;
     text-decoration: none;
-  }
-  nav a.active {
-    text-decoration: none;
-    /* border-bottom-color: var(--accent); */
   }
 </style>
