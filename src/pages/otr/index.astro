@@ -1,0 +1,67 @@
+---
+import OTRLayout from "@/layouts/OTRLayout.astro";
+import CardWrapper from "@/components/CardWrapper.astro";
+import OTRCard from "@/components/otr/OTRCard.astro";
+import ColumnistCard from "@/components/otr/ColumnistCard.astro";
+import { getCollection } from "astro:content";
+import { columnists } from "@/data/columnists";
+
+export const prerender = true;
+
+const allPosts = await getCollection("otr");
+const sortedPosts = allPosts.sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+const featuredPosts = sortedPosts.filter((p) => p.data.featured);
+
+// Count posts per author
+const postCounts = new Map<string, number>();
+for (const post of allPosts) {
+  postCounts.set(post.data.author, (postCounts.get(post.data.author) || 0) + 1);
+}
+---
+
+<OTRLayout title="Off the Record" description="Weekly perspectives from mentors and thought leaders">
+  <CardWrapper class="mb-6">
+    <h1 class="text-5xl sm:text-6xl font-bold text-bluePrimary dark:text-darkText -ml-1">
+      Off the Record
+    </h1>
+    <p class="mt-3 text-lg text-gray-500 dark:text-darkTextSecondary">
+      Weekly perspectives from mentors and thought leaders.
+    </p>
+  </CardWrapper>
+
+  <!-- Columnists Grid -->
+  <div class="mb-8">
+    <h2 class="text-2xl font-bold text-bluePrimary dark:text-darkText mb-4">
+      Our Columnists
+    </h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {columnists.filter((c) => !c.hidden).map((columnist) => (
+        <ColumnistCard
+          columnist={columnist}
+          postCount={postCounts.get(columnist.slug) || 0}
+        />
+      ))}
+    </div>
+  </div>
+
+  <!-- Latest Posts -->
+  <div>
+    <h2 class="text-2xl font-bold text-bluePrimary dark:text-darkText mb-4">
+      Latest Posts
+    </h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {sortedPosts.map((post) => (
+        <OTRCard post={post} />
+      ))}
+    </div>
+    {sortedPosts.length === 0 && (
+      <CardWrapper>
+        <p class="text-center text-gray-500 dark:text-darkTextSecondary py-8">
+          No posts yet. Check back soon!
+        </p>
+      </CardWrapper>
+    )}
+  </div>
+</OTRLayout>

@@ -1,0 +1,101 @@
+---
+import OTRLayout from "@/layouts/OTRLayout.astro";
+import CardWrapper from "@/components/CardWrapper.astro";
+import Prose from "@/components/Prose.astro";
+import FormattedDate from "@/components/FormattedDate.astro";
+import OTRCard from "@/components/otr/OTRCard.astro";
+import { getCollection } from "astro:content";
+import { getColumnistBySlug } from "@/data/columnists";
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const posts = await getCollection("otr");
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+const columnist = getColumnistBySlug(post.data.author);
+const columnName = post.data.column || columnist?.columnName || "Column";
+
+// Related posts from same author
+const allPosts = await getCollection(
+  "otr",
+  ({ data }) => data.author === post.data.author
+);
+const relatedPosts = allPosts
+  .filter((p) => p.id !== post.id)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 2);
+---
+
+<OTRLayout title={post.data.title} description={post.data.description} image={post.data.image.url}>
+  <!-- Hero Image -->
+  <div class="w-full mb-6">
+    <div
+      class="w-full aspect-square sm:aspect-video bg-center bg-cover rounded-3xl overflow-hidden flex flex-col justify-end p-6 md:p-10"
+      style={{
+        backgroundImage: `linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.8)), url(${post.data.image.url})`,
+      }}
+    >
+      <div class="max-w-[900px] space-y-4">
+        <p class="text-green-300 text-sm font-medium">{columnName}</p>
+        <h1 class="text-white text-3xl sm:text-5xl font-bold">
+          {post.data.title}
+        </h1>
+        <p class="text-white/80 text-sm divide-x divide-white/40 leading-7 -ml-2">
+          <span class="px-2"><FormattedDate date={post.data.pubDate} /></span>
+          {post.data.tags.map((tag) => (
+            <span class="px-2">{tag}</span>
+          ))}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Author Info Card -->
+  {columnist && (
+    <CardWrapper class="mb-6">
+      <a href={columnist.hidden ? "/blog" : `/otr/authors/${columnist.slug}`} class="flex items-center gap-4 group">
+        <img
+          src={columnist.avatar}
+          alt={columnist.name}
+          class="w-12 h-12 rounded-full object-cover"
+        />
+        <div>
+          <p class="font-bold text-bluePrimary dark:text-darkText group-hover:underline">
+            {columnist.name}
+          </p>
+          <p class="text-sm text-gray-500 dark:text-darkTextSecondary">
+            {columnist.columnName}
+          </p>
+        </div>
+      </a>
+    </CardWrapper>
+  )}
+
+  <!-- Article Content -->
+  <div class="mb-16">
+    <Prose>
+      <Content />
+    </Prose>
+  </div>
+
+  <!-- Related Posts -->
+  {relatedPosts.length > 0 && (
+    <div class="my-4 mt-12">
+      <h3 class="text-2xl font-bold mb-4 dark:text-darkText">
+        More from {columnist?.name || "this author"}
+      </h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {relatedPosts.map((related) => (
+          <OTRCard post={related} />
+        ))}
+      </div>
+    </div>
+  )}
+</OTRLayout>

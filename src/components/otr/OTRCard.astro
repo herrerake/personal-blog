@@ -1,0 +1,55 @@
+---
+import type { CollectionEntry } from "astro:content";
+import FormattedDate from "@/components/FormattedDate.astro";
+import { getColumnistBySlug } from "@/data/columnists";
+
+interface Props {
+  post: CollectionEntry<"otr">;
+}
+
+const { post } = Astro.props;
+const columnist = getColumnistBySlug(post.data.author);
+const columnName = post.data.column || columnist?.columnName || "Column";
+---
+
+<a href={`/otr/posts/${post.id}`} class="block group">
+  <div class="rounded-2xl overflow-hidden bg-cardBg border border-cardBorder dark:bg-darkCard dark:border-darkBorder transition-colors hover:border-bluePrimary dark:hover:border-darkAccent">
+    <div
+      class="aspect-video bg-cover bg-center"
+      style={{ backgroundImage: `url(${post.data.image.url})` }}
+    >
+    </div>
+    <div class="p-5">
+      <div class="flex items-center gap-3 mb-3">
+        {columnist && (
+          <img
+            src={columnist.avatar}
+            alt={columnist.name}
+            class="w-8 h-8 rounded-full object-cover"
+          />
+        )}
+        <div class="text-sm">
+          <span class="font-bold text-bluePrimary dark:text-darkText">
+            {columnist?.name || post.data.author}
+          </span>
+          <span class="text-gray-500 dark:text-darkTextSecondary mx-1">&middot;</span>
+          <span class="text-gray-500 dark:text-darkTextSecondary">{columnName}</span>
+        </div>
+      </div>
+      <h3 class="text-lg font-bold text-bluePrimary dark:text-darkText mb-2 group-hover:underline">
+        {post.data.title}
+      </h3>
+      <p class="text-sm text-gray-500 dark:text-darkTextSecondary line-clamp-2 mb-3">
+        {post.data.description}
+      </p>
+      <div class="flex items-center gap-3 text-xs text-gray-500 dark:text-darkTextSecondary">
+        <FormattedDate date={post.data.pubDate} />
+        {post.data.tags.slice(0, 2).map((tag) => (
+          <span class="px-2 py-0.5 rounded-full bg-green-600/10 text-green-800 dark:text-green-400 border border-green-600/20">
+            {tag}
+          </span>
+        ))}
+      </div>
+    </div>
+  </div>
+</a>

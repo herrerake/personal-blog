@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <defs>
+    <clipPath id="clip-fa"><circle cx="128" cy="128" r="128"/></clipPath>
+    <linearGradient id="bg-fa" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0D9488"/>
+      <stop offset="100%" stop-color="#0F766E"/>
+    </linearGradient>
+  </defs>
+  <circle cx="128" cy="128" r="128" fill="url(#bg-fa)"/>
+  <g clip-path="url(#clip-fa)">
+    <!-- Body / top -->
+    <ellipse cx="128" cy="318" rx="98" ry="118" fill="#1C1917"/>
+    <!-- V-neck top -->
+    <polygon points="108,196 128,228 148,196" fill="#292524"/>
+    <!-- Necklace - thin gold chain -->
+    <path d="M108,198 Q128,210 148,198" stroke="#D4A853" stroke-width="1.2" fill="none"/>
+    <circle cx="128" cy="208" r="2.5" fill="#D4A853"/>
+    <!-- Neck -->
+    <rect x="113" y="166" width="30" height="30" rx="5" fill="#E8C9A0"/>
+    <!-- Head -->
+    <ellipse cx="128" cy="118" rx="46" ry="55" fill="#F0D5B0"/>
+    <!-- Slight warm olive undertone on cheeks -->
+    <circle cx="104" cy="128" r="10" fill="#E8A987" opacity="0.25"/>
+    <circle cx="152" cy="128" r="10" fill="#E8A987" opacity="0.25"/>
+    <!-- Nose -->
+    <ellipse cx="128" cy="124" rx="6" ry="5" fill="#E8C9A0" opacity="0.6"/>
+    <!-- Eyes (dark, expressive) -->
+    <ellipse cx="111" cy="108" rx="8" ry="5.5" fill="white"/>
+    <ellipse cx="145" cy="108" rx="8" ry="5.5" fill="white"/>
+    <circle cx="112" cy="108" r="4" fill="#2C1810"/>
+    <circle cx="146" cy="108" r="4" fill="#2C1810"/>
+    <!-- Eye highlight -->
+    <circle cx="113.5" cy="107" r="1.2" fill="white" opacity="0.7"/>
+    <circle cx="147.5" cy="107" r="1.2" fill="white" opacity="0.7"/>
+    <!-- Eyelashes / liner (bolder, latin glam) -->
+    <path d="M102,104 Q107,99 113,103" stroke="#1A0A00" stroke-width="2" fill="none"/>
+    <path d="M145,103 Q150,99 155,104" stroke="#1A0A00" stroke-width="2" fill="none"/>
+    <line x1="102" y1="105" x2="99" y2="103" stroke="#1A0A00" stroke-width="1.2"/>
+    <line x1="155" y1="105" x2="158" y2="103" stroke="#1A0A00" stroke-width="1.2"/>
+    <!-- Eyebrows (dark, well-defined, arched) -->
+    <path d="M99,96 Q111,88 122,94" stroke="#1A0A00" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+    <path d="M134,94 Q145,88 157,96" stroke="#1A0A00" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+    <!-- Lips (red, full — Argentine glamour) -->
+    <ellipse cx="128" cy="141" rx="13" ry="6" fill="#C41E3A" opacity="0.8"/>
+    <path d="M117,139 Q128,134 139,139" stroke="#F0D5B0" stroke-width="0.8" fill="none"/>
+    <!-- Smile hint -->
+    <path d="M120,143 Q128,148 136,143" stroke="#A8173A" stroke-width="1" fill="none" opacity="0.5"/>
+    <!-- Hair (long, dark, sleek with slight wave — think Argentine telenovela) -->
+    <ellipse cx="128" cy="80" rx="56" ry="36" fill="#0D0500"/>
+    <!-- Hair top / volume -->
+    <path d="M72,82 Q70,55 95,44 Q128,34 161,44 Q186,55 184,82 Q180,62 158,52 Q128,42 98,52 Q76,62 72,82Z" fill="#1A0A00"/>
+    <!-- Center part -->
+    <line x1="128" y1="44" x2="128" y2="78" stroke="#0D0500" stroke-width="1.5" opacity="0.5"/>
+    <!-- Long flowing hair left -->
+    <path d="M72,82 Q60,120 56,165 Q54,195 60,230 Q68,240 76,220 Q70,185 68,155 Q66,120 74,88Z" fill="#0D0500"/>
+    <!-- Hair shine left -->
+    <path d="M66,130 Q62,155 64,180" stroke="#3B2314" stroke-width="2" fill="none" opacity="0.2"/>
+    <!-- Long flowing hair right -->
+    <path d="M184,82 Q196,120 200,165 Q202,195 196,230 Q188,240 180,220 Q186,185 188,155 Q190,120 182,88Z" fill="#0D0500"/>
+    <!-- Hair shine right -->
+    <path d="M190,130 Q194,155 192,180" stroke="#3B2314" stroke-width="2" fill="none" opacity="0.2"/>
+    <!-- Subtle wave texture -->
+    <path d="M68,140 Q64,150 66,162" stroke="#2C1810" stroke-width="2" fill="none" opacity="0.15"/>
+    <path d="M188,140 Q192,150 190,162" stroke="#2C1810" stroke-width="2" fill="none" opacity="0.15"/>
+    <!-- Small elegant earrings (gold drops) -->
+    <ellipse cx="82" cy="134" rx="3" ry="5" fill="#D4A853"/>
+    <circle cx="82" cy="140" r="3" fill="#FBBF24"/>
+    <ellipse cx="174" cy="134" rx="3" ry="5" fill="#D4A853"/>
+    <circle cx="174" cy="140" r="3" fill="#FBBF24"/>
+    <!-- Ears -->
+    <ellipse cx="82" cy="120" rx="5" ry="10" fill="#F0D5B0"/>
+    <ellipse cx="174" cy="120" rx="5" ry="10" fill="#F0D5B0"/>
+  </g>
+</svg>

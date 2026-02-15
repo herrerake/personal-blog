@@ -1,6 +1,6 @@
 # Herrerake
 
-Personal portfolio/blog site built with Astro, Tailwind CSS, and MDX. Features a homepage with live sports/markets ticker, portfolio showcase, and blog powered by content collections. Includes dark mode with a TUI (terminal) aesthetic.
+Personal portfolio/blog site built with Astro, Tailwind CSS, and MDX. Features a homepage with live sports/markets ticker, portfolio showcase, blog, and **OTR (Off the Record)** — weekly columns by mentors served at `otr.herrerake.com`. Includes dark mode with a TUI (terminal) aesthetic.
 
 ## Stack
 
@@ -30,12 +30,22 @@ Dev server runs at `http://localhost:4321`.
 | `yarn format` | Format with Prettier + Astro plugin |
 | `yarn workers:deploy` | Build and deploy to Cloudflare Workers |
 
+## Sites
+
+| Domain | Description |
+| --- | --- |
+| `herrerake.com` | Main site — portfolio, blog, ticker |
+| `otr.herrerake.com` | Off the Record — weekly mentor columns |
+
+In local dev, OTR pages are at `/otr/*` (e.g., `localhost:4321/otr/`). In production, middleware (`src/middleware.ts`) rewrites `otr.herrerake.com/*` to the `/otr/*` routes.
+
 ## Content
 
-Content collections live in `src/content/` and are validated by
-`src/content/config.ts`.
+Content collections live in `src/content/` and are validated by `src/content/config.ts`.
 
 ### Blog entries
+
+Add `.md` or `.mdx` files to `src/content/blog/`.
 
 ```yaml
 title: "Post title"
@@ -52,6 +62,8 @@ featured: true
 
 ### Portfolio entries
 
+Add `.md` or `.mdx` files to `src/content/portfolio/`.
+
 ```yaml
 title: "Project name"
 pubDate: 2023-12-11
@@ -63,6 +75,25 @@ image:
 tags: ["design", "development"]
 featured: true
 ```
+
+### OTR columns
+
+Add `.md` or `.mdx` files to `src/content/otr/`. The `author` field must match a columnist `slug` from `src/data/columnists.ts`.
+
+```yaml
+title: "Column title"
+pubDate: 2026-02-10
+description: "Short summary"
+author: "john-doe"
+image:
+  url: "/image.jpg"
+  alt: "Alt text"
+tags: ["career", "writing"]
+featured: true
+column: "Optional Column Name Override"
+```
+
+To add a new columnist, add an entry to the `columnists` array in `src/data/columnists.ts` and place their avatar image in `public/columnists/`.
 
 ## Features
 
@@ -79,16 +110,31 @@ Homepage displays a scrolling ticker with live sports scores and market data. Co
 
 ## Deployment
 
-Set the canonical site URL in `astro.config.mjs` and use:
+Use `yarn workers:deploy` to build and deploy to Cloudflare Workers.
 
-```sh
-yarn workers:deploy
-```
+For the OTR subdomain, add a CNAME record for `otr` pointing to the worker domain in Cloudflare DNS, then add `otr.herrerake.com` as a custom domain on the worker.
 
 ## Structure
 
-- `src/pages/`: route entry points
-- `src/components/`: shared UI
-- `src/layouts/`: post layouts
-- `src/content/`: blog + portfolio entries
-- `public/`: static assets
+```
+src/
+├── components/         # Shared UI components
+│   └── otr/            # OTR-specific components (header, footer, cards)
+├── content/
+│   ├── blog/           # Blog posts (.md/.mdx)
+│   ├── portfolio/      # Portfolio entries (.mdx)
+│   ├── otr/            # OTR column posts (.md/.mdx)
+│   └── config.ts       # Collection schemas (Zod)
+├── data/
+│   └── columnists.ts   # Author registry for OTR
+├── layouts/            # Page layouts (BlogPost, OTRLayout)
+├── pages/
+│   ├── api/            # Server-side API routes
+│   ├── blog/           # Blog pages
+│   ├── portfolio/      # Portfolio pages
+│   └── otr/            # OTR pages (hub, authors, posts)
+├── styles/
+│   └── global.css      # CSS custom properties / theme
+├── middleware.ts        # Subdomain routing (otr.herrerake.com)
+└── consts.ts           # Site-wide constants
+```

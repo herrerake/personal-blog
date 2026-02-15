@@ -19,6 +19,23 @@ const blog = defineCollection({
   }),
 });
 
+const otr = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    pubDate: z.coerce.date(),
+    description: z.string(),
+    author: z.string(),
+    image: z.object({
+      url: z.string(),
+      alt: z.string(),
+    }),
+    tags: z.array(z.string()),
+    featured: z.boolean(),
+    column: z.string().optional(),
+  }),
+});
+
 const portfolio = defineCollection({
   type: 'content',
   // Type-check frontmatter using a schema
@@ -37,4 +54,4 @@ const portfolio = defineCollection({
   }),
 });
 
-export const collections = { blog, portfolio };
+export const collections = { blog, portfolio, otr };

@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <defs>
+    <clipPath id="clip-m1"><circle cx="128" cy="128" r="128"/></clipPath>
+    <linearGradient id="bg-m1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#059669"/>
+      <stop offset="100%" stop-color="#047857"/>
+    </linearGradient>
+  </defs>
+  <circle cx="128" cy="128" r="128" fill="url(#bg-m1)"/>
+  <g clip-path="url(#clip-m1)">
+    <!-- Body / fitted turtleneck -->
+    <ellipse cx="128" cy="310" rx="108" ry="118" fill="#1C1C1C"/>
+    <!-- Turtleneck fold -->
+    <path d="M104,192 Q128,198 152,192 L152,202 Q128,208 104,202 Z" fill="#2D2D2D"/>
+    <path d="M104,196 Q128,202 152,196" stroke="#3B3835" stroke-width="1" fill="none" opacity="0.4"/>
+    <!-- Shoulder seams -->
+    <path d="M104,198 Q85,206 70,222" stroke="#2D2D2D" stroke-width="1.5" fill="none" opacity="0.25"/>
+    <path d="M152,198 Q171,206 186,222" stroke="#2D2D2D" stroke-width="1.5" fill="none" opacity="0.25"/>
+    <!-- Cross necklace -->
+    <path d="M118,192 Q128,200 138,192" stroke="#C9A84C" stroke-width="1.2" fill="none"/>
+    <!-- Cross pendant -->
+    <line x1="128" y1="200" x2="128" y2="216" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/>
+    <line x1="122" y1="206" x2="134" y2="206" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/>
+
+    <!-- Neck -->
+    <rect x="109" y="164" width="38" height="32" rx="6" fill="#6B4226"/>
+
+    <!-- Head -->
+    <ellipse cx="128" cy="114" rx="50" ry="58" fill="#7B4F2E"/>
+
+    <!-- Nose -->
+    <ellipse cx="128" cy="126" rx="10" ry="7" fill="#6B4226" opacity="0.5"/>
+
+    <!-- Eyes (no visible detail - matching female style) -->
+
+    <!-- Eyebrows -->
+    <path d="M100,98 Q112,93 122,97" stroke="#1A0A00" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path d="M134,97 Q144,93 156,98" stroke="#1A0A00" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+    <!-- Hair - textured high fade with defined part line, salt & pepper -->
+    <!-- Sharp hairline -->
+    <path d="M84,86 Q86,72 100,64 Q128,54 156,64 Q170,72 172,86 Q168,74 154,66 Q128,58 102,66 Q88,74 84,86Z" fill="#0D0500"/>
+    <!-- Top volume - base dark -->
+    <rect x="88" y="52" width="80" height="28" rx="8" fill="#0D0500"/>
+    <!-- Gray overlay patches blended in -->
+    <rect x="110" y="52" width="22" height="26" rx="6" fill="#6B6B6B" opacity="0.25"/>
+    <rect x="140" y="54" width="18" height="22" rx="6" fill="#7A7A7A" opacity="0.2"/>
+    <rect x="88" y="56" width="16" height="20" rx="6" fill="#6B6B6B" opacity="0.15"/>
+    <!-- Hard part line -->
+    <line x1="100" y1="58" x2="100" y2="80" stroke="#7B4F2E" stroke-width="2" opacity="0.6"/>
+    <!-- Curl texture rows - mix of dark and silver strokes -->
+    <path d="M108,58 Q113,54 118,58" stroke="#2C1810" stroke-width="3" fill="none" opacity="0.4" stroke-linecap="round"/>
+    <path d="M124,55 Q130,51 136,55" stroke="#8A8A8A" stroke-width="3" fill="none" opacity="0.35" stroke-linecap="round"/>
+    <path d="M142,57 Q148,53 154,57" stroke="#2C1810" stroke-width="3" fill="none" opacity="0.4" stroke-linecap="round"/>
+    <path d="M110,65 Q116,61 122,65" stroke="#8A8A8A" stroke-width="2.5" fill="none" opacity="0.3" stroke-linecap="round"/>
+    <path d="M130,63 Q136,59 142,63" stroke="#2C1810" stroke-width="2.5" fill="none" opacity="0.35" stroke-linecap="round"/>
+    <path d="M148,65 Q154,61 160,65" stroke="#7A7A7A" stroke-width="2.5" fill="none" opacity="0.3" stroke-linecap="round"/>
+    <path d="M114,73 Q120,69 126,73" stroke="#2C1810" stroke-width="2.5" fill="none" opacity="0.3" stroke-linecap="round"/>
+    <path d="M134,71 Q140,67 146,71" stroke="#8A8A8A" stroke-width="2.5" fill="none" opacity="0.25" stroke-linecap="round"/>
+    <!-- Gray temple streaks -->
+    <path d="M84,86 Q80,96 82,108" stroke="#8A8A8A" stroke-width="6" fill="none" opacity="0.25"/>
+    <path d="M172,86 Q176,96 174,108" stroke="#8A8A8A" stroke-width="6" fill="none" opacity="0.25"/>
+
+    <!-- Ears -->
+    <ellipse cx="78" cy="114" rx="9" ry="14" fill="#7B4F2E"/>
+    <ellipse cx="78" cy="114" rx="5" ry="8" fill="#6B4226" opacity="0.4"/>
+    <ellipse cx="178" cy="114" rx="9" ry="14" fill="#7B4F2E"/>
+    <ellipse cx="178" cy="114" rx="5" ry="8" fill="#6B4226" opacity="0.4"/>
+
+    <!-- Goatee - salt & pepper -->
+    <ellipse cx="128" cy="152" rx="14" ry="10" fill="#1A0A00" opacity="0.35"/>
+    <ellipse cx="128" cy="152" rx="10" ry="7" fill="#6B6B6B" opacity="0.15"/>
+    <!-- Mustache - salt & pepper -->
+    <path d="M114,134 Q121,130 128,131 Q135,130 142,134" fill="#1A0A00" opacity="0.3"/>
+    <path d="M118,133 Q124,130 130,132" stroke="#7A7A7A" stroke-width="1.5" fill="none" opacity="0.2"/>
+
+    <!-- Mouth -->
+    <path d="M117,142 Q128,149 139,142" stroke="#5A3520" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path d="M119,144 Q128,151 137,144" fill="#6B4226" opacity="0.3"/>
+  </g>
+</svg>

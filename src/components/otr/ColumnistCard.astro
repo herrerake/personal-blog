@@ -1,0 +1,32 @@
+---
+import type { Columnist } from "@/data/columnists";
+
+interface Props {
+  columnist: Columnist;
+  postCount: number;
+}
+
+const { columnist, postCount } = Astro.props;
+---
+
+<a href={`/otr/authors/${columnist.slug}`} class="block group">
+  <div class="rounded-2xl p-6 bg-cardBg border border-cardBorder dark:bg-darkCard dark:border-darkBorder transition-colors hover:border-bluePrimary dark:hover:border-darkAccent text-center">
+    <img
+      src={columnist.avatar}
+      alt={columnist.name}
+      class="w-20 h-20 rounded-full object-cover mx-auto mb-4"
+    />
+    <h3 class="text-lg font-bold text-bluePrimary dark:text-darkText group-hover:underline">
+      {columnist.name}
+    </h3>
+    <p class="text-sm font-medium text-green-700 dark:text-green-400 mb-2">
+      {columnist.columnName}
+    </p>
+    <p class="text-sm text-gray-500 dark:text-darkTextSecondary line-clamp-3">
+      {columnist.bio}
+    </p>
+    <p class="text-xs text-gray-400 dark:text-darkTextSecondary mt-3">
+      {postCount} {postCount === 1 ? "post" : "posts"}
+    </p>
+  </div>
+</a>
