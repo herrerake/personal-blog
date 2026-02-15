@@ -1,0 +1,334 @@
+---
+title: "Up-Leveling Your Coding Agent with Skills"
+pubDate: 2026-02-15
+description: "How I taught my AI coding agent domain expertise with the skills package."
+author: "Kevin Herrera"
+image:
+  url: "/images/blog-placeholder-4.jpg"
+  alt: "Code on a screen with AI agent skills"
+tags:
+  - "ai"
+  - "developer-tools"
+series: "How I built this"
+featured: true
+---
+
+import CardWrapper from "../../components/CardWrapper.astro";
+
+<CardWrapper class="my-4">
+## Making My Coding Agent Stack-Aware
+
+I’ve been pair-programming with AI agents for a while now.
+
+They’re good.
+Fast.
+Confident.
+
+But here’s the truth.
+
+They’ve read the internet. They’ve seen the docs. They can generate solid code.
+
+But general knowledge is noisy.
+And agents are still susceptible to mistakes.
+
+What they _don’t_ know by default is this:
+
+There are official skills, written by the people who know the technology best, that encode how the framework is actually meant to be used.
+
+Production guidance, edge cases, and the stuff you normally learn the hard way.
+
+Once I realized that existed, the mental model shifted.
+
+Instead of Claude Code reasoning from broad internet knowledge…
+
+It can now reference skills distilled by the creators themselves.
+
+It’s the difference between guessing and following the playbook.
+
+Very Morpheus in _The Matrix_.
+
+You don’t “figure out” kung fu.
+
+You download it.
+
+And suddenly the agent isn’t trying to infer best practices from scattered documentation.
+
+It’s operating with the same production guidance the maintainers use.
+
+No more pasting doc URLs. The best practices are already installed.
+
+</CardWrapper>
+
+<CardWrapper class="my-4">
+## The Tweet That Sent Me Down This Path
+
+When Matt Silverlock ([@elithrar](https://x.com/elithrar/status/2022284368136540234?s=46&t=O6kPFlgthaK5642UlvOsBQ)) announced that **Cloudflare published an official Workers skill** built from the same guidance they give customers and their own teams when shipping Workers to production, I immediately stopped scrolling.
+
+I opened my laptop.
+
+Because I ship to production.
+
+And if Cloudflare distilled their production guidance into a machine-readable skill, I want in on that.
+
+That’s when it clicked:
+
+> Why am I letting my coding agent guess how Workers should be written?
+
+I don’t want it improvising from generalized knowledge.
+
+I want it operating from Cloudflare’s production playbook.
+
+So `npx skills add cloudflare/skills` I went.
+
+Then it turns out nearly every major piece of my stack has an official skill:
+
+- Astro
+- Cloudflare
+- Wrangler
+- Tailwind
+- Frontend design
+- UI/UX
+
+This wasn’t a niche experiment.
+
+This was ecosystem-level alignment.
+
+So I installed them all.
+
+And then curiosity took over.
+
+If these official, production-grade skills are now wired into my repo…
+
+What happens if I run a full audit?
+
+So I opened Claude Code and prompted:
+
+> Now with these skills in place, let’s run an audit of this repo.
+
+No roadmap.
+No grand strategy.
+
+Just curiosity.
+
+That’s when things got interesting.
+
+</CardWrapper>
+
+<CardWrapper class="my-4">
+
+## What Are “Skills”?
+
+If you’re new to this concept, start here:
+
+- https://skills.sh/
+- https://github.com/vercel-labs/skills
+- https://www.npmjs.com/package/skills
+
+At a high level:
+
+- Skills are structured `SKILLS.md` files
+- They encode framework conventions and best practices
+- Agents read them before generating or reviewing code
+
+Think of them as:
+
+> Institutional knowledge, but machine-readable.
+
+Instead of:
+
+> Write a Cloudflare Worker
+
+You get:
+
+> Write a Cloudflare Worker the way this stack expects it to be written in production.
+
+Installation is simple:
+
+```bash
+npx skills add
+```
+
+You can install globally or per project.
+
+I installed some directly into my blog repo and some globally.
+
+The agent now operates with project-specific context instead of generalized training data.
+
+</CardWrapper>
+<CardWrapper class="my-4">
+
+## The Audit
+
+Instead of one pass, I reviewed the repo through multiple lenses:
+
+- Astro
+- Cloudflare
+- Accessibility
+- Design
+- Runtime configuration
+
+Then I consolidated the findings.
+
+The result:
+
+- **11 critical issues**
+- **25 warnings**
+- **15 improvement suggestions**
+
+And this is a personal blog.
+
+If you think your production SaaS marketing site doesn’t have hidden issues, it does.
+
+</CardWrapper>
+<CardWrapper class="my-4">
+
+## What We Found (And Fixed)
+
+### 1. Dead Components
+
+Components sitting in the repo that nothing referenced anymore.
+
+Old layouts.  
+Unused UI.  
+Artifacts from experimentation.
+
+Not catastrophic.
+
+But unnecessary complexity compounds.
+
+Deleted.
+
+### 2. Missing `<!doctype html>`
+
+Five pages were missing a proper `<!doctype html>` declaration.
+
+That can trigger quirks mode in browsers.
+
+You won’t notice until something behaves strangely.
+
+Fixed in seconds.
+
+### 3. Runtime Secrets Using `import.meta.env`
+
+This one sounds scarier than it was.
+
+I originally had:
+
+```ts
+REALTIME_SPORTS_API_KEY: import.meta.env.REALTIME_SPORTS_API_KEY ??
+  context.locals?.runtime?.env?.REALTIME_SPORTS_API_KEY;
+```
+
+Here's the issue:
+
+`import.meta.env` values get inlined at build time.
+
+If a secret exists during CI and your build references it, the value can be embedded into the compiled Worker bundle as a string literal.
+
+On Cloudflare Workers, that means:
+
+- The secret could be baked into the deployed \_worker.js
+- It becomes part of the build artifact
+- It’s no longer strictly runtime only
+
+Now, this code runs server-side on Workers, not in the browser, so it wasn’t automatically exposed in client-side JavaScript.
+
+Embedding secrets into build artifacts introduces unnecessary risk.
+
+Secrets should be runtime only.
+
+The correct pattern is to rely on runtime bindings:
+
+```ts
+context.locals.runtime.env;
+```
+
+That pulls from Cloudflare’s encrypted environment bindings at request time, without compiling the value into the bundle.
+
+This wasn’t a “we’ve been hacked” moment.
+
+It was a “we’re professionals fix it properly” moment.
+
+And that’s the standard I want my projects held to.
+
+### 4. Accessibility Gaps
+
+We were missing:
+
+- `:focus-visible` states
+- `prefers-reduced-motion` support
+
+That means:
+
+- Keyboard users get poor feedback
+- Motion-sensitive users get forced animations
+
+This is the difference between "looks good" and "production-grade."
+
+Now the site respects user settings.
+
+### 5. Deprecated Astro API
+
+Astro's `ViewTransitions` API had been replaced by `ClientRouter`.
+
+No errors yet.
+
+But deprecated means future breakage.
+
+Upgraded proactively.
+
+</CardWrapper>
+<CardWrapper class="my-4">
+
+## The Bigger Shift
+
+The audit took minutes.
+
+Fixing everything took under an hour.
+
+If I had done this manually, it would've taken half a day and I would have missed something. And not just a semicolon.
+
+Before:
+
+> I had a general-purpose AI assistant.
+
+Now:
+
+> I have a stack-aware teammate with institutional and tribal knowledge.
+
+That's the shift.
+
+Skills turn an agent from "smart autocomplete" into production leverage.
+
+And this is where it gets interesting.
+
+You can write your own skills.
+
+You can encode:
+
+- Your design system rules
+- Your CMS conventions
+- Your translation glossary
+- Your deployment policies
+- Your accessibility standards
+- Your security guardrails
+
+Every agent you spin up inherits that brain.
+
+This is what AI-native marketing engineering starts to look like. Not prompts, but encoded systems.
+
+We're not just asking better questions.
+
+We're building reusable intelligence into our workflows.
+
+The teams that treat AI like autocomplete will move incrementally.
+
+The teams that encode their playbook into skills will move exponentially.
+
+If you're shipping to production and your agent doesn't know your stack…
+
+Teach it.
+
+Then let it audit you.
+
+</CardWrapper>
