@@ -2,7 +2,7 @@
 // Import the global.css file here so that it is included on
 // all pages through the use of the <BaseHead /> component.
 import "../styles/global.css";
-import { ViewTransitions } from "astro:transitions";
+import { ClientRouter } from "astro:transitions";
 
 interface Props {
   title: string;
@@ -88,4 +88,4 @@ const { title, description, image = "/branding/herrerake-logo-oleo-script-swash-
 <meta property="twitter:image" content={new URL(image, Astro.url)} />
 
 <!-- View Transition -->
-<ViewTransitions />
+<ClientRouter />

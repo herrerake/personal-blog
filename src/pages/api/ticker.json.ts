@@ -31,13 +31,27 @@ const CACHE_TTL = {
 // In-memory fallback cache (for local dev or KV unavailable)
 const memoryCache = new Map<string, CacheEntry<unknown>>();
 
-const getEnv = (context: Parameters<APIRoute>[0]) => ({
-  REALTIME_SPORTS_API_KEY: import.meta.env.REALTIME_SPORTS_API_KEY ?? context.locals?.runtime?.env?.REALTIME_SPORTS_API_KEY,
-  API_FOOTBALL_KEY: import.meta.env.API_FOOTBALL_KEY ?? context.locals?.runtime?.env?.API_FOOTBALL_KEY,
-  ALPHAVANTAGE_KEY: import.meta.env.ALPHAVANTAGE_KEY ?? context.locals?.runtime?.env?.ALPHAVANTAGE_KEY,
-  EXCHANGERATE_API_KEY: import.meta.env.EXCHANGERATE_API_KEY ?? context.locals?.runtime?.env?.EXCHANGERATE_API_KEY,
-  TICKER_CACHE: context.locals?.runtime?.env?.TICKER_CACHE as KVNamespace | undefined,
-});
+type RuntimeEnv = {
+  REALTIME_SPORTS_API_KEY?: string;
+  API_FOOTBALL_KEY?: string;
+  ALPHAVANTAGE_KEY?: string;
+  EXCHANGERATE_API_KEY?: string;
+  TICKER_CACHE?: KVNamespace;
+};
+
+const getRuntimeEnv = (context: Parameters<APIRoute>[0]) =>
+  (context.locals as { runtime?: { env?: RuntimeEnv } } | undefined)?.runtime?.env;
+
+const getEnv = (context: Parameters<APIRoute>[0]) => {
+  const runtimeEnv = getRuntimeEnv(context);
+  return {
+    REALTIME_SPORTS_API_KEY: runtimeEnv?.REALTIME_SPORTS_API_KEY,
+    API_FOOTBALL_KEY: runtimeEnv?.API_FOOTBALL_KEY,
+    ALPHAVANTAGE_KEY: runtimeEnv?.ALPHAVANTAGE_KEY,
+    EXCHANGERATE_API_KEY: runtimeEnv?.EXCHANGERATE_API_KEY,
+    TICKER_CACHE: runtimeEnv?.TICKER_CACHE,
+  };
+};
 
 async function getCached<T>(
   key: string,
