@@ -4,9 +4,10 @@ import CardWrapper from "@/components/CardWrapper.astro";
 import OTRCard from "@/components/otr/OTRCard.astro";
 import ColumnistCard from "@/components/otr/ColumnistCard.astro";
 import { getCollection } from "astro:content";
-import { columnists } from "@/data/columnists";
+import { getAllAuthors } from "@/data/authors";
 
 const allPosts = await getCollection("otr");
+const authors = await getAllAuthors();
 const sortedPosts = allPosts.sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
@@ -35,7 +36,7 @@ for (const post of allPosts) {
       Our Columnists
     </h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-      {columnists.filter((c) => !c.hidden).map((columnist) => (
+      {authors.filter((c) => !c.hidden).map((columnist) => (
         <ColumnistCard
           columnist={columnist}
           postCount={postCounts.get(columnist.slug) || 0}

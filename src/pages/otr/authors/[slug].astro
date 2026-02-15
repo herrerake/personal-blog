@@ -3,10 +3,10 @@ import OTRLayout from "@/layouts/OTRLayout.astro";
 import CardWrapper from "@/components/CardWrapper.astro";
 import OTRCard from "@/components/otr/OTRCard.astro";
 import { getCollection } from "astro:content";
-import { columnists, getColumnistBySlug } from "@/data/columnists";
+import { getAuthorBySlug } from "@/data/authors";
 
 const { slug } = Astro.params;
-const columnist = getColumnistBySlug(slug!);
+const columnist = await getAuthorBySlug(slug!);
 
 if (!columnist || columnist.hidden) {
   return Astro.redirect("/");

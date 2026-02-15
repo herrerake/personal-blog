@@ -54,4 +54,20 @@ const portfolio = defineCollection({
   }),
 });
 
-export const collections = { blog, portfolio, otr };
+const authors = defineCollection({
+  type: 'data',
+  schema: z.object({
+    name: z.string(),
+    bio: z.string(),
+    avatar: z.string(),
+    columnName: z.string(),
+    hidden: z.boolean().optional(),
+    socialLinks: z.object({
+      twitter: z.string().optional(),
+      linkedin: z.string().optional(),
+      instagram: z.string().optional(),
+    }).optional(),
+  }),
+});
+
+export const collections = { blog, portfolio, otr, authors };
