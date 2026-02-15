@@ -3,9 +3,11 @@ import HeaderLink from "@/components/HeaderLink.astro";
 import CardWrapper from "@/components/CardWrapper.astro";
 import ThemeToggle from "@/components/ThemeToggle.astro";
 
+const mainSiteLink = import.meta.env.DEV ? "/" : "https://herrerake.com";
+
 const links = [
-  { name: "OTR", location: "/" },
-  { name: "herrerake.com", location: "https://herrerake.com" },
+  { name: "OTR", location: import.meta.env.DEV ? "/otr/" : "/" },
+  { name: "herrerake.com", location: mainSiteLink },
 ];
 ---
 
@@ -15,7 +17,7 @@ const links = [
       <h2>
         <a href="/" class="flex items-center gap-2">
           <img
-            src="/herrerake-logo-oleo-script-swash-caps-black.png"
+            src="/branding/herrerake-logo-oleo-script-swash-caps-black.png"
             loading="lazy"
             width="156"
             alt="Herrerake Logo"

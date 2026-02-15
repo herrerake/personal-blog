@@ -8,11 +8,12 @@ interface Props {
   title: string;
   description: string;
   image?: string;
+  favicon?: string;
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const { title, description, image = "/herrerake-logo-oleo-script-swash-caps-red-bg.png" } = Astro.props;
+const { title, description, image = "/branding/herrerake-logo-oleo-script-swash-caps-red-bg.png", favicon = "/branding/herrerake-favicon.png" } = Astro.props;
 ---
 
 <!-- Theme script to prevent FOUC -->
@@ -38,7 +39,7 @@ const { title, description, image = "/herrerake-logo-oleo-script-swash-caps-red-
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<link rel="icon" type="image/svg+xml" href="/herrerake-favicon.png" />
+<link rel="icon" type="image/png" href={favicon} />
 <meta name="generator" content={Astro.generator} />
 <!-- Font preloads -->
 <link
