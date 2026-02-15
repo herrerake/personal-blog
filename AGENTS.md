@@ -33,7 +33,7 @@ yarn workers:deploy
 - `src/pages/`: route entrypoints
 - `src/components/`: shared UI components
 - `src/layouts/`: layouts for Markdown/MDX content
-- `src/content/`: blog + portfolio content collections
+- `src/content/`: blog, portfolio, OTR, and authors content collections
 - `public/`: static assets
 
 ## Content rules
@@ -52,7 +52,15 @@ yarn workers:deploy
 - If you change UI or content, run `yarn dev` to spot-check.
 - If you change build or deployment settings, run `yarn build`.
 
+## Agent Skills
+
+Project-level skills are in `.agents/skills/` (astro, cloudflare, wrangler, tailwind-design-system, frontend-design, ui-ux-pro-max). These provide domain-specific knowledge for Astro, Cloudflare Workers, Tailwind CSS, and frontend design. Symlinks in `.claude/skills/` and `.agent/skills/` point back to `.agents/skills/`.
+
+Install new skills with `npx skills add <owner/repo> -s <skill-name>`.
+
 ## Notes for agents
 
 - Do not delete or overwrite content unless explicitly requested.
 - Avoid introducing new dependencies without asking.
+- OTR author data lives in `src/content/authors/*.json`, queried via `src/data/authors.ts`.
+- OTR pages are server-rendered (not prerendered) and use `Astro.locals.isColumns` for routing decisions.
