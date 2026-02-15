@@ -9,7 +9,7 @@ const { slug } = Astro.params;
 const columnist = getColumnistBySlug(slug!);
 
 if (!columnist || columnist.hidden) {
-  return Astro.redirect("/otr");
+  return Astro.redirect("/");
 }
 
 const posts = await getCollection(
