@@ -3,18 +3,14 @@ import OTRLayout from "@/layouts/OTRLayout.astro";
 import CardWrapper from "@/components/CardWrapper.astro";
 import OTRCard from "@/components/otr/OTRCard.astro";
 import { getCollection } from "astro:content";
-import { columnists } from "@/data/columnists";
+import { columnists, getColumnistBySlug } from "@/data/columnists";
 
-export const prerender = true;
+const { slug } = Astro.params;
+const columnist = getColumnistBySlug(slug!);
 
-export function getStaticPaths() {
-  return columnists.filter((c) => !c.hidden).map((columnist) => ({
-    params: { slug: columnist.slug },
-    props: { columnist },
-  }));
+if (!columnist || columnist.hidden) {
+  return Astro.redirect("/otr");
 }
-
-const { columnist } = Astro.props;
 
 const posts = await getCollection(
   "otr",

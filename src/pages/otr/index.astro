@@ -6,8 +6,6 @@ import ColumnistCard from "@/components/otr/ColumnistCard.astro";
 import { getCollection } from "astro:content";
 import { columnists } from "@/data/columnists";
 
-export const prerender = true;
-
 const allPosts = await getCollection("otr");
 const sortedPosts = allPosts.sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
