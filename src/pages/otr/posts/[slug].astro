@@ -7,17 +7,14 @@ import OTRCard from "@/components/otr/OTRCard.astro";
 import { getCollection } from "astro:content";
 import { getColumnistBySlug } from "@/data/columnists";
 
-export const prerender = true;
+const { slug } = Astro.params;
+const allEntries = await getCollection("otr");
+const post = allEntries.find((p) => p.id === slug);
 
-export async function getStaticPaths() {
-  const posts = await getCollection("otr");
-  return posts.map((post) => ({
-    params: { slug: post.id },
-    props: { post },
-  }));
+if (!post) {
+  return Astro.redirect("/otr");
 }
 
-const { post } = Astro.props;
 const { Content } = await post.render();
 const columnist = getColumnistBySlug(post.data.author);
 const columnName = post.data.column || columnist?.columnName || "Column";
