@@ -7,7 +7,7 @@ interface Props {
 }
 
 const { columnist, postCount } = Astro.props;
-const prefix = import.meta.env.DEV ? "/otr" : "";
+const prefix = Astro.locals.isColumns ? "" : "/otr";
 ---
 
 <a href={`${prefix}/authors/${columnist.slug}`} class="block group">

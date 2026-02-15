@@ -57,7 +57,7 @@ const relatedPosts = allPosts
   <!-- Author Info Card -->
   {columnist && (
     <CardWrapper class="mb-6">
-      <a href={columnist.hidden ? (import.meta.env.DEV ? "/blog" : "https://herrerake.com/blog") : `${import.meta.env.DEV ? "/otr" : ""}/authors/${columnist.slug}`} class="flex items-center gap-4 group">
+      <a href={columnist.hidden ? (Astro.locals.isColumns ? "https://herrerake.com/blog" : "/blog") : `${Astro.locals.isColumns ? "" : "/otr"}/authors/${columnist.slug}`} class="flex items-center gap-4 group">
         <img
           src={columnist.avatar}
           alt={columnist.name}

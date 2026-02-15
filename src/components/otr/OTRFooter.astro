@@ -2,7 +2,7 @@
 import CardWrapper from "@/components/CardWrapper.astro";
 
 const today = new Date();
-const mainSiteLink = import.meta.env.DEV ? "/" : "https://herrerake.com";
+const mainSiteLink = Astro.locals.isColumns ? "https://herrerake.com" : "/";
 ---
 
 <footer class="my-4">
