@@ -1,4 +1,7 @@
 import { defineCollection, z } from "astro:content";
+import { TAG_SLUGS } from "@/data/tags";
+
+const tagEnum = z.enum(TAG_SLUGS as [string, ...string[]]);
 
 const blog = defineCollection({
   type: 'content',
@@ -13,7 +16,7 @@ const blog = defineCollection({
       url: z.string(),
       alt: z.string(),
     }),
-    tags: z.array(z.string()),
+    tags: z.array(tagEnum),
     series: z.string(),
     featured: z.boolean(),
   }),
@@ -30,7 +33,7 @@ const otr = defineCollection({
       url: z.string(),
       alt: z.string(),
     }),
-    tags: z.array(z.string()),
+    tags: z.array(tagEnum),
     featured: z.boolean(),
     column: z.string().optional(),
   }),
