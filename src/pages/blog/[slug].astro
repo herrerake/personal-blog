@@ -7,6 +7,7 @@ import BaseHead from "@/components/BaseHead.astro";
 import Prose from "@/components/Prose.astro";
 import FormattedDate from "@/components/FormattedDate.astro";
 import BlogCard from "@/components/BlogCard.astro";
+import { getTagLabel } from "@/data/tags";
 
 type BlogEntry = CollectionEntry<"blog">;
 
@@ -40,26 +41,25 @@ const { Content } = await blog.render();
       <Header />
       <div class="w-full">
         <div
-          class="w-full aspect-square sm:aspect-video bg-center bg-cover rounded-3xl overflow-hidden flex flex-col justify-end p-6 md:p-10"
+          class="w-full aspect-[4/3] sm:aspect-[21/9] lg:aspect-[3/1] bg-center bg-cover rounded-3xl overflow-hidden flex flex-col justify-end p-6 md:p-10"
           style={{
             backgroundImage: `linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.8)), url(${blog.data.image.url})`,
           }}
           transition:name={`blog-card-${blog.id}`}
         >
-          <div class="max-w-[900px] space-y-8">
-            <h2
+          <div class="max-w-[900px] space-y-4">
+            <p class="text-green-300 text-sm font-medium">{blog.data.series}</p>
+            <h1
               transition:name={`blog-title-${blog.id}`}
-              class="text-white text-4xl sm:text-5xl font-bold mb-2"
+              class="text-white text-3xl sm:text-5xl font-bold"
             >
               {blog.data.title}
-            </h2>
-            <p
-              class="text-white text-sm md:text-base divide-x divide-white leading-7 -ml-2"
-            >
-              {blog.data.featured && <span class="px-2">Featured article</span>}
-              <span class="px-2"
-                ><FormattedDate date={blog.data.pubDate} /></span
-              >
+            </h1>
+            <p class="text-white/80 text-sm divide-x divide-white/40 leading-7 -ml-2">
+              <span class="px-2"><FormattedDate date={blog.data.pubDate} /></span>
+              {blog.data.tags.map((tag) => (
+                <span class="px-2">{getTagLabel(tag)}</span>
+              ))}
             </p>
           </div>
         </div>

@@ -6,6 +6,7 @@ import FormattedDate from "@/components/FormattedDate.astro";
 import OTRCard from "@/components/otr/OTRCard.astro";
 import { getCollection } from "astro:content";
 import { getAuthorBySlug } from "@/data/authors";
+import { getTagLabel } from "@/data/tags";
 
 const { slug } = Astro.params;
 const allEntries = await getCollection("otr");
@@ -34,7 +35,7 @@ const relatedPosts = allPosts
   <!-- Hero Image -->
   <div class="w-full mb-6">
     <div
-      class="w-full aspect-square sm:aspect-video bg-center bg-cover rounded-3xl overflow-hidden flex flex-col justify-end p-6 md:p-10"
+      class="w-full aspect-[4/3] sm:aspect-[21/9] lg:aspect-[3/1] bg-center bg-cover rounded-3xl overflow-hidden flex flex-col justify-end p-6 md:p-10"
       style={{
         backgroundImage: `linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.8)), url(${post.data.image.url})`,
       }}
@@ -47,7 +48,7 @@ const relatedPosts = allPosts
         <p class="text-white/80 text-sm divide-x divide-white/40 leading-7 -ml-2">
           <span class="px-2"><FormattedDate date={post.data.pubDate} /></span>
           {post.data.tags.map((tag) => (
-            <span class="px-2">{tag}</span>
+            <span class="px-2">{getTagLabel(tag)}</span>
           ))}
         </p>
       </div>
