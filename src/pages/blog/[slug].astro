@@ -18,7 +18,7 @@ export async function getStaticPaths() {
   const blogEntries = await getCollection("blog");
   const featuredBlogs = blogEntries.filter((entry) => entry.data.featured);
   return blogEntries.map((blog) => ({
-    params: { slug: blog.id },
+    params: { slug: blog.id.replace(/\.mdx?$/, "") },
     props: { blog, featuredBlogs: featuredBlogs.filter((b) => b.id !== blog.id).slice(0, 2) },
   }));
 }
@@ -29,6 +29,7 @@ const { blog, featuredBlogs } = Astro.props as {
   featuredBlogs: BlogEntry[];
 };
 const { Content } = await blog.render();
+const slug = blog.id.replace(/\.mdx?$/, "");
 ---
 
 <!doctype html>
@@ -45,12 +46,12 @@ const { Content } = await blog.render();
           style={{
             backgroundImage: `linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.8)), url(${blog.data.image.url})`,
           }}
-          transition:name={`blog-card-${blog.id}`}
+          transition:name={`blog-card-${slug}`}
         >
           <div class="max-w-[900px] space-y-4">
             <p class="text-green-300 text-sm font-medium">{blog.data.series}</p>
             <h1
-              transition:name={`blog-title-${blog.id}`}
+              transition:name={`blog-title-${slug}`}
               class="text-white text-3xl sm:text-5xl font-bold"
             >
               {blog.data.title}

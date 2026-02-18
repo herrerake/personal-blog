@@ -15,7 +15,7 @@ export const prerender = true;
 export async function getStaticPaths() {
   const PortfolioEntries = await getCollection("portfolio");
   return PortfolioEntries.map((entry) => ({
-    params: { slug: entry.id },
+    params: { slug: entry.id.replace(/\.mdx?$/, "") },
     props: { entry },
   }));
 }
@@ -27,6 +27,7 @@ type Props = {
 // 2. For your template, you can get the entry directly from the prop
 const { entry } = Astro.props;
 const { Content } = await entry.render();
+const slug = entry.id.replace(/\.mdx?$/, "");
 ---
 
 <!doctype html>
@@ -42,7 +43,7 @@ const { Content } = await entry.render();
           <CardWrapper class="h-full">
             <div class="py-6">
               <h2
-                transition:name={`portfilio-title-${entry.id}`}
+                transition:name={`portfilio-title-${slug}`}
                 class="text-bluePrimary text-3xl font-bold mb-2 dark:text-darkText"
               >
                 {entry.data.title}
@@ -60,7 +61,7 @@ const { Content } = await entry.render();
                 src={entry.data.image.url}
                 alt={entry.data.title}
                 class="w-full h-auto aspect-video md:aspect-[11/5] rounded-3xl mt-6"
-                transition:name={`portfilio-image-${entry.id}`}
+                transition:name={`portfilio-image-${slug}`}
               />
             </div>
           </CardWrapper>

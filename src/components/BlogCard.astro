@@ -6,13 +6,14 @@ import { getTagLabel } from "@/data/tags";
 type Blog = CollectionEntry<"blog">;
 
 const { blog } = Astro.props as { blog: Blog };
+const slug = blog.id.replace(/\.mdx?$/, "");
 ---
 
 <a
-  href={`/blog/${blog.id}`}
+  href={`/blog/${slug}`}
   class="block w-full h-full bg-cover bg-center relative overflow-hidden rounded-3xl group"
   style={{ backgroundImage: `url(${blog.data.image.url})` }}
-  transition:name={`blog-card-${blog.id}`}
+  transition:name={`blog-card-${slug}`}
 >
   <div
     class="backdrop-brightness-50 group-hover:backdrop-brightness-[.35] transition-all w-full h-full p-6 sm:p-8 flex flex-col items-start justify-end"
@@ -39,7 +40,7 @@ const { blog } = Astro.props as { blog: Blog };
       <div class="bg-white dark:bg-darkCard">
         <div
           class="relative mt-3.5 text-xl md:text-2xl font-bold tracking-tighter max-md:max-w-full text-bluePrimary dark:text-darkText"
-          transition:name={`blog-title-${blog.id}`}
+          transition:name={`blog-title-${slug}`}
         >
           {blog.data.title}
         </div>

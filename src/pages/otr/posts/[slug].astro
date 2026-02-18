@@ -10,7 +10,7 @@ import { getTagLabel } from "@/data/tags";
 
 const { slug } = Astro.params;
 const allEntries = await getCollection("otr");
-const post = allEntries.find((p) => p.id === slug);
+const post = allEntries.find((p) => p.id.replace(/\.mdx?$/, "") === slug);
 
 if (!post) {
   return Astro.redirect("/");
