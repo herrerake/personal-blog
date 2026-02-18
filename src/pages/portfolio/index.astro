@@ -46,14 +46,16 @@ const portfolios = await getCollection("portfolio", ({ data }) => {
         </div>
         <div class="space-y-4">
           {
-            portfolios.map((portfolio, index) => (
-              <CardWrapper class="h-full" key={portfolio.id}>
+            portfolios.map((portfolio, index) => {
+              const slug = portfolio.id.replace(/\.mdx?$/, "");
+              return (
+              <CardWrapper class="h-full" key={slug}>
                 <div class="py-6 grid md:grid-cols-2 items-center space-y-12 md:space-y-0">
                   <div
                     class={`${(index + 1) % 2 ? "" : "md:col-start-2"} space-y-4`}
                   >
                     <h2
-                      transition:name={`portfilio-title-${portfolio.id}`}
+                      transition:name={`portfilio-title-${slug}`}
                       class="text-bluePrimary text-3xl font-bold dark:text-darkText"
                     >
                       {portfolio.data.title}
@@ -63,7 +65,7 @@ const portfolios = await getCollection("portfolio", ({ data }) => {
                     </p>
                     <div class="">
                       <a
-                        href={`/portfolio/${portfolio.id}`}
+                        href={`/portfolio/${slug}`}
                         class="text-center py-3 rounded-lg bg-bluePrimary text-white text-sm font-medium px-10 dark:bg-darkAccent dark:text-darkBg"
                       >
                         View Project
@@ -77,12 +79,12 @@ const portfolios = await getCollection("portfolio", ({ data }) => {
                       src={portfolio.data.image.url}
                       alt={portfolio.data.title}
                       class="w-full h-auto object-cover aspect-video rounded-[20px]"
-                      transition:name={`portfilio-image-${portfolio.id}`}
+                      transition:name={`portfilio-image-${slug}`}
                     />
                   </div>
                 </div>
               </CardWrapper>
-            ))
+            )})
           }
         </div>
         <Footer />

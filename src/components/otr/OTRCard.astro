@@ -11,9 +11,10 @@ const { post } = Astro.props;
 const columnist = await getAuthorBySlug(post.data.author);
 const columnName = post.data.column || columnist?.columnName || "Column";
 const prefix = Astro.locals.isColumns ? "" : "/otr";
+const slug = post.id.replace(/\.mdx?$/, "");
 ---
 
-<a href={`${prefix}/posts/${post.id}`} class="block group">
+<a href={`${prefix}/posts/${slug}`} class="block group">
   <div class="rounded-2xl overflow-hidden bg-cardBg border border-cardBorder dark:bg-darkCard dark:border-darkBorder transition-colors hover:border-bluePrimary dark:hover:border-darkAccent">
     <div
       class="aspect-video bg-cover bg-center"
