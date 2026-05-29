@@ -62,17 +62,12 @@ const featuredBlogs = await getCollection("blog", ({ data }) => {
             />
             <div class="mt-6">
               <h1 class="text-5xl font-bold dark:text-darkText">
-                Meet Kevin, an AI-augmented engineer building at <span
-                  class="cloudflare-orange"
-                >
-                  <a
-                    href="https://www.cloudflare.com"
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    >Cloudflare</a
-                  >
-                </span> by day — and an AI agent builder by night.
+                Kevin Herrera
               </h1>
+              <p class="text-xl md:text-2xl font-semibold mt-4 text-textPrimary dark:text-darkTextSecondary">
+                Producer. Writer. Technologist.<br />
+                Exploring technology, culture, business, and the human stories that connect them.
+              </p>
             </div>
           </CardWrapper>
           <div class="md:col-span-2">
@@ -289,12 +284,17 @@ const featuredBlogs = await getCollection("blog", ({ data }) => {
             </h3>
           </CardWrapper>
           <CardWrapper class="md:col-span-2">
-            <p class="text-3xl font-bold dark:text-darkTextSecondary">
-              Outside of work, I design, build, and deliver AI-assisted systems
-              that automate repetitive human workflows. Looking to collaborate
-              or need help building your next AI agent? Let's talk. I also make
-              Arepas 🫓
-            </p>
+            <h3 class="text-3xl font-bold dark:text-darkText">What I’m Exploring Right Now</h3>
+            <ul class="list-disc list-inside text-xl md:text-2xl font-bold mt-4 space-y-2 text-textPrimary dark:text-darkTextSecondary">
+              <li>Why AI is making taste more valuable than execution</li>
+              <li>Building a fantasy football almanac from 15 years of league history</li>
+              <li>Photographing everyday life</li>
+              <li>Learning stand-up comedy and storytelling</li>
+              <li>Studying how history rhymes with the present</li>
+              <li>Building communities around shared interests</li>
+              <li>Fitness & Self Improvement</li>
+              <li>Perfecting the arepa recipe my grandmother would approve of 🫓</li>
+            </ul>
           </CardWrapper>
         </div>
       </div>
@@ -313,7 +313,7 @@ const featuredBlogs = await getCollection("blog", ({ data }) => {
               href="/blog"
               class="text-center py-3 px-16 rounded-lg bg-bluePrimary text-white text-base font-medium flex items-center space-x-1 dark:bg-darkAccent dark:text-darkBg"
             >
-              <span>View all blogs</span>
+              <span>View all posts</span>
               <svg
                 width="11"
                 height="11"
