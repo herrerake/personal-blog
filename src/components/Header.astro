@@ -11,16 +11,24 @@ const links = [
     location: "/",
   },
   {
-    name: "About me",
+    name: "About",
     location: "/about",
   },
-  // {
-  //   name: "Portfolio",
-  //   location: "/portfolio",
-  // },
   {
     name: "Blog",
     location: "/blog",
+  },
+  {
+    name: "Photography",
+    location: "/photography",
+  },
+  {
+    name: "Projects",
+    location: "/projects",
+  },
+  {
+    name: "Partner",
+    location: "/partner",
   },
   {
     name: "OTR",
@@ -31,7 +39,7 @@ const links = [
 
 <header class="my-4 w-full">
   <CardWrapper class="w-full">
-    <nav class="flex flex-col md:flex-row items-center justify-between">
+    <nav class="flex flex-col items-center lg:flex-row lg:justify-between">
       <h2>
         <a href="/">
           <img
@@ -43,7 +51,7 @@ const links = [
           /></a
         >
       </h2>
-      <div class="flex items-center space-x-4 sm:space-x-8 mt-4 md:mt-1">
+      <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 mt-4 lg:mt-0">
         {
           links.map((link) => (
             <HeaderLink href={link.location}>
@@ -56,6 +64,7 @@ const links = [
     </nav>
   </CardWrapper>
 </header>
+
 <style>
   h2 {
     margin: 0;
@@ -72,6 +81,5 @@ const links = [
   }
   nav a.active {
     text-decoration: none;
-    /* border-bottom-color: var(--accent); */
   }
 </style>
