@@ -64,9 +64,11 @@ const featuredBlogs = await getCollection("blog", ({ data }) => {
               <h1 class="text-5xl font-bold dark:text-darkText">
                 Kevin Herrera
               </h1>
-              <p class="text-xl md:text-2xl font-semibold mt-4 text-textPrimary dark:text-darkTextSecondary">
-                Producer. Writer. Technologist.<br />
-                Exploring technology, culture, business, and the human stories that connect them.
+              <p
+                class="text-xl md:text-2xl font-semibold mt-4 text-textPrimary dark:text-darkTextSecondary"
+              >
+                I notice patterns.<br />
+                In people, technology, business, and culture.
               </p>
             </div>
           </CardWrapper>
@@ -93,7 +95,9 @@ const featuredBlogs = await getCollection("blog", ({ data }) => {
               <div
                 class="ticker-track flex items-center whitespace-nowrap text-sm md:text-base"
               >
-                <span class="text-gray-500 dark:text-darkTextSecondary">Loading ticker...</span>
+                <span class="text-gray-500 dark:text-darkTextSecondary"
+                  >Loading ticker...</span
+                >
               </div>
             </div>
           </div>
@@ -148,7 +152,8 @@ const featuredBlogs = await getCollection("blog", ({ data }) => {
 
                 items.forEach((item) => {
                   const wrapper = document.createElement("span");
-                  wrapper.className = "ticker-item inline-flex items-center gap-2";
+                  wrapper.className =
+                    "ticker-item inline-flex items-center gap-2";
 
                   const label = document.createElement("span");
                   label.className = "font-semibold";
@@ -163,7 +168,8 @@ const featuredBlogs = await getCollection("blog", ({ data }) => {
 
                   if (typeof item.change === "number") {
                     const change = document.createElement("span");
-                    change.style.color = item.change >= 0 ? colors.positive : colors.negative;
+                    change.style.color =
+                      item.change >= 0 ? colors.positive : colors.negative;
                     change.textContent = formatChange(item.change);
                     wrapper.appendChild(change);
                   }
@@ -197,7 +203,7 @@ const featuredBlogs = await getCollection("blog", ({ data }) => {
               };
 
               const prefersReducedMotion = () =>
-                window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
               const startAnimation = () => {
                 if (animationId) cancelAnimationFrame(animationId);
@@ -208,7 +214,11 @@ const featuredBlogs = await getCollection("blog", ({ data }) => {
                 animationId = requestAnimationFrame(animate);
               };
 
-              const renderItems = (items, force = false, preserveScroll = false) => {
+              const renderItems = (
+                items,
+                force = false,
+                preserveScroll = false,
+              ) => {
                 const newHash = hashData(items);
                 if (!force && newHash === lastDataHash) return;
                 lastDataHash = newHash;
@@ -220,8 +230,7 @@ const featuredBlogs = await getCollection("blog", ({ data }) => {
 
                 if (!items?.length) {
                   const colors = getColors();
-                  track.innerHTML =
-                    `<span style="color: ${colors.value}">No live updates available.</span>`;
+                  track.innerHTML = `<span style="color: ${colors.value}">No live updates available.</span>`;
                   return;
                 }
 
@@ -277,24 +286,77 @@ const featuredBlogs = await getCollection("blog", ({ data }) => {
           </script>
         </CardWrapper>
         <div class="grid md:grid-cols-3 grid-rows-1 gap-4">
-          <CardWrapper>
-            <span class="text-8xl">🤘🏾</span>
-            <h3 class="text-5xl font-bold mt-6 dark:text-darkText">
-              Based in <br /> Austin, Texas <br /> GMT-6
-            </h3>
+          <CardWrapper class="flex flex-col justify-between">
+            <div>
+              <span class="text-8xl">🤘🏾</span>
+
+              <h3 class="text-5xl font-bold mt-6 dark:text-darkText">
+                Austin, Texas
+              </h3>
+            </div>
+
+            <div class="mt-6">
+              <p
+                class="text-sm uppercase tracking-widest font-bold text-textSecondary"
+              >
+                Currently
+              </p>
+              <div class="mt-4 space-y-4">
+                <div>
+                  <p class="font-bold">Building</p>
+                  <p class="text-textSecondary">
+                    An AI-powered fantasy football almanac
+                  </p>
+                </div>
+                <div>
+                  <p class="font-bold">Learning</p>
+                  <p class="text-textSecondary">
+                    Gym operations & community building
+                  </p>
+                </div>
+                <div>
+                  <p class="font-bold">Planning</p>
+                  <p class="text-textSecondary">Korea & Japan Trip</p>
+                </div>
+                <div>
+                  <p class="font-bold">Reading</p>
+                  <p class="text-textSecondary">The Bhagavad Gita</p>
+                </div>
+              </div>
+            </div>
           </CardWrapper>
           <CardWrapper class="md:col-span-2">
-            <h3 class="text-3xl font-bold dark:text-darkText">What I’m Exploring Right Now</h3>
-            <ul class="list-disc list-inside text-xl md:text-2xl font-bold mt-4 space-y-2 text-textPrimary dark:text-darkTextSecondary">
-              <li>Why AI is making taste more valuable than execution</li>
-              <li>Building a fantasy football almanac from 15 years of league history</li>
-              <li>Photographing everyday life</li>
-              <li>Learning stand-up comedy and storytelling</li>
-              <li>Studying how history rhymes with the present</li>
-              <li>Building communities around shared interests</li>
-              <li>Fitness & Self Improvement</li>
-              <li>Perfecting the arepa recipe my grandmother would approve of 🫓</li>
-            </ul>
+            <h3 class="text-3xl font-bold dark:text-darkText">
+              What I’m About
+            </h3>
+            <div
+              class="mt-4 space-y-4 text-xl md:text-2xl font-bold text-textPrimary dark:text-darkTextSecondary"
+            >
+              <p>
+                I’m deeply curious about people, ideas, and the systems that
+                connect them. I pay attention to patterns, notice what others
+                overlook, and spend a lot of time thinking about what comes
+                next.
+              </p>
+              <p>
+                I believe you can learn something from anyone. The best ideas
+                can come from anywhere, and good work becomes great when the
+                people contributing see themselves in the outcome.
+              </p>
+              <p>
+                Professionally, I’m often at my best when connecting people,
+                simplifying complexity, and contributing to ideas becoming
+                reality. Over the years, that has led me to improve operations,
+                automate repetitive work, adopt new technologies, and build
+                digital experiences used by millions of people.
+              </p>
+              <p>
+                Outside of work, you'll usually find me studying history, taking
+                photographs, training in the gym, exploring new places, writing
+                down observations, or bringing people together around shared
+                interests.
+              </p>
+            </div>
           </CardWrapper>
         </div>
       </div>
@@ -305,9 +367,9 @@ const featuredBlogs = await getCollection("blog", ({ data }) => {
           </div>
           <div class="flex flex-col justify-between items-start gap-4">
             {
-              featuredBlogs.slice(1, 4).map((post) => (
-                <CardStackable blog={post} />
-              ))
+              featuredBlogs
+                .slice(1, 4)
+                .map((post) => <CardStackable blog={post} />)
             }
             <a
               href="/blog"
