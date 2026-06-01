@@ -84,10 +84,25 @@ src/pages/
 ```ts
 type Status = "live" | "in-progress" | "prototype" | "archived";
 
+// Visibility controls public surfacing; first-class on the model (complements the
+// hidden[] override, which still hard-drops a project from all output).
+type Visibility = "public" | "private" | "coming-soon";
+
+// Category = subject matter. ProjectType = the nature of the project.
 type Category =
   | "AI" | "Agents" | "Cloudflare" | "CMS" | "Automation"
   | "Developer Tools" | "Web Platforms" | "Photography"
   | "Open Source" | "Experiments";
+
+type ProjectType =
+  | "product" | "platform" | "tool" | "agent"
+  | "automation" | "website" | "experiment";
+
+type Timeline = { startedAt: string; completedAt?: string }; // ISO dates; ongoing if no completedAt
+
+// Connections future-proof "relationships" across the whole knowledge layer.
+// v1: schema only — populated/rendered later.
+type Connection = { type: "project" | "article" | "talk" | "photo" | "note"; slug: string };
 
 type Metric = { value?: string; label: string };          // "3,000+" / "pages audited"
 type Screenshot = { src: string; caption?: string; featured: boolean };
@@ -113,11 +128,14 @@ type Project = {
   id: string;                 // stable identifier (repo-derived, e.g. "ff-almanac")
   title: string;
   slug: string;               // URL slug
-  startedAt: string;          // ISO date
+  timeline: Timeline;         // { startedAt, completedAt? } — replaces flat startedAt
   status: Status;
+  visibility: Visibility;     // "public" | "private" | "coming-soon" — controls public surfacing
+  projectType: ProjectType;   // nature of the project (vs. categories = subject matter)
   role: string;               // e.g. "Solo engineer", "Lead"
   audience: string;           // who it serves
   motivation: string;         // why it exists / why I built it
+  canonicalNarrative?: string;// "why should someone care?" — distinct from summary/pitch/motivation
   summary: string;
   elevatorPitch: string;
   stack: string[];
@@ -127,7 +145,8 @@ type Project = {
   aiCapabilities: string[];
   impact: string;             // renamed from businessValue — broader than "business"
   metrics: Metric[];          // optional, first-class
-  relationships: string[];    // related project ids/slugs -> future "Related Projects"
+  connections: Connection[];  // future-proof "relationships" -> Related Projects / cross-links
+  featuredImage?: string;     // single card visual; screenshots remain for galleries/detail
   screenshots: Screenshot[];  // first-class, not buried in overrides
   currentlyBuilding: boolean; // future homepage "currently building" pulls from here
   portfolioScore: Score;      // internal ranking/recommendation; not rendered in v1
@@ -141,7 +160,9 @@ type Project = {
 
 A Zod schema validates every merged project at load time; the build fails loudly on a bad
 record. Empty arrays / sensible defaults for optional collections; `portfolioScore` defaults
-`null`; `currentlyBuilding` defaults `false`.
+`null`; `currentlyBuilding` defaults `false`. `visibility` is authored explicitly per project;
+when generated content is unsure it defaults to `"coming-soon"` (safe — kept out of public
+output) until promoted to `"public"` in the generated record or an override.
 
 ## GitHub Integration Strategy
 
@@ -199,10 +220,10 @@ editorial control.
 Designed for the whole knowledge layer; v1 only calls `getProjects()`:
 
 ```ts
-getProjects(): Project[];                 // merged, validated, ordered, non-hidden — used by /projects (v1)
+getProjects(): Project[];                 // merged, validated, ordered, non-hidden, visibility==="public" — /projects (v1)
 getProject(slug: string): Project | undefined;   // future /projects/[slug]
-getCurrentlyBuilding(): Project[];        // future homepage section
-getRelated(slug: string): Project[];      // future "Related Projects"
+getCurrentlyBuilding(): Project[];        // future homepage section (currentlyBuilding === true)
+getRelated(slug: string): Project[];      // future "Related Projects" — resolved from connections[]
 ```
 
 All build-time and static.
@@ -215,8 +236,9 @@ design tokens, and dark-mode classes — no new design language.
 
 - **Header section:** curated intro framing these as selected projects, systems, experiments,
   and products focused on AI-native web platforms, automation, content systems, and DX.
-- **Project grid:** responsive grid of `ProjectCard`, each showing title, status badge, summary,
-  stack chips, category chips, live link, and GitHub link **only when the repo is public**.
+- **Project grid:** responsive grid of `ProjectCard` over `getProjects()` (public visibility only),
+  each showing `featuredImage` (when set), title, status badge, summary, stack chips, category
+  chips, live link, and GitHub link **only when the repo is public**.
 
 Filter bar, `/projects/[slug]`, screenshot gallery UI, related-projects UI, and homepage
 integration are modeled in the data but **not rendered in v1**.
