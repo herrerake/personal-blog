@@ -27,7 +27,7 @@ const experienceList = [
     time: "4 Years",
     logo: "/logos/cloudflare-logo.png",
     alt: "Cloudflare logo",
-    year: "2022 - Present",
+    year: "2022 - 2026",
   },
   {
     title: "Accruent",
@@ -46,10 +46,13 @@ const experienceList = [
 ];
 
 const aboutPageContent = {
-  summary: "I'm Kevin Herrera. Software engineer at Cloudflare. Based in Austin, Texas. I build AI agents and production systems that replace manual workflows with reliable intelligent automation. Colombian-American. Fluent in English and Spanish, I work well across cultures and teams, something I picked up growing up between two cultures. When I'm not shipping code, I'm probably walking my dog Miko or making arepas.",
-  education: "Graduated from Virginia Commonwealth University in 2014 with a B.A. in History and a minor in Economics. The plan was law school. Worked a few paralegal jobs and realized pretty quickly that wasn't it. In 2016 I enrolled in General Assembly's Web Development Immersive in Washington, DC. That changed everything.",
-  experience: "I've worked retail, hospitality, and office administration jobs. All of it taught me how to work with people and figure things out fast. Then I got into engineering — AVIXA, Accruent, and now Cloudflare. Each role pushed me further into building production systems at scale. That's where I found my lane."
-}
+  summary:
+    "I'm Kevin Herrera. I'm deeply curious about people, ideas, and the systems that connect them. I pay attention to patterns, notice what others overlook, and spend a lot of time thinking about what comes next. This site is where I share what I'm learning, building, observing, and exploring.",
+  education:
+    "I studied History and Economics because I wanted to understand people, institutions, incentives, and why things work the way they do. The original plan was law school. A few paralegal jobs taught me quickly that wasn't the path. In 2016, I found technology through General Assembly, and that became a new way to build, solve problems, and bring ideas to life.",
+  experience:
+    "I've worked across retail, hospitality, administration, and software engineering. Each chapter taught me something different: how to read people, how operations break down, how teams communicate, and how technology creates leverage. Over time, my lane became clear: connecting people, simplifying complexity, improving systems, and helping good ideas become reality.",
+};
 ---
 
 <!doctype html>
@@ -67,12 +70,15 @@ const aboutPageContent = {
             class="py-12 flex flex-col-reverse lg:flex-row items-center justify-between lg:space-x-8"
           >
             <div class="flex-1 mt-8 lg:mt-0 max-w-[630px]">
-              <h1 class="text-bluePrimary text-3xl md:text-4xl font-bold mb-4 dark:text-darkText">
+              <h1
+                class="text-bluePrimary text-3xl md:text-4xl font-bold mb-4 dark:text-darkText"
+              >
                 About
               </h1>
               <p
                 class="text-xl md:text-2xl leading-7 font-bold text-textPrimary dark:text-darkTextSecondary"
-              > {aboutPageContent.summary}
+              >
+                {aboutPageContent.summary}
               </p>
             </div>
             <div class="max-w-sm w-full">
@@ -94,10 +100,14 @@ const aboutPageContent = {
           <div class="w-full">
             <CardWrapper class="h-full">
               <div class="py-6">
-                <h2 class="text-bluePrimary text-3xl font-bold mb-4 dark:text-darkText">
-                  Education
+                <h2
+                  class="text-bluePrimary text-3xl font-bold mb-4 dark:text-darkText"
+                >
+                  Where it Started
                 </h2>
-                <p class="text-textPrimary text-xl leading-6 dark:text-darkTextSecondary">
+                <p
+                  class="text-textPrimary text-xl leading-6 dark:text-darkTextSecondary"
+                >
                   {aboutPageContent.education}
                 </p>
                 <div class="grid sm:grid-cols-2 gap-6 mt-8">
@@ -136,10 +146,14 @@ const aboutPageContent = {
           <div class="w-full">
             <CardWrapper class="h-full">
               <div class="py-6">
-                <h2 class="text-bluePrimary text-3xl font-bold mb-4 dark:text-darkText">
-                  Experience
+                <h2
+                  class="text-bluePrimary text-3xl font-bold mb-4 dark:text-darkText"
+                >
+                  What I’ve Learned Along The Way
                 </h2>
-                <p class="text-textPrimary text-xl leading-6 dark:text-darkTextSecondary">
+                <p
+                  class="text-textPrimary text-xl leading-6 dark:text-darkTextSecondary"
+                >
                   {aboutPageContent.experience}
                 </p>
                 <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-1 mt-8">
@@ -181,7 +195,7 @@ const aboutPageContent = {
         <CardWrapper>
           <div class="py-4">
             <h2 class="text-bluePrimary text-3xl font-bold dark:text-darkText">
-              Photos I took 📸
+              How I See The World 📸
             </h2>
             <div class="grid md:grid-cols-2 gap-4 my-6 auto-rows-[330px]">
               <div>
