@@ -1,4 +1,6 @@
 import { projectSchema, type Project } from "./projects.schema";
+import generatedData from "./projects.generated.json";
+import overridesData from "./projects.overrides.json";
 
 export type Overrides = {
   order?: string[];
@@ -61,4 +63,19 @@ export function selectRelated(projects: Project[], slug: string): Project[] {
     .filter((c) => c.type === "project")
     .map((c) => c.slug);
   return projects.filter((p) => relatedSlugs.includes(p.slug));
+}
+
+const ALL = mergeProjects(generatedData as unknown[], overridesData as Overrides);
+
+export function getProjects(): Project[] {
+  return selectPublic(ALL);
+}
+export function getProject(slug: string): Project | undefined {
+  return ALL.find((p) => p.slug === slug);
+}
+export function getCurrentlyBuilding(): Project[] {
+  return selectCurrentlyBuilding(ALL);
+}
+export function getRelated(slug: string): Project[] {
+  return selectRelated(ALL, slug);
 }
