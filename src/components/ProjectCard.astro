@@ -44,7 +44,7 @@ const statusLabel: Record<Project["status"], string> = {
 
   {
     project.stack.length > 0 && (
-      <ul class="flex flex-wrap gap-2 mt-5">
+      <ul aria-label="Tech stack" class="flex flex-wrap gap-2 mt-5">
         {project.stack.map((tech) => (
           <li class="text-xs font-medium px-3 py-1 rounded-full border border-cardBorder text-textSecondary dark:border-darkBorder dark:text-darkTextSecondary">
             {tech}
@@ -56,7 +56,7 @@ const statusLabel: Record<Project["status"], string> = {
 
   {
     project.categories.length > 0 && (
-      <ul class="flex flex-wrap gap-2 mt-3">
+      <ul aria-label="Categories" class="flex flex-wrap gap-2 mt-3">
         {project.categories.map((category) => (
           <li class="text-xs font-semibold px-3 py-1 rounded-full bg-bluePrimary/5 text-bluePrimary dark:bg-darkAccent/10 dark:text-darkAccent">
             {category}
