@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* eslint-env node */
 // Stage 1 of the projects pipeline: resolve the private Stars List "projects-page"
 // and dump raw repo data to .cache/projects.raw.json (gitignored). Requires an
 // authenticated `gh` CLI. Run: node scripts/projects/ingest.mjs
