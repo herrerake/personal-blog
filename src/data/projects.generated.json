@@ -1,1 +1,89 @@
-[]
+[
+  {
+    "id": "ff-almanac",
+    "title": "Fantasy Almanac",
+    "slug": "fantasy-almanac",
+    "timeline": { "startedAt": "2026-04-11" },
+    "status": "in-progress",
+    "visibility": "public",
+    "projectType": "product",
+    "role": "Solo engineer",
+    "audience": "Members of a long-running fantasy football league",
+    "motivation": "Years of league history were split across NFL.com and Sleeper with incompatible schemas. I wanted one durable archive that treats decades of rivalries, records, and drafts as a living knowledge system.",
+    "canonicalNarrative": "Exploring how AI can transform years of league history into a living knowledge system.",
+    "summary": "A historical archive for a fantasy football league built on a source-agnostic schema that unifies NFL.com data (2010–2024) and Sleeper data (2025+) into one queryable record of seasons, matchups, and records.",
+    "elevatorPitch": "Decades of fantasy league history, unified into one durable, queryable archive on Cloudflare's edge.",
+    "stack": ["Astro", "TypeScript", "Cloudflare Workers", "Cloudflare D1", "Cloudflare R2", "Drizzle ORM", "Tailwind CSS"],
+    "categories": ["Cloudflare", "Web Platforms", "AI", "Open Source"],
+    "features": [
+      "Source-agnostic schema unifying NFL.com (2010–2024) and Sleeper (2025+) data",
+      "Serverless web-scraping pipeline for historical season ingestion",
+      "Edge-served archive backed by Cloudflare D1 and R2",
+      "Typed data access with Drizzle ORM"
+    ],
+    "architectureHighlights": [
+      "Normalized, source-agnostic data model so new providers can be added without schema rewrites",
+      "Cloudflare D1 for relational season/matchup data, R2 for archived source payloads",
+      "Astro + Workers for a fully edge-rendered front end"
+    ],
+    "aiCapabilities": [
+      "AI-assisted normalization of inconsistent historical league data into a unified schema"
+    ],
+    "impact": "Turns fragmented, provider-locked league history into a single durable archive the whole league can explore.",
+    "metrics": [
+      { "value": "2010–2025", "label": "seasons unified" },
+      { "value": "2", "label": "data sources reconciled (NFL.com + Sleeper)" }
+    ],
+    "connections": [],
+    "screenshots": [],
+    "currentlyBuilding": true,
+    "portfolioScore": {
+      "originality": 8, "technicalComplexity": 8, "productThinking": 8,
+      "aiUsage": 6, "platformRelevance": 9, "impact": 7, "documentation": 7, "total": 76
+    },
+    "lastUpdated": "2026-04-27",
+    "provenance": {
+      "summary": "github-metadata",
+      "stack": "github-metadata",
+      "features": "github-metadata",
+      "categories": "ai-inference",
+      "architectureHighlights": "ai-inference",
+      "aiCapabilities": "ai-inference",
+      "motivation": "ai-inference",
+      "canonicalNarrative": "ai-inference",
+      "impact": "ai-inference",
+      "metrics": "ai-inference"
+    }
+  },
+  {
+    "id": "quedate",
+    "title": "Quédate",
+    "slug": "quedate",
+    "timeline": { "startedAt": "2026-03-30" },
+    "status": "prototype",
+    "visibility": "coming-soon",
+    "projectType": "website",
+    "role": "Solo engineer",
+    "audience": "Personal project; audience still being defined",
+    "motivation": "An early prototype exploring a lightweight Astro site deployed on Cloudflare Workers.",
+    "summary": "An early-stage Astro site prototype deployed on Cloudflare Workers, kept in the knowledge layer as a work in progress.",
+    "elevatorPitch": "A lightweight Astro-on-Cloudflare prototype, still taking shape.",
+    "stack": ["Astro", "Cloudflare Workers"],
+    "categories": ["Cloudflare", "Web Platforms", "Experiments"],
+    "features": [],
+    "architectureHighlights": ["Astro front end deployed to Cloudflare Workers"],
+    "aiCapabilities": [],
+    "impact": "A sandbox for testing the Astro-on-Cloudflare deployment path used across other projects.",
+    "metrics": [],
+    "connections": [],
+    "screenshots": [],
+    "currentlyBuilding": false,
+    "portfolioScore": null,
+    "lastUpdated": "2026-03-30",
+    "provenance": {
+      "stack": "github-metadata",
+      "summary": "ai-inference",
+      "categories": "ai-inference"
+    }
+  }
+]

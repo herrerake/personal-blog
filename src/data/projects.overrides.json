@@ -1,6 +1,6 @@
 {
-  "order": [],
-  "featured": [],
+  "order": ["fantasy-almanac", "quedate"],
+  "featured": ["fantasy-almanac"],
   "hidden": [],
   "bySlug": {}
 }
