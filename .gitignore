@@ -1,5 +1,8 @@
 # build output
 dist/
+
+# raw ingestion cache — private repo content, never committed
+/.cache/
 # generated types
 .astro/
 

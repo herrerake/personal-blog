@@ -1,0 +1,93 @@
+---
+import CardWrapper from "@/components/CardWrapper.astro";
+import type { Project } from "@/data/projects.schema";
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+
+const statusLabel: Record<Project["status"], string> = {
+  live: "Live",
+  "in-progress": "In progress",
+  prototype: "Prototype",
+  archived: "Archived",
+};
+---
+
+<CardWrapper class="h-full flex flex-col">
+  {
+    project.featuredImage && (
+      <img
+        src={project.featuredImage}
+        alt={project.title}
+        loading="lazy"
+        decoding="async"
+        class="w-full h-auto object-cover aspect-video rounded-[16px] mb-6"
+      />
+    )
+  }
+
+  <div class="flex items-center justify-between gap-4 mb-3">
+    <h2 class="text-bluePrimary text-2xl md:text-3xl font-bold dark:text-darkText">
+      {project.title}
+    </h2>
+    <span
+      class="shrink-0 text-xs font-semibold uppercase tracking-wide px-3 py-1 rounded-full bg-bluePrimary/10 text-bluePrimary dark:bg-darkAccent/15 dark:text-darkAccent"
+    >
+      {statusLabel[project.status]}
+    </span>
+  </div>
+
+  <p class="text-textPrimary text-lg leading-7 dark:text-darkTextSecondary">
+    {project.summary}
+  </p>
+
+  {
+    project.stack.length > 0 && (
+      <ul aria-label="Tech stack" class="flex flex-wrap gap-2 mt-5">
+        {project.stack.map((tech) => (
+          <li class="text-xs font-medium px-3 py-1 rounded-full border border-cardBorder text-textPrimary dark:border-darkBorder dark:text-darkTextSecondary">
+            {tech}
+          </li>
+        ))}
+      </ul>
+    )
+  }
+
+  {
+    project.categories.length > 0 && (
+      <ul aria-label="Categories" class="flex flex-wrap gap-2 mt-3">
+        {project.categories.map((category) => (
+          <li class="text-xs font-semibold px-3 py-1 rounded-full bg-bluePrimary/5 text-bluePrimary dark:bg-darkAccent/10 dark:text-darkAccent">
+            {category}
+          </li>
+        ))}
+      </ul>
+    )
+  }
+
+  {
+    (project.liveUrl || project.githubUrl) && (
+      <div class="flex flex-wrap gap-3 mt-6 pt-2">
+        {project.liveUrl && (
+          <a
+            href={project.liveUrl}
+            class="py-2.5 px-6 rounded-lg bg-bluePrimary text-white text-sm font-medium dark:bg-darkAccent dark:text-darkBg"
+          >
+            View Live
+          </a>
+        )}
+        {project.githubUrl && (
+          <a
+            href={project.githubUrl}
+            class="py-2.5 px-6 rounded-lg border border-cardBorder text-textPrimary text-sm font-medium dark:border-darkBorder dark:text-darkTextSecondary"
+          >
+            GitHub
+          </a>
+        )}
+      </div>
+    )
+  }
+</CardWrapper>
