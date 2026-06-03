@@ -34,9 +34,13 @@ export function mergeProjects(generated: unknown[], overrides: Overrides = {}): 
     merged.push(projectSchema.parse({ ...g, ...o, provenance }));
   }
 
+  const orderIndex = (p: Project) => {
+    const i = order.indexOf(p.slug);
+    return i !== -1 ? i : order.indexOf(p.id);
+  };
   merged.sort((a, b) => {
-    const ai = order.indexOf(a.slug);
-    const bi = order.indexOf(b.slug);
+    const ai = orderIndex(a);
+    const bi = orderIndex(b);
     const aOrdered = ai !== -1;
     const bOrdered = bi !== -1;
     if (aOrdered && bOrdered) return ai - bi; // both pinned: explicit order

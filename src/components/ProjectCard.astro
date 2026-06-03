@@ -22,6 +22,8 @@ const statusLabel: Record<Project["status"], string> = {
       <img
         src={project.featuredImage}
         alt={project.title}
+        loading="lazy"
+        decoding="async"
         class="w-full h-auto object-cover aspect-video rounded-[16px] mb-6"
       />
     )
@@ -46,7 +48,7 @@ const statusLabel: Record<Project["status"], string> = {
     project.stack.length > 0 && (
       <ul aria-label="Tech stack" class="flex flex-wrap gap-2 mt-5">
         {project.stack.map((tech) => (
-          <li class="text-xs font-medium px-3 py-1 rounded-full border border-cardBorder text-textSecondary dark:border-darkBorder dark:text-darkTextSecondary">
+          <li class="text-xs font-medium px-3 py-1 rounded-full border border-cardBorder text-textPrimary dark:border-darkBorder dark:text-darkTextSecondary">
             {tech}
           </li>
         ))}
