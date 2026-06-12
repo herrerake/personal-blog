@@ -5,9 +5,9 @@
 - Package manager: **yarn** (`yarn@1.22.x` in `package.json`).
 - Node: **22+** required.
 - Key docs to read first:
-  - `/home/runner/work/personal-blog/personal-blog/herrerake/personal-blog/AGENTS.md`
-  - `/home/runner/work/personal-blog/personal-blog/herrerake/personal-blog/CLAUDE.md`
-  - `/home/runner/work/personal-blog/personal-blog/herrerake/personal-blog/README.md`
+  - `AGENTS.md`
+  - `CLAUDE.md`
+  - `README.md`
 
 ## Repository map (high-signal)
 - `src/pages/` — routes and API endpoints.
